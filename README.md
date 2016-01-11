@@ -1,4 +1,8 @@
 # AnsibleTowerClient
+
+[![Build Status](https://travis-ci.org/ManageIQ/ansible_tower_client.svg)](https://travis-ci.org/ManageIQ/ansible_tower_client)
+[![Code Climate](https://codeclimate.com/github/ManageIQ/ansible_tower_client/badges/gpa.svg)](https://codeclimate.com/github/ManageIQ/ansible_tower_client)
+
 ## Installation
 
 Add this line to your application's Gemfile:
