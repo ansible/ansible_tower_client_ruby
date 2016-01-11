@@ -6,8 +6,8 @@ require 'ansible_tower_client/version'
 Gem::Specification.new do |spec|
   spec.name          = "ansible_tower_client"
   spec.version       = AnsibleTowerClient::VERSION
-  spec.authors       = ["Brandon Dunne"]
-  spec.email         = ["bdunne@redhat.com"]
+  spec.authors       = ["Brandon Dunne", "Drew Bomhof"]
+  spec.email         = ["bdunne@redhat.com", "dbomhof@redhat.com"]
 
   spec.summary       = %q{Ansible Tower REST API wrapper gem}
   spec.description   = %q{Ansible Tower REST API wrapper gem}
