@@ -29,10 +29,6 @@ describe AnsibleTowerClient::Connection do
     expect(connection).to be_a AnsibleTowerClient::Connection
   end
 
-  it "#hosts returns the Host class" do
-    expect(connection.hosts).to eq(AnsibleTowerClient::Host)
-  end
-
   context "requiring a connection" do
     before { AnsibleTowerClient::Api.instance_variable_set(:@instance, faraday_connection) }
 

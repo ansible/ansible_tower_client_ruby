@@ -10,8 +10,8 @@ module AnsibleTowerClient
       Api.instance(options)
     end
 
-    def hosts
-      Host
+    def api
+      Api
     end
 
     def config
