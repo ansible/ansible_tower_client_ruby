@@ -6,12 +6,12 @@ module AnsibleTowerClient
     attr_reader :url
     attr_reader :raw_host_body
 
-    def self.all(connection)
-      body = JSON.parse(connection.get("hosts").body)
+    def self.all
+      body = JSON.parse(Api.get("hosts").body)
       results = body["results"]
       loop do
         break if body["next"].nil?
-        body = JSON.parse(connection.get(body["next"]).body)
+        body = JSON.parse(Api.get(body["next"]).body)
         results += body["results"]
       end
 
