@@ -1,30 +1,21 @@
 module AnsibleTowerClient
   class Connection
-    attr_reader :connection
-
     def initialize(options)
       raise "Credentials are required" unless options[:username] && options[:password]
-      raise "URL is required" unless options[:base_url]
+      raise ":base_url is required" unless options[:base_url]
       verify_ssl = options[:verify_ssl] || OpenSSL::SSL::VERIFY_PEER
       verify_ssl = verify_ssl == OpenSSL::SSL::VERIFY_NONE ? false : true
-
-      require 'faraday'
-      require 'faraday_middleware'
-
-      @connection = Faraday.new(options[:base_url], :ssl => {:verify => verify_ssl}) do |f|
-        f.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
-        f.request(:url_encoded)
-        f.adapter(Faraday.default_adapter)
-        f.basic_auth(options[:username], options[:password])
-      end
+      options = options.dup
+      options[:verify_ssl] = verify_ssl
+      Api.instance(options)
     end
 
     def hosts
-      Host.all(@connection)
+      Host
     end
 
     def config
-      JSON.parse(connection.get("config").body)
+      JSON.parse(Api.get("config").body)
     end
 
     def version
@@ -32,7 +23,7 @@ module AnsibleTowerClient
     end
 
     def verify_credentials
-      JSON.parse(connection.get("me").body).fetch_path("results", 0, "username")
+      JSON.parse(Api.get("me").body).fetch_path("results", 0, "username")
     end
   end
 end
