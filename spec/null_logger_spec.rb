@@ -5,3 +5,4 @@ describe 'AnsibleTowerClient::NullLogger' do
     expect(AnsibleTowerClient.logger).to be_a AnsibleTowerClient::NullLogger
   end
 end
+
