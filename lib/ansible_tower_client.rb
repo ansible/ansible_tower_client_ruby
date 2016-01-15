@@ -1,6 +1,7 @@
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
 require "ansible_tower_client/version"
+require "ansible_tower_client/common"
 
 require "ansible_tower_client/api"
 require "ansible_tower_client/connection"
