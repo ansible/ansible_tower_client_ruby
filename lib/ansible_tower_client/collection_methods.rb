@@ -14,7 +14,6 @@ module AnsibleTowerClient
 
     def find(id)
       body = JSON.parse(Api.get("#{mapping}/#{id}/").body)
-      require 'byebug'; byebug
       raise NoMethodError if body['id'].nil?
       new(body)
     end
