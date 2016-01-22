@@ -6,9 +6,9 @@ describe AnsibleTowerClient::Host do
     {:count => 2, :next => nil,
      :previous => nil,
      :results => [{:id => 1, :type => 'host',
-                   :url => '/api/v1/hosts/1', :name => 'test1'},
+                   :url => '/api/v1/hosts/1/', :name => 'test1'},
                   {:id => 2, :type => 'host',
-                   :url => '/api/v1/hosts/2', :name => 'test2'}]}.to_json
+                   :url => '/api/v1/hosts/2/', :name => 'test2'}]}.to_json
   end
 
   let(:api_connection) { instance_double("Faraday::Connection", :get => get) }
