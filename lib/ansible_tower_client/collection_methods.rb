@@ -1,7 +1,7 @@
 module AnsibleTowerClient
   module CollectionMethods
     def all
-      body = JSON.parse(Api.get(mapping).body)
+      body = JSON.parse(Api.get(self.endpoint).body)
       results = body["results"]
       loop do
         break if body["next"].nil?
@@ -13,19 +13,9 @@ module AnsibleTowerClient
     end
 
     def find(id)
-      body = JSON.parse(Api.get("#{mapping}/#{id}/").body)
+      body = JSON.parse(Api.get("#{self.endpoint}/#{id}/").body)
       raise NoMethodError if body['id'].nil?
       new(body)
-    end
-
-    private
-
-    def mapping
-      endpoint = {}
-      endpoint["AnsibleTowerClient::Host"] = "hosts"
-      endpoint["AnsibleTowerClient::JobTemplate"] = "job_templates"
-      endpoint["AnsibleTowerClient::AdHocCommand"] = "ad_hoc_commands"
-      endpoint[self.to_s]
     end
   end
 end

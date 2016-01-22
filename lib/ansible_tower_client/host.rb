@@ -14,5 +14,9 @@ module AnsibleTowerClient
       @url           = raw_host["url"]
       @raw_host_body = raw_host
     end
+
+    def self.endpoint
+      "hosts".freeze
+    end
   end
 end
