@@ -19,6 +19,14 @@ module AnsibleTowerClient
       Host
     end
 
+    def self.groups
+      Group
+    end
+
+    def self.inventories
+      Inventory
+    end
+
     def self.job_templates
       JobTemplate
     end
