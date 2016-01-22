@@ -1,5 +1,5 @@
 module AnsibleTowerClient
-  module Common
+  module CollectionMethods
     def all
       body = JSON.parse(Api.get(mapping).body)
       results = body["results"]
@@ -10,6 +10,13 @@ module AnsibleTowerClient
       end
 
       results.collect { |raw| new(raw) }
+    end
+
+    def find(id)
+      body = JSON.parse(Api.get("#{mapping}/#{id}/").body)
+      require 'byebug'; byebug
+      raise NoMethodError if body['id'].nil?
+      new(body)
     end
 
     private

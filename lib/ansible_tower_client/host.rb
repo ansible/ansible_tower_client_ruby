@@ -1,6 +1,6 @@
 module AnsibleTowerClient
   class Host
-    extend Common
+    extend CollectionMethods
     attr_reader :id
     attr_reader :name
     attr_reader :instance_id
