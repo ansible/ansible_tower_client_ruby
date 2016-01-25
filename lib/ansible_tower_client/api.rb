@@ -19,6 +19,14 @@ module AnsibleTowerClient
       Host
     end
 
+    def self.job_templates
+      JobTemplate
+    end
+
+    def self.ad_hoc_commands
+      AdHocCommand
+    end
+
     def self.method_missing(method_name, *args, &block)
       instance.respond_to?(method_name) ? instance.send(method_name, *args, &block) : super
     end
