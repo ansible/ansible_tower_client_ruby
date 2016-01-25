@@ -1,7 +1,8 @@
+require "ansible_tower_client/collection_methods"
+require "ansible_tower_client/instance_methods"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
 require "ansible_tower_client/version"
-require "ansible_tower_client/collection_methods"
 
 require "ansible_tower_client/ad_hoc_command"
 require "ansible_tower_client/api"
