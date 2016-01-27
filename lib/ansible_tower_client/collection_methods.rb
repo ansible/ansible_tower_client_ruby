@@ -14,7 +14,7 @@ module AnsibleTowerClient
 
     def find(id)
       body = JSON.parse(Api.get("#{endpoint}/#{id}/").body)
-      raise NoMethodError if body['id'].nil?
+      raise ResourceNotFound.new(self, :id => id) if body['id'].nil?
       new(body)
     end
   end

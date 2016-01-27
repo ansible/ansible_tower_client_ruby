@@ -1,4 +1,5 @@
 require "ansible_tower_client/collection_methods"
+require "ansible_tower_client/error"
 require "ansible_tower_client/instance_methods"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"

@@ -42,7 +42,7 @@ describe AnsibleTowerClient::CollectionMethods do
     let(:get) { instance_double("Faraday::Result", :body => {}.to_json) }
     it "raises an error when the id does not exist" do
       AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
-      expect { AnsibleTowerClient::JobTemplate.find(10) }.to raise_error(NoMethodError)
+      expect { AnsibleTowerClient::JobTemplate.find(10) }.to raise_error(AnsibleTowerClient::ResourceNotFound)
     end
   end
 end
