@@ -5,10 +5,10 @@ describe AnsibleTowerClient::Host do
   let(:hosts_body) do
     {:count => 2, :next => nil,
      :previous => nil,
-     :results => [{:id => 1, :type => 'host',
-                   :url => '/api/v1/hosts/1', :name => 'test1'},
-                  {:id => 2, :type => 'host',
-                   :url => '/api/v1/hosts/2', :name => 'test2'}]}.to_json
+     :results => [{:id => 1, :type => 'host', :instance_id => 'asdfad23',
+                   :url => '/api/v1/hosts/1/', :name => 'test1'},
+                  {:id => 2, :type => 'host', :instance_id => '34yufad39',
+                   :url => '/api/v1/hosts/2/', :name => 'test2'}]}.to_json
   end
 
   let(:api_connection) { instance_double("Faraday::Connection", :get => get) }
@@ -32,6 +32,7 @@ describe AnsibleTowerClient::Host do
       expect(host).to be_a AnsibleTowerClient::Host
       expect(host.id).to be_a Integer
       expect(host.url).to be_a String
+      expect(host.instance_id).to be_a String
       expect(host.name).to eq "test1"
     end
   end

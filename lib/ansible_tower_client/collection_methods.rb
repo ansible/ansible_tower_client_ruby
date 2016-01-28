@@ -1,7 +1,7 @@
 module AnsibleTowerClient
   module CollectionMethods
     def all
-      body = JSON.parse(Api.get(self.endpoint).body)
+      body = JSON.parse(Api.get(endpoint).body)
       results = body["results"]
       loop do
         break if body["next"].nil?
@@ -13,8 +13,8 @@ module AnsibleTowerClient
     end
 
     def find(id)
-      body = JSON.parse(Api.get("#{self.endpoint}/#{id}/").body)
-      raise NoMethodError if body['id'].nil?
+      body = JSON.parse(Api.get("#{endpoint}/#{id}/").body)
+      raise ResourceNotFound.new(self, :id => id) if body['id'].nil?
       new(body)
     end
   end

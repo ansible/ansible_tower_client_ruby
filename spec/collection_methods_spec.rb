@@ -5,14 +5,15 @@ describe AnsibleTowerClient::CollectionMethods do
     {:count => 2, :next => nil,
      :previous => nil,
      :results => [{:id => 1,
-                   :url => '/api/v1/things/1', :name => 'test1'},
+                   :url => '/api/v1/things/1/', :name => 'test1'},
                   {:id => 2,
-                   :url => '/api/v1/things/2', :name => 'test2'}]}.to_json
+                   :url => '/api/v1/things/2/', :name => 'test2'}]}.to_json
   end
 
   let(:one_result) do
-    {:id => 1, :url => '/api/v1/things/1', :name => 'test1'}.to_json
+    {:id => 1, :url => '/api/v1/things/1/', :name => 'test1'}.to_json
   end
+
   let(:api_connection) { instance_double("Faraday::Connection", :get => get) }
   let(:get) { instance_double("Faraday::Result", :body => things_body) }
 
@@ -41,7 +42,7 @@ describe AnsibleTowerClient::CollectionMethods do
     let(:get) { instance_double("Faraday::Result", :body => {}.to_json) }
     it "raises an error when the id does not exist" do
       AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
-      expect { AnsibleTowerClient::JobTemplate.find(10) }.to raise_exception
+      expect { AnsibleTowerClient::JobTemplate.find(10) }.to raise_error(AnsibleTowerClient::ResourceNotFound)
     end
   end
 end
