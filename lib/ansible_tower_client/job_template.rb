@@ -3,8 +3,15 @@ module AnsibleTowerClient
     extend CollectionMethods
     include InstanceMethods
 
-    def launch
-      Api.post("#{url}launch/")
+    attr_reader :response
+
+    def launch(vars = {})
+      launch_url = "#{url}launch/"
+      @response = Api.post(launch_url, vars).body
+    end
+
+    def extra_vars
+      @raw_body['extra_vars']
     end
 
     def self.endpoint
