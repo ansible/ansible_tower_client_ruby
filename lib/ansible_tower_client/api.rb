@@ -35,6 +35,10 @@ module AnsibleTowerClient
       AdHocCommand
     end
 
+    def self.jobs
+      Job
+    end
+
     def self.method_missing(method_name, *args, &block)
       instance.respond_to?(method_name) ? instance.send(method_name, *args, &block) : super
     end
