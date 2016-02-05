@@ -16,7 +16,7 @@ describe AnsibleTowerClient::JobTemplate do
   end
 
   let(:post_result_body) do
-    {:job => 109}.to_json
+    {:job => 1}.to_json
   end
 
   let(:post) { instance_double("Faraday::Response", :body => post_result_body) }
@@ -55,8 +55,9 @@ describe AnsibleTowerClient::JobTemplate do
       AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
       parsed = JSON.parse(job_templates_body)['results'].first
       host = AnsibleTowerClient::JobTemplate.new(parsed)
-      resp = JSON.parse(host.launch(json))
-      expect(resp['job']).to eq 109
+      resp = host.launch(json)
+      expect(resp).to be_a AnsibleTowerClient::Job
+      expect(resp.id).to eq 1
     end
   end
 
