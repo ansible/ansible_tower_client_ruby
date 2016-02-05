@@ -5,14 +5,14 @@ describe AnsibleTowerClient::JobTemplate do
     {:count => 2, :next => nil,
      :previous => nil,
      :results => [{:id => 1, :type => 'job_template',
-                   :url => '/api/v1/job_templates/1/', :name => 'test1'},
+                   :url => '/api/v1/job_templates/1/', :name => 'test1', :description => 'description1'},
                   {:id => 2, :type => 'job_templates',
-                   :url => '/api/v1/job_templates/2/', :name => 'test2'}]}.to_json
+                   :url => '/api/v1/job_templates/2/', :name => 'test2', :description => 'description2'}]}.to_json
   end
 
   let(:one_result) do
     {:id => 1, :url => '/api/v1/job_templates/1/', :name => 'test1',
-     :extra_vars => 'blah'}.to_json
+     :extra_vars => 'blah', :description => 'description1'}.to_json
   end
 
   let(:post_result_body) do
@@ -39,9 +39,10 @@ describe AnsibleTowerClient::JobTemplate do
     it "instantiates an AnsibleTowerClient::JobTemplate from a hash" do
       parsed = JSON.parse(job_templates_body)['results'].first
       host = AnsibleTowerClient::JobTemplate.new(parsed)
-      expect(host).to be_a AnsibleTowerClient::JobTemplate
-      expect(host.id).to be_a Integer
-      expect(host.name).to eq "test1"
+      expect(host).to             be_a AnsibleTowerClient::JobTemplate
+      expect(host.id).to          be_a Integer
+      expect(host.name).to        eq "test1"
+      expect(host.description).to eq "description1"
     end
   end
 
