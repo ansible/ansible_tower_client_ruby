@@ -1,8 +1,8 @@
 module AnsibleTowerClient
   module ValidJSON
-    def validate(*args)
+    def validate(text)
       begin
-        JSON.parse(args.first)
+        JSON.parse(text)
       rescue JSON::ParserError => e
         raise InvalidJson.new(e)
       end
