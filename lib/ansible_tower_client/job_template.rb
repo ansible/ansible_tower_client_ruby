@@ -18,6 +18,11 @@ module AnsibleTowerClient
       Job.find(job['job'])
     end
 
+    def survey_spec
+      spec_url = related['survey_spec']
+      JSON.parse(Api.get(spec_url).body)
+    end
+
     def self.endpoint
       "job_templates".freeze
     end
