@@ -49,7 +49,7 @@ describe AnsibleTowerClient::JobTemplate do
   describe '#launch' do
     let(:get) { instance_double("Faraday::Result", :body => one_result) }
     let(:json) do
-      "{\"instance_ids\":[\"i-999c\"],\"region\":\"us-99\",\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"
+      {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"}
     end
 
     it "runs an existing job template" do

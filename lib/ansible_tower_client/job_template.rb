@@ -13,7 +13,7 @@ module AnsibleTowerClient
 
     def launch(vars = {})
       launch_url = "#{url}launch/"
-      extra = TowerHash.new(vars).extra_vars
+      extra = JSONValues.new(vars).extra_vars
       resp = Api.post(launch_url, extra).body
       job = JSON.parse(resp)
       Job.find(job['job'])
