@@ -17,5 +17,9 @@ FactoryGirl.define do
     url        { "/api/v1/#{klass.endpoint}/#{id}/" }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
+
+    trait(:description) { sequence(:description) { |n| "description_#{n}" } }
+    trait(:extra_vars)  { extra_vars "lots of options" }
+    trait(:instance_id) { instance_id SecureRandom.uuid }
   end
 end
