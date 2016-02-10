@@ -1,51 +1,38 @@
 require_relative 'spec_helper'
 
 describe AnsibleTowerClient::AdHocCommand do
-  let(:ad_hoc_commands_body) do
-    {:count => 2, :next => nil,
-     :previous => nil,
-     :results => [{:id => 1, :type => 'ad_hoc_command',
-                   :url => '/api/v1/ad_hoc_commands/1/', :name => 'test1'},
-                  {:id => 2, :type => 'ad_hoc_commands',
-                   :url => '/api/v1/ad_hoc_commands/2/', :name => 'test2'}]}.to_json
-  end
-
-  let(:one_result) do
-    {:id => 1, :url => '/api/v1/ad_hoc_commands/1/', :name => 'test1'}.to_json
-  end
-
   let(:api_connection) { instance_double("Faraday::Connection", :get => get) }
+  let(:collection)     { build(:response_collection, :klass => described_class) }
+  let(:instance)       { build(:response_instance,   :klass => described_class) }
 
-  describe '#AdHocCommand.all' do
-    let(:get) { instance_double("Faraday::Result", :body => ad_hoc_commands_body) }
+  context "Collection Methods" do
+    describe '.all' do
+      let(:get) { instance_double("Faraday::Result", :body => collection.to_json) }
 
-    it "returns a list of ad_hoc_command objects" do
-      AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
-      all_ad_hoc_commands = AnsibleTowerClient::AdHocCommand.all
-      expect(all_ad_hoc_commands).to        be_a Array
-      expect(all_ad_hoc_commands.length).to eq(2)
-      expect(all_ad_hoc_commands.first).to  be_a AnsibleTowerClient::AdHocCommand
+      it "returns a collection of objects" do
+        AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
+        obj_collection = described_class.all
+        expect(obj_collection).to        be_a Array
+        expect(obj_collection.length).to eq(2)
+        expect(obj_collection.first).to  be_a described_class
+      end
+    end
+
+    describe '.find' do
+      let(:get) { instance_double("Faraday::Result", :body => instance.to_json) }
+
+      it 'returns an instance' do
+        AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
+        expect(described_class.find(1)).to be_a described_class
+      end
     end
   end
 
-  describe '#initialize' do
-    it "instantiates an AnsibleTowerClient::AdHocCommand from a hash" do
-      parsed = JSON.parse(ad_hoc_commands_body)['results'].first
-      host = AnsibleTowerClient::AdHocCommand.new(parsed)
-      expect(host).to be_a AnsibleTowerClient::AdHocCommand
-      expect(host.id).to be_a Integer
-      expect(host.name).to eq "test1"
-    end
-  end
+  it "#initialize instantiates an #{described_class} from a hash" do
+    obj = described_class.new(instance)
 
-  describe '#AdHocCommand.find' do
-    let(:get) { instance_double("Faraday::Result", :body => one_result) }
-
-    it 'returns one record' do
-      AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
-      one_thing = AnsibleTowerClient::AdHocCommand.find(1)
-      expect(one_thing).to be_a AnsibleTowerClient::AdHocCommand
-    end
+    expect(obj).to      be_a described_class
+    expect(obj.id).to   be_a Integer
+    expect(obj.name).to be_a String
   end
 end
-
