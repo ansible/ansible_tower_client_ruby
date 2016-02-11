@@ -9,13 +9,27 @@ module AnsibleTowerClient
         results += body["results"]
       end
 
-      results.collect { |raw| new(raw) }
+      build_collection(results)
     end
 
     def find(id)
       body = JSON.parse(Api.get("#{endpoint}/#{id}/").body)
       raise ResourceNotFound.new(self, :id => id) if body['id'].nil?
       new(body)
+    end
+
+    private
+
+    def build_collection(results)
+      results.collect do |result|
+        klass = class_from_type(result["type"])
+        klass.new(result)
+      end
+    end
+
+    def class_from_type(type)
+      camelized = type.split("_").collect(&:capitalize).join
+      AnsibleTowerClient.const_get(camelized)
     end
   end
 end
