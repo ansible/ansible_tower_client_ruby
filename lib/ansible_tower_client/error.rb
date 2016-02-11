@@ -25,4 +25,15 @@ module AnsibleTowerClient
       "Couldn't find #{@klass}"
     end
   end
+
+  class Error < StandardError
+    attr_reader :message
+    def initialize(klass)
+      @message = "Error on #{klass.class.name}: #{klass.inspect}"
+      super(message)
+    end
+  end
+
+  class InvalidHash < Error; end
+  class InvalidJson < Error; end
 end
