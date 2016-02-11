@@ -3,10 +3,11 @@ module AnsibleTowerClient
     extend CollectionMethods
     include InstanceMethods
 
-    attr_reader :instance_id
+    attr_reader :instance_id, :inventory_id
 
     def initialize(raw_body)
-      @instance_id = raw_body["instance_id"]
+      @instance_id  = raw_body["instance_id"]
+      @inventory_id = raw_body["inventory"]
       super
     end
 
