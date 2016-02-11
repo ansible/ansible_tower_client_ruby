@@ -1,7 +1,11 @@
 module AnsibleTowerClient
   module CollectionMethods
     def all
-      body = JSON.parse(Api.get(endpoint).body)
+      collection_for(Api.get(endpoint))
+    end
+
+    def collection_for(paginated_result)
+      body = JSON.parse(paginated_result.body)
       results = body["results"]
       loop do
         break if body["next"].nil?
