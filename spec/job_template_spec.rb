@@ -12,16 +12,22 @@ describe AnsibleTowerClient::JobTemplate do
 
   let(:one_result) do
     {:id => 1, :url => '/api/v1/job_templates/1/', :name => 'test1',
-     :extra_vars => 'blah', :description => 'description1'}.to_json
+     :extra_vars => 'blah', :description => 'description1',
+     :related => {:survey_spec => '/api/v1/job_templates/1/survey_spec/'}}.to_json
   end
 
   let(:post_result_body) do
     {:job => 1}.to_json
   end
 
+  let(:survey_spec_body) do
+    {:name => 'blah'}.to_json
+  end
+
   let(:post) { instance_double("Faraday::Response", :body => post_result_body) }
 
   let(:api_connection) { instance_double("Faraday::Connection", :get => get, :post => post) }
+  let(:api_survey_connection) { instance_double("Faraday::Connection", :get => get_two, :post => post) }
 
   describe '#JobTemplate.all' do
     let(:get) { instance_double("Faraday::Result", :body => job_templates_body) }
@@ -70,6 +76,19 @@ describe AnsibleTowerClient::JobTemplate do
       one_thing = AnsibleTowerClient::JobTemplate.find(1)
       expect(one_thing.extra_vars).to be_a String
       expect(one_thing.extra_vars).to eq "blah"
+    end
+  end
+
+  describe '#survey_spec' do
+    let(:get) { instance_double("Faraday::Result", :body => one_result) }
+    let(:get_two) { instance_double("Faraday::Result", :body => survey_spec_body) }
+
+    it 'displays survey_spec on a job template' do
+      AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
+      one_thing = AnsibleTowerClient::JobTemplate.find(1)
+      AnsibleTowerClient::Api.instance_variable_set(:@instance, api_survey_connection)
+      expect(one_thing.survey_spec).to be_a Hash
+      expect(one_thing.survey_spec['name']).to eq 'blah'
     end
   end
 
