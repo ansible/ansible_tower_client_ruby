@@ -16,10 +16,15 @@ FactoryGirl.define do
     name       { "#{type}-#{id}" }
     url        { "/api/v1/#{klass.endpoint}/#{id}/" }
 
-    initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
+    trait(:description)  { sequence(:description) { |n| "description_#{n}" } }
+    trait(:extra_vars)   { extra_vars "lots of options" }
+    trait(:instance_id)  { instance_id SecureRandom.uuid }
+    trait(:inventory_id) { inventory { rand(500) } }
 
-    trait(:description) { sequence(:description) { |n| "description_#{n}" } }
-    trait(:extra_vars)  { extra_vars "lots of options" }
-    trait(:instance_id) { instance_id SecureRandom.uuid }
+    trait(:group)        { [description, inventory_id] }
+    trait(:host)         { [description, instance_id, inventory_id] }
+    trait(:job_template) { [description, extra_vars] }
+
+    initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
 end

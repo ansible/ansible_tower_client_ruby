@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 describe AnsibleTowerClient::JobTemplate do
   let(:api_connection)   { instance_double("Faraday::Connection", :get => get, :post => post) }
   let(:collection)       { build(:response_collection, :klass => described_class) }
-  let(:instance)         { build(:response_instance, :description, :extra_vars, :klass => described_class) }
+  let(:instance)         { build(:response_instance, :job_template, :klass => described_class) }
   let(:post)             { instance_double("Faraday::Response", :body => post_result_body.to_json) }
   let(:post_result_body) { {:job => 1} }
 
