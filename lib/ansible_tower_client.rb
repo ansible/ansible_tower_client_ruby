@@ -4,7 +4,7 @@ require "ansible_tower_client/instance_methods"
 require "json"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
-require "ansible_tower_client/valid_json"
+require "ansible_tower_client/validation"
 require "ansible_tower_client/version"
 
 require "ansible_tower_client/ad_hoc_command"

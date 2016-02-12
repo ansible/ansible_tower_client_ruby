@@ -28,12 +28,13 @@ module AnsibleTowerClient
 
   class Error < StandardError
     attr_reader :message
-    def initialize(klass)
-      @message = "Error on #{klass.class.name}: #{klass.inspect}"
+    def initialize(klass, attrs = {})
+      @message = "Error on #{klass.class.name}: #{attrs.inspect}"
       super(message)
     end
   end
 
   class InvalidHash < Error; end
-  class InvalidJson < Error; end
+  class InvalidJSON < Error; end
+  class InvalidYAML < Error; end
 end

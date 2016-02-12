@@ -20,4 +20,3 @@ describe AnsibleTowerClient::Api do
     expect(described_class.hosts).to eq(AnsibleTowerClient::Host)
   end
 end
-
