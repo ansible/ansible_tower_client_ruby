@@ -10,7 +10,6 @@ describe AnsibleTowerClient::InstanceMethods do
   end
   let(:new_object) { AnsibleTowerClient::Host.new(one_result) }
 
-
   it "#initialize" do
     expect(new_object).to be_a(AnsibleTowerClient::Host)
   end
