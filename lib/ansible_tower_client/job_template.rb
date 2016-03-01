@@ -1,15 +1,5 @@
 module AnsibleTowerClient
   class JobTemplate < BaseModel
-    include InstanceMethods
-
-    attr_reader :extra_vars, :description
-
-    def initialize(api, raw_body)
-      @extra_vars  = raw_body['extra_vars']
-      @description = raw_body['description']
-      super
-    end
-
     def launch(vars = {})
       launch_url = "#{url}launch/"
       extra = JSONValues.new(vars).extra_vars
