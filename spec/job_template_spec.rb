@@ -31,4 +31,15 @@ describe AnsibleTowerClient::JobTemplate do
       described_class.new(instance).launch(json)
     end
   end
+
+  describe '#survey_spec' do
+    let(:get) { instance_double("Faraday::Result", :body => instance.to_json) }
+
+    it "returns a survey spec if it exists" do
+      AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
+      survey = described_class.new(instance).survey_spec
+      expect(survey).to be_a Hash
+      expect(survey['related']['survey_spec']).to eq ['blah blah']
+    end
+  end
 end
