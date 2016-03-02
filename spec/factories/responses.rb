@@ -17,14 +17,16 @@ FactoryGirl.define do
     url        { "/api/v1/#{klass.endpoint}/#{id}/" }
     related    { {"survey_spec" => "example.com/api"} }
 
-    trait(:description)  { sequence(:description) { |n| "description_#{n}" } }
-    trait(:extra_vars)   { extra_vars "lots of options" }
-    trait(:instance_id)  { instance_id SecureRandom.uuid }
-    trait(:inventory_id) { inventory { rand(500) } }
+    trait(:description)             { sequence(:description) { |n| "description_#{n}" } }
+    trait(:extra_vars)              { extra_vars "lots of options" }
+    trait(:instance_id)             { instance_id SecureRandom.uuid }
+    trait(:inventory_id)            { inventory { rand(500) } }
+    trait(:survey_spec)             { survey_spec { {"description" => "blah"} } }
 
-    trait(:group)        { [description, inventory_id] }
-    trait(:host)         { [description, instance_id, inventory_id] }
-    trait(:job_template) { [description, extra_vars] }
+    trait(:group)                   { [description, inventory_id] }
+    trait(:host)                    { [description, instance_id, inventory_id] }
+    trait(:job_template)            { [description, extra_vars, survey_spec] }
+    trait(:job_template_no_survey)  { [description, extra_vars] }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
