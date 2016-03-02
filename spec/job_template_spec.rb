@@ -39,7 +39,7 @@ describe AnsibleTowerClient::JobTemplate do
       AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
       survey = described_class.new(instance).survey_spec
       expect(survey).to be_a Hash
-      expect(survey['related']['survey_spec']).to eq ['blah blah']
+      expect(survey['related']['survey_spec']).to eq 'example.com/api'
     end
   end
 end
