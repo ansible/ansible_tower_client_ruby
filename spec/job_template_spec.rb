@@ -40,8 +40,8 @@ describe AnsibleTowerClient::JobTemplate do
       it "returns a survey spec" do
         AnsibleTowerClient::Api.instance_variable_set(:@instance, api_connection)
         survey = described_class.new(instance).survey_spec
-        expect(survey).to be_a Hash
-        expect(survey).to eq 'description' => 'blah'
+        expect(survey).to be_a String
+        expect(survey).to eq "{\"description\":\"blah\"}"
       end
     end
 
