@@ -36,4 +36,5 @@ module AnsibleTowerClient
 
   class InvalidHash < Error; end
   class InvalidJson < Error; end
+  class InvalidYaml < Error; end
 end

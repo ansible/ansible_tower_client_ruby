@@ -13,8 +13,8 @@ module AnsibleTowerClient
 
     def launch(vars = {})
       launch_url = "#{url}launch/"
-      extra = JSONValues.new(vars).extra_vars
-      resp = Api.post(launch_url, extra).body
+      pay_load = Data.validate!(vars)
+      resp = Api.post(launch_url, pay_load).body
       job = JSON.parse(resp)
       Job.find(job['job'])
     end
