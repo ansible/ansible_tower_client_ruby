@@ -58,4 +58,11 @@ describe AnsibleTowerClient::Connection do
       end
     end
   end
+
+  it ".new doesn't cache credentials across all instances" do
+    conn_1 = described_class.new(:base_url => "example1.com", :username => "admin", :password => "smartvm", :verify_ssl => OpenSSL::SSL::VERIFY_NONE)
+    conn_2 = described_class.new(:base_url => "example2.com", :username => "user", :password => "password", :verify_ssl => OpenSSL::SSL::VERIFY_NONE)
+
+    expect(conn_1.api.instance).not_to eq(conn_2.api.instance)
+  end
 end
