@@ -1,11 +1,10 @@
 module AnsibleTowerClient
-  class Group
-    extend CollectionMethods
+  class Group < BaseModel
     include InstanceMethods
 
     attr_reader :inventory_id
 
-    def initialize(raw_body)
+    def initialize(api, raw_body)
       @inventory_id = raw_body["inventory"]
       super
     end
@@ -15,7 +14,7 @@ module AnsibleTowerClient
     end
 
     def children
-      self.class.collection_for(Api.get(File.join(self.class.endpoint, id.to_s, "children")))
+      self.class.collection_for(api.get(File.join(self.class.endpoint, id.to_s, "children")))
     end
   end
 end

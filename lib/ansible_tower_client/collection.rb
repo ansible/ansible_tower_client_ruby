@@ -1,7 +1,13 @@
 module AnsibleTowerClient
-  module CollectionMethods
+  class Collection
+    attr_reader :api, :klass
+    def initialize(api, klass)
+      @api   = api
+      @klass = klass
+    end
+
     def all
-      collection_for(Api.get(endpoint))
+      collection_for(api.get(klass.endpoint))
     end
 
     def collection_for(paginated_result)
@@ -9,7 +15,7 @@ module AnsibleTowerClient
       results = body["results"]
       loop do
         break if body["next"].nil?
-        body = JSON.parse(Api.get(body["next"]).body)
+        body = JSON.parse(api.get(body["next"]).body)
         results += body["results"]
       end
 
@@ -17,17 +23,16 @@ module AnsibleTowerClient
     end
 
     def find(id)
-      body = JSON.parse(Api.get("#{endpoint}/#{id}/").body)
-      raise ResourceNotFound.new(self, :id => id) if body['id'].nil?
-      new(body)
+      raw_body = JSON.parse(api.get("#{klass.endpoint}/#{id}/").body)
+      raise ResourceNotFound.new(self, :id => id) if raw_body['id'].nil?
+      klass.new(api, raw_body)
     end
 
     private
 
     def build_collection(results)
       results.collect do |result|
-        klass = class_from_type(result["type"])
-        klass.new(result)
+        class_from_type(result["type"]).new(api, result)
       end
     end
 
@@ -37,4 +42,3 @@ module AnsibleTowerClient
     end
   end
 end
-

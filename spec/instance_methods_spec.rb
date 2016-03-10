@@ -8,7 +8,7 @@ describe AnsibleTowerClient::InstanceMethods do
      'summary_fields' => {'nah' => 'nah'}
     }
   end
-  let(:new_object) { AnsibleTowerClient::Host.new(one_result) }
+  let(:new_object) { AnsibleTowerClient::Host.new(instance_double("AnsibleTowerClient::Api"), one_result) }
 
 
   it "#initialize" do
