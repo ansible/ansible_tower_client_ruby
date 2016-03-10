@@ -1,10 +1,13 @@
 module AnsibleTowerClient
-  class Inventory
-    extend CollectionMethods
+  class Inventory < BaseModel
     include InstanceMethods
 
     def self.endpoint
       "inventories".freeze
+    end
+
+    def root_groups
+      self.class.collection_for(api.get(File.join(self.class.endpoint, id.to_s, "root_groups")))
     end
   end
 end

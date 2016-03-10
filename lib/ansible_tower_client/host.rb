@@ -1,11 +1,10 @@
 module AnsibleTowerClient
-  class Host
-    extend CollectionMethods
+  class Host < BaseModel
     include InstanceMethods
 
     attr_reader :instance_id, :inventory_id
 
-    def initialize(raw_body)
+    def initialize(api, raw_body)
       @instance_id  = raw_body["instance_id"]
       @inventory_id = raw_body["inventory"]
       super
@@ -16,7 +15,7 @@ module AnsibleTowerClient
     end
 
     def groups
-      self.class.collection_for(Api.get(File.join(self.class.endpoint, id.to_s, "groups")))
+      self.class.collection_for(api.get(File.join(self.class.endpoint, id.to_s, "groups")))
     end
   end
 end

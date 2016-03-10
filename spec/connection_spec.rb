@@ -30,22 +30,18 @@ describe AnsibleTowerClient::Connection do
   end
 
   context "requiring a connection" do
-    before { AnsibleTowerClient::Api.instance_variable_set(:@instance, faraday_connection) }
+    before { allow(Faraday).to receive(:new).and_return(faraday_connection) }
 
-    describe "#config" do
+    describe "config" do
       let(:get) { instance_double("Faraday::Result", :body => config_body) }
 
-      it "returns the server config" do
+      it "#config returns the server config" do
         json = connection.config
         expect(json['eula']).to eq "text"
         expect(json['license_info']).to be_a Hash
       end
-    end
 
-    describe "#version" do
-      let(:get) { instance_double("Faraday::Result", :body => config_body) }
-
-      it "returns the version" do
+      it "#version returns the ansible tower version" do
         expect(connection.version).to eq "2.4.2"
       end
     end

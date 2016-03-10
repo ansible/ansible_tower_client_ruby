@@ -1,10 +1,9 @@
 module AnsibleTowerClient
-  class AdHocCommand
-    extend CollectionMethods
+  class AdHocCommand < BaseModel
     include InstanceMethods
 
     def relaunch
-      Api.post("#{url}relaunch/")
+      api.post("#{url}relaunch/")
     end
 
     def self.endpoint

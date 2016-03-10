@@ -1,49 +1,39 @@
 module AnsibleTowerClient
-  class Api
-    private_class_method :new
-
-    def self.instance(options = nil)
-      @instance ||= begin
-        require 'faraday'
-        require 'faraday_middleware'
-        Faraday.new(options[:base_url], :ssl => {:verify => options[:verify_ssl]}) do |f|
-          f.use FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true
-          f.request(:url_encoded)
-          f.adapter(Faraday.default_adapter)
-          f.basic_auth(options[:username], options[:password])
-        end
-      end
+  class Api < Connection
+    attr_reader :instance
+    def initialize(connection)
+      @instance = connection
     end
 
-    def self.hosts
-      Host
+    def hosts
+      Collection.new(self, Host)
     end
 
-    def self.groups
-      Group
+    def groups
+      Collection.new(self, Group)
     end
 
-    def self.inventories
-      Inventory
+    def inventories
+      Collection.new(self, Inventory)
     end
 
-    def self.job_templates
-      JobTemplate
+    def job_templates
+      Collection.new(self, JobTemplate)
     end
 
-    def self.ad_hoc_commands
-      AdHocCommand
+    def ad_hoc_commands
+      Collection.new(self, AdHocCommand)
     end
 
-    def self.jobs
-      Job
+    def jobs
+      Collection.new(self, Job)
     end
 
-    def self.method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args, &block)
       instance.respond_to?(method_name) ? instance.send(method_name, *args, &block) : super
     end
 
-    def self.respond_to_missing?(method, _include_private = false)
+    def respond_to_missing?(method, _include_private = false)
       instance.respond_to?(method)
     end
   end

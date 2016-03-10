@@ -1,6 +1,5 @@
 module AnsibleTowerClient
-  class Job
-    extend CollectionMethods
+  class Job < BaseModel
     include InstanceMethods
 
     def self.endpoint

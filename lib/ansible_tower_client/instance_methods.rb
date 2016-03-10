@@ -2,7 +2,8 @@ module AnsibleTowerClient
   module InstanceMethods
     attr_reader :id, :name, :url, :raw_body
 
-    def initialize(raw_body)
+    def initialize(_api, raw_body)
+      super
       @id       = raw_body["id"]
       @name     = raw_body["name"]
       @url      = raw_body["url"]
