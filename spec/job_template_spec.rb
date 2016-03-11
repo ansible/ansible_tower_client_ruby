@@ -22,13 +22,20 @@ describe AnsibleTowerClient::JobTemplate do
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
+    let(:limit) { 'test' }
     let(:post_result_body) { {:job => 1} }
 
     it "runs an existing job template" do
       expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
       expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
+      expect(api).to receive(:patch).twice.and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
 
       described_class.new(api, raw_instance).launch(json)
+    end
+
+    it "handles limit when passed in" do
+      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).twice
+      described_class.new(api, raw_instance).send(:with_temporary_changes, limit) { '' }
     end
   end
 
