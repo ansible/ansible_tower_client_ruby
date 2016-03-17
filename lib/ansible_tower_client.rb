@@ -1,8 +1,9 @@
 require "ansible_tower_client/error"
 require "json"
+require "yaml"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
-require "ansible_tower_client/valid_json"
+require "ansible_tower_client/data"
 require "ansible_tower_client/version"
 
 require "ansible_tower_client/connection"
@@ -17,7 +18,6 @@ require "ansible_tower_client/host"
 require "ansible_tower_client/inventory"
 require "ansible_tower_client/job"
 require "ansible_tower_client/job_template"
-require "ansible_tower_client/json_values"
 require "more_core_extensions/all"
 require "active_support/inflector"
 
