@@ -11,8 +11,9 @@ describe AnsibleTowerClient::Job do
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
 
-    expect(obj).to      be_a described_class
-    expect(obj.id).to   be_a Integer
-    expect(obj.name).to be_a String
+    expect(obj).to         be_a described_class
+    expect(obj.id).to      be_a Integer
+    expect(obj.name).to    be_a String
+    expect(obj.related).to be_a AnsibleTowerClient::Job::Related
   end
 end

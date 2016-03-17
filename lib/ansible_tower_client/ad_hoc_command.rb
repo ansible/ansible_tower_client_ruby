@@ -1,7 +1,5 @@
 module AnsibleTowerClient
   class AdHocCommand < BaseModel
-    include InstanceMethods
-
     def relaunch
       api.post("#{url}relaunch/")
     end

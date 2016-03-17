@@ -1,5 +1,4 @@
 require "ansible_tower_client/error"
-require "ansible_tower_client/instance_methods"
 require "json"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
@@ -8,6 +7,7 @@ require "ansible_tower_client/version"
 
 require "ansible_tower_client/connection"
 require "ansible_tower_client/api"
+require "ansible_tower_client/hash_model"
 require "ansible_tower_client/base_model"
 require "ansible_tower_client/collection"
 
@@ -19,6 +19,7 @@ require "ansible_tower_client/job"
 require "ansible_tower_client/job_template"
 require "ansible_tower_client/json_values"
 require "more_core_extensions/all"
+require "active_support/inflector"
 
 module AnsibleTowerClient
   class << self
