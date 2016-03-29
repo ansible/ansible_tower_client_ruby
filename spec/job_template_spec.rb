@@ -22,7 +22,6 @@ describe AnsibleTowerClient::JobTemplate do
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
-    let(:limit) { 'test' }
     let(:post_result_body) { {:job => 1} }
 
     it "runs an existing job template" do
@@ -35,7 +34,26 @@ describe AnsibleTowerClient::JobTemplate do
 
     it "handles limit when passed in" do
       expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).twice
-      described_class.new(api, raw_instance).send(:with_temporary_changes, limit) { '' }
+      described_class.new(api, raw_instance).send(:with_temporary_changes, 'test') { '' }
+    end
+
+    it "handles limit when passed in with a key as a symbol" do
+      vars = {:extra_vars => {:blah => :nah}.to_json, :limit => 'test_string'}
+      expect_job_template_responses
+      described_class.new(api, raw_instance).launch(vars)
+    end
+
+    it "handles limit when passed in with a key as a string" do
+      vars = {:extra_vars => {:blah => :nah}.to_json, 'limit' => 'test_string'}
+      expect_job_template_responses
+      described_class.new(api, raw_instance).launch(vars)
+    end
+
+    def expect_job_template_responses
+      expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
+      expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
+      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).once.with("{ \"limit\": \"test_string\" }")
+      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).once.with("{ \"limit\": \"\" }")
     end
   end
 
