@@ -3,7 +3,7 @@ module AnsibleTowerClient
     def launch(options = {})
       launch_url = "#{url}launch/"
       options = options.dup
-      new_limit = options.delete('limit')
+      new_limit = options.delete(:limit) || options.delete('limit')
       response = with_temporary_changes(new_limit) do
         api.post(launch_url, options).body
       end
