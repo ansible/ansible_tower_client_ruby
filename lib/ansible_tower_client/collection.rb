@@ -11,23 +11,33 @@ module AnsibleTowerClient
     end
 
     def collection_for(paginated_result)
-      body = JSON.parse(paginated_result.body)
+      body = YAML.safe_load(paginated_result.body)
       results = body["results"]
       loop do
         break if body["next"].nil?
-        body = JSON.parse(api.get(body["next"]).body)
+        body = YAML.safe_load(api.get(body["next"]).body)
         results += body["results"]
       end
 
-      build_collection(results)
+      build_collection(hashify(results))
     end
 
     def find(id)
-      raw_body = JSON.parse(api.get("#{klass.endpoint}/#{id}/").body)
-      klass.new(api, raw_body)
+      raw_body = YAML.safe_load(api.get("#{klass.endpoint}/#{id}/").body)
+      results = hashify([raw_body]).first
+      klass.new(api, results)
     end
 
     private
+
+    def hashify(results)
+      excluded = klass.const_get("EXCLUDED").map!(&:to_s)
+      return results if excluded.empty?
+      excluded.each do |attr|
+        results.each { |result| result[attr] = YAML.safe_load(result[attr]) unless result[attr].nil? }
+      end
+      results
+    end
 
     def build_collection(results)
       results.collect do |result|
