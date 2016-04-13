@@ -17,7 +17,12 @@ describe AnsibleTowerClient::JobTemplate do
     expect(obj.name).to        be_a String
     expect(obj.description).to be_a String
     expect(obj.related).to     be_a AnsibleTowerClient::JobTemplate::Related
-    expect(obj.extra_vars).to  eq("lots of options")
+    expect(obj.extra_vars).to  eq("{\"option\":\"lots of options\"}")
+  end
+
+  it "#extra_vars_hash" do
+    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+    expect(obj.extra_vars_hash).to eq('option' => 'lots of options')
   end
 
   describe '#launch' do

@@ -18,6 +18,14 @@ module AnsibleTowerClient
       api.get(spec_url).body
     end
 
+    def survey_spec_hash
+      hashify(:survey_spec)
+    end
+
+    def extra_vars_hash
+      hashify(:extra_vars)
+    end
+
     def self.endpoint
       "job_templates".freeze
     end

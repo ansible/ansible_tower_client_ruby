@@ -33,6 +33,10 @@ module AnsibleTowerClient
       super(raw_hash)
     end
 
+    def hashify(attribute)
+      YAML.safe_load(send(attribute))
+    end
+
     private
 
     # convert a hash to an instance of nested model class

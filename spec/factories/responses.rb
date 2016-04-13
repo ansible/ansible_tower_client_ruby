@@ -19,7 +19,7 @@ FactoryGirl.define do
     limit      { "" }
 
     trait(:description)             { sequence(:description) { |n| "description_#{n}" } }
-    trait(:extra_vars)              { extra_vars "lots of options" }
+    trait(:extra_vars)              { extra_vars { {:option => "lots of options"}.to_json } }
     trait(:instance_id)             { instance_id SecureRandom.uuid }
     trait(:inventory_id)            { inventory { rand(500) } }
 
