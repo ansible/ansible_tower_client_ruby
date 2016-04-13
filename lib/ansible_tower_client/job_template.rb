@@ -19,11 +19,11 @@ module AnsibleTowerClient
     end
 
     def survey_spec_hash
-      hashify(:survey_spec)
+      survey_spec.nil? ? {} : hashify(:survey_spec)
     end
 
     def extra_vars_hash
-      hashify(:extra_vars)
+      extra_vars.empty? ? {} : hashify(:extra_vars)
     end
 
     def self.endpoint
