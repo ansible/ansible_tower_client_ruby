@@ -1,11 +1,13 @@
 module AnsibleTowerClient
   class JobTemplate < BaseModel
+    EXCLUDED = [:extra_vars]
+
     def launch(options = {})
       launch_url = "#{url}launch/"
       options = options.dup
       new_limit = options.delete(:limit) || options.delete('limit')
       response = with_temporary_changes(new_limit) do
-        api.post(launch_url, options).body
+        api.post(launch_url, excluded_to_json(options)).body
       end
 
       job = JSON.parse(response)
@@ -23,6 +25,11 @@ module AnsibleTowerClient
     end
 
     private
+
+    def self.attr_excluded?(name)
+      return true if EXCLUDED.map!(&:to_s).include? name
+      super
+    end
 
     def with_temporary_changes(in_limit)
       old_limit = limit

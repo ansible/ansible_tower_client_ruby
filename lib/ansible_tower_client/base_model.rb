@@ -1,5 +1,6 @@
 module AnsibleTowerClient
   class BaseModel < HashModel
+    EXCLUDED = []
     attr_reader :api
 
     # Constructs and returns a new JSON wrapper class. Pass in a plain
@@ -34,6 +35,14 @@ module AnsibleTowerClient
     end
 
     private
+
+    def excluded_to_json(options)
+      excluded = self.class.const_get('EXCLUDED')
+      excluded.each do |attr|
+        options[attr] = options[attr].to_json
+      end
+      options
+    end
 
     # convert a hash to an instance of nested model class
     def hash_to_model(klass_name, hash)

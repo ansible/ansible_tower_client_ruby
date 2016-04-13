@@ -17,7 +17,21 @@ describe AnsibleTowerClient::JobTemplate do
     expect(obj.name).to        be_a String
     expect(obj.description).to be_a String
     expect(obj.related).to     be_a AnsibleTowerClient::JobTemplate::Related
-    expect(obj.extra_vars).to  eq("lots of options")
+  end
+
+  it "#hashify" do
+    hashified_extra_vars = collection.send(:hashify, [raw_instance])
+    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), hashified_extra_vars.first)
+
+    expect(obj.extra_vars).to  eq('option' => 'lots of options')
+  end
+
+  it "#excluded_to_json" do
+    hashified_extra_vars = collection.send(:hashify, [raw_instance])
+    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), hashified_extra_vars.first)
+    response = obj.send(:excluded_to_json, hashified_extra_vars.first)
+
+    expect(response['extra_vars']).to eq({'option' => 'lots of options'}.to_json)
   end
 
   describe '#launch' do
