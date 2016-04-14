@@ -5,6 +5,7 @@ describe AnsibleTowerClient::JobTemplate do
   let(:collection)       { api.job_templates }
   let(:raw_collection)   { build(:response_collection, :klass => described_class) }
   let(:raw_instance)     { build(:response_instance, :job_template, :klass => described_class) }
+  let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_survey) { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
   include_examples "Collection Methods"
@@ -18,11 +19,6 @@ describe AnsibleTowerClient::JobTemplate do
     expect(obj.description).to be_a String
     expect(obj.related).to     be_a AnsibleTowerClient::JobTemplate::Related
     expect(obj.extra_vars).to  eq("{\"option\":\"lots of options\"}")
-  end
-
-  it "#extra_vars_hash" do
-    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
-    expect(obj.extra_vars_hash).to eq('option' => 'lots of options')
   end
 
   describe '#launch' do
@@ -74,6 +70,40 @@ describe AnsibleTowerClient::JobTemplate do
     describe "does not exist" do
       it "returns nil" do
         expect(described_class.new(api, raw_instance_no_survey).survey_spec).to be_nil
+      end
+    end
+  end
+
+  context '#survey_spec_hash' do
+    describe "exists" do
+      let(:survey_spec) { "{\"description\":\"blah\"}" }
+      it "returns a hashed value" do
+        expect(api).to receive(:get).twice.and_return(instance_double("Faraday::Result", :body => survey_spec))
+        expect(described_class.new(api, raw_instance).survey_spec_hash).to eq("description" => "blah")
+      end
+    end
+
+    describe "does not exist" do
+      it "returns an empty hash" do
+        expect(described_class.new(api, raw_instance_no_survey).survey_spec_hash).to be_empty
+        expect(described_class.new(api, raw_instance_no_survey).survey_spec_hash).to be_a_kind_of(Hash)
+      end
+    end
+  end
+
+  describe "#extra_vars_hash" do
+    describe "#extra_vars exists" do
+      it "returns a hashed value" do
+        obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+        expect(obj.extra_vars_hash).to eq('option' => 'lots of options')
+      end
+    end
+
+    describe "#extra_vars does not exist" do
+      it "returns an empty hash" do
+        obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance_no_extra_vars)
+        expect(obj.extra_vars_hash).to be_a_kind_of(Hash)
+        expect(obj.extra_vars_hash).to be_empty
       end
     end
   end
