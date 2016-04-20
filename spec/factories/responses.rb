@@ -9,6 +9,17 @@ FactoryGirl.define do
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
 
+  factory :response_url_collection, :class => "Hash" do
+    count    1
+    "next"   ""
+    previous ""
+    klass    ""
+    url      ""
+    results  { count.times.collect { build(:response_instance, :klass => klass, :url => url) } }
+
+    initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
+  end
+
   factory :response_instance, :class => "Hash" do
     sequence(:id)
     klass      ""
@@ -26,6 +37,7 @@ FactoryGirl.define do
     trait(:group)                   { [description, inventory_id] }
     trait(:host)                    { [description, instance_id, inventory_id] }
     trait(:job_template)            { [description, extra_vars] }
+    trait(:url)                     { "/api/v1/#{klass}/#{rand(10)}" }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end

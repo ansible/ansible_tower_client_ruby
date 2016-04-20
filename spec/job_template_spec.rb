@@ -1,12 +1,14 @@
 require_relative 'spec_helper'
 
 describe AnsibleTowerClient::JobTemplate do
-  let(:api)              { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
-  let(:collection)       { api.job_templates }
-  let(:raw_collection)   { build(:response_collection, :klass => described_class) }
-  let(:raw_instance)     { build(:response_instance, :job_template, :klass => described_class) }
+  let(:url)                 { "example.com/api/v1/job_template_update/10" }
+  let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
+  let(:collection)          { api.job_templates }
+  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
+  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
+  let(:raw_instance)        { build(:response_instance, :job_template, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
-  let(:raw_instance_no_survey) { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
+  let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
   include_examples "Collection Methods"
 

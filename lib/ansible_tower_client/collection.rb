@@ -7,7 +7,11 @@ module AnsibleTowerClient
     end
 
     def all
-      collection_for(api.get(klass.endpoint))
+      find_all_by_url(klass.endpoint)
+    end
+
+    def find_all_by_url(url)
+      collection_for(api.get(url))
     end
 
     def collection_for(paginated_result)

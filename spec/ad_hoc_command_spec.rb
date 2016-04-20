@@ -1,10 +1,12 @@
 require_relative 'spec_helper'
 
 describe AnsibleTowerClient::AdHocCommand do
-  let(:api)            { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
-  let(:collection)     { api.ad_hoc_commands }
-  let(:raw_collection) { build(:response_collection, :klass => described_class) }
-  let(:raw_instance)   { build(:response_instance,   :klass => described_class) }
+  let(:url)                 { "example.com/api/v1/ad_hoc_command_update/10" }
+  let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
+  let(:collection)          { api.ad_hoc_commands }
+  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
+  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
+  let(:raw_instance)        { build(:response_instance, :klass => described_class) }
 
   include_examples "Collection Methods"
 

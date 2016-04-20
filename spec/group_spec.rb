@@ -1,10 +1,12 @@
 require_relative 'spec_helper'
 
 describe AnsibleTowerClient::Group do
-  let(:api)            { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
-  let(:collection)     { api.groups }
-  let(:raw_collection) { build(:response_collection, :klass => described_class) }
-  let(:raw_instance)   { build(:response_instance, :group, :klass => described_class) }
+  let(:url)                 { "example.com/api/v1/group_update/10" }
+  let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
+  let(:collection)          { api.groups }
+  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
+  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
+  let(:raw_instance)        { build(:response_instance, :group, :klass => described_class) }
 
   include_examples "Collection Methods"
 
