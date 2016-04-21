@@ -26,18 +26,19 @@ FactoryGirl.define do
     type       { AnsibleTowerClient::FactoryHelper.underscore_string(klass.namespace.last) }
     name       { "#{type}-#{id}" }
     url        { "/api/v1/#{klass.endpoint}/#{id}/" }
-    related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link'} }
+    related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link', 'stdout' => 'example.com/api'} }
     limit      { "" }
 
-    trait(:description)             { sequence(:description) { |n| "description_#{n}" } }
-    trait(:extra_vars)              { extra_vars { {:option => "lots of options"}.to_json } }
-    trait(:instance_id)             { instance_id SecureRandom.uuid }
-    trait(:inventory_id)            { inventory { rand(500) } }
+    trait(:description)  { sequence(:description) { |n| "description_#{n}" } }
+    trait(:extra_vars)   { extra_vars { {:option => "lots of options"}.to_json } }
+    trait(:instance_id)  { instance_id SecureRandom.uuid }
+    trait(:inventory_id) { inventory { rand(500) } }
+    trait(:url)          { "/api/v1/#{klass}/#{rand(10)}" }
 
-    trait(:group)                   { [description, inventory_id] }
-    trait(:host)                    { [description, instance_id, inventory_id] }
-    trait(:job_template)            { [description, extra_vars] }
-    trait(:url)                     { "/api/v1/#{klass}/#{rand(10)}" }
+    trait(:group)        { [description, inventory_id] }
+    trait(:host)         { [description, instance_id, inventory_id] }
+    trait(:job_template) { [description, extra_vars] }
+    trait(:job)          { [description, extra_vars] }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
