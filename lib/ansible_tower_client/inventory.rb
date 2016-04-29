@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def root_groups
-      api.inventories.find_all_by_url(related['root_groups'])
+      Collection.new(api).find_all_by_url(related['root_groups'])
     end
   end
 end

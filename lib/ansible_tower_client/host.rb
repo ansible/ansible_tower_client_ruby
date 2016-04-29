@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def groups
-      self.class.find_all_by_url(File.join(self.class.endpoint, id.to_s, "groups"))
+      Collection.new(api).find_all_by_url(related["groups"])
     end
   end
 end
