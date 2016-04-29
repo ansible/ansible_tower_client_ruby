@@ -1,11 +1,8 @@
 shared_examples_for "Collection Methods" do
   it ".all returns a collection of objects" do
-    expect(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => raw_collection.to_json))
+    expect(collection).to receive(:find_all_by_url).with(described_class.endpoint)
 
-    obj_collection = collection.all
-    expect(obj_collection).to        be_a Array
-    expect(obj_collection.length).to eq(2)
-    expect(obj_collection.first).to  be_a described_class
+    collection.all
   end
 
   it ".find_all_by_url returns a collection of objects via a url" do
