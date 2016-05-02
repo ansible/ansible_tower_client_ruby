@@ -1,7 +1,7 @@
 module AnsibleTowerClient
   class Collection
     attr_reader :api, :klass
-    def initialize(api, klass)
+    def initialize(api, klass = nil)
       @api   = api
       @klass = klass
     end
@@ -11,37 +11,47 @@ module AnsibleTowerClient
     end
 
     def find_all_by_url(url)
-      collection_for(api.get(url))
-    end
+      Enumerator.new do |yielder|
+        @collection = []
+        next_page   = url
 
-    def collection_for(paginated_result)
-      body = JSON.parse(paginated_result.body)
-      results = body["results"]
-      loop do
-        break if body["next"].nil?
-        body = JSON.parse(api.get(body["next"]).body)
-        results += body["results"]
+        loop do
+          next_page = fetch_more_results(next_page) if @collection.empty?
+          raise StopIteration if @collection.empty?
+          yielder.yield(@collection.shift)
+        end
       end
-
-      build_collection(results)
     end
 
     def find(id)
-      raw_body = JSON.parse(api.get("#{klass.endpoint}/#{id}/").body)
-      klass.new(api, raw_body)
+      build_object(parse_response(api.get("#{klass.endpoint}/#{id}/")))
     end
 
     private
 
-    def build_collection(results)
-      results.collect do |result|
-        class_from_type(result["type"]).new(api, result)
-      end
-    end
-
     def class_from_type(type)
       camelized = type.split("_").collect(&:capitalize).join
       AnsibleTowerClient.const_get(camelized)
+    end
+
+    def fetch_more_results(next_page)
+      return if next_page.nil?
+      body = parse_response(api.get(next_page))
+      parse_result_set(body["results"])
+
+      body["next"]
+    end
+
+    def parse_response(response)
+      JSON.parse(response.body)
+    end
+
+    def parse_result_set(results)
+      results.each { |result| @collection << build_object(result) }
+    end
+
+    def build_object(result)
+      class_from_type(result["type"]).new(api, result)
     end
   end
 end
