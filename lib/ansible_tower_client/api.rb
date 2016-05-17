@@ -17,6 +17,14 @@ module AnsibleTowerClient
       Collection.new(self, Inventory)
     end
 
+    def inventory_sources
+      Collection.new(self, InventorySource)
+    end
+
+    def inventory_updates
+      Collection.new(self, InventoryUpdate)
+    end
+
     def job_templates
       Collection.new(self, JobTemplate)
     end
