@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def inventory_sources
-      api.inventories.find_all_by_url(related['inventory_sources'])
+      Collection.new(api).find_all_by_url(related['inventory_sources'])
     end
 
     def update_all_inventory_sources

@@ -21,10 +21,10 @@ describe AnsibleTowerClient::Inventory do
 
   describe "#inventory_sources" do
     it "#inventory_sources returns a list of inventory_sources" do
+      expect_any_instance_of(described_class).to receive(:related).and_return("inventory_sources" => "abc")
       expect(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => inventory_source.to_json))
-      inventory_sources = described_class.new(api, raw_instance).inventory_sources
-      expect(inventory_sources).to be_a Array
-      expect(inventory_sources.count).to eq 1
+      inventory_sources = described_class.new(api, raw_instance).inventory_sources.to_a
+      expect(inventory_sources.to_a.count).to eq 1
     end
   end
 
