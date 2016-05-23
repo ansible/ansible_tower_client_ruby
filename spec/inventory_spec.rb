@@ -31,7 +31,7 @@ describe AnsibleTowerClient::Inventory do
   describe "#update_all_inventory_sources" do
     let(:can_update_true)   { {'can_update' => true}  }
     let(:can_update_false)  { {'can_update' => false} }
-    let(:post_result_body) { {:inventory_update => 1} }
+    let(:post_result_body)  { {:inventory_update => 1} }
     let(:inventory_sources) do
       [described_class.new(instance_double("AnsibleTowerClient::Api"), inventory_source)]
     end
