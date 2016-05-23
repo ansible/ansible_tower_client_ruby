@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def children
-      self.class.collection_for(api.get(File.join(self.class.endpoint, id.to_s, "children")))
+      Collection.new(api).find_all_by_url(related["children"])
     end
   end
 end
