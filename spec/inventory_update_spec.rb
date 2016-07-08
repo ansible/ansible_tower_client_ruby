@@ -1,5 +1,3 @@
-require_relative 'spec_helper'
-
 describe AnsibleTowerClient::InventoryUpdate do
   let(:url)                 { "example.com/api/v1/inventory_update/10" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }

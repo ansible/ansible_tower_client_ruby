@@ -1,5 +1,3 @@
-require_relative 'spec_helper'
-
 describe AnsibleTowerClient::Group do
   let(:url)                 { "example.com/api/v1/group_update/10" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }

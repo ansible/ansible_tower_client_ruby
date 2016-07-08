@@ -1,4 +1,3 @@
-require_relative 'spec_helper'
 require 'json'
 
 describe AnsibleTowerClient::Host do

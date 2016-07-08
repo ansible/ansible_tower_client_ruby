@@ -1,5 +1,3 @@
-require_relative 'spec_helper'
-
 describe AnsibleTowerClient::AdHocCommand do
   let(:url)                 { "example.com/api/v1/ad_hoc_command_update/10" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
