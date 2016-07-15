@@ -5,6 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/ManageIQ/ansible_tower_client/badges/gpa.svg)](https://codeclimate.com/github/ManageIQ/ansible_tower_client)
 [![Dependency Status](https://gemnasium.com/ManageIQ/ansible_tower_client.svg)](https://gemnasium.com/ManageIQ/ansible_tower_client)
 [![Coverage Status](http://img.shields.io/coveralls/ManageIQ/ansible_tower_client.svg)](https://coveralls.io/r/ManageIQ/ansible_tower_client)
+[![Security](https://hakiri.io/github/ManageIQ/ansible_tower_client/master.svg)](https://hakiri.io/github/ManageIQ/ansible_tower_client/master)
 
 ## Installation
 
