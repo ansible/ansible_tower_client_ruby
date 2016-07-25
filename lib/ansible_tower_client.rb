@@ -1,5 +1,6 @@
 require "json"
 require "yaml"
+require "ansible_tower_client/exception"
 require "ansible_tower_client/logging"
 require "ansible_tower_client/null_logger"
 require "ansible_tower_client/version"
