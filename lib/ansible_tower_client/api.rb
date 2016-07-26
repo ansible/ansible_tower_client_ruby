@@ -39,6 +39,12 @@ module AnsibleTowerClient
 
     def method_missing(method_name, *args, &block)
       instance.respond_to?(method_name) ? instance.send(method_name, *args, &block) : super
+    rescue Faraday::ConnectionFailed, Faraday::SSLError => err
+      raise
+    rescue Faraday::ClientError => err
+      message = JSON.parse(err.message)['detail'] rescue nil
+      message ||= "An unknown error was returned from the provider"
+      raise AnsibleTowerClient::ConnectionError, message
     end
 
     def respond_to_missing?(method, _include_private = false)
