@@ -1,5 +1,6 @@
 # AnsibleTowerClient
 
+[![Gem Version](https://badge.fury.io/rb/ansible_tower_client.svg)](http://badge.fury.io/rb/ansible_tower_client)
 [![Build Status](https://travis-ci.org/ManageIQ/ansible_tower_client.svg)](https://travis-ci.org/ManageIQ/ansible_tower_client)
 [![Code Climate](https://codeclimate.com/github/ManageIQ/ansible_tower_client/badges/gpa.svg)](https://codeclimate.com/github/ManageIQ/ansible_tower_client)
 
