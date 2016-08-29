@@ -20,6 +20,8 @@ require "ansible_tower_client/inventory_update"
 require "ansible_tower_client/job"
 require "ansible_tower_client/base_models/job_template"
 
+require "ansible_tower_client/v2/job_template_v2"
+
 require "more_core_extensions/all"
 require "active_support/inflector"
 
