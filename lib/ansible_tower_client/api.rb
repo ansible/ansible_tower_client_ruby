@@ -26,7 +26,7 @@ module AnsibleTowerClient
     end
 
     def job_templates
-      Collection.new(self, JobTemplate)
+      Collection.new(self, job_template_class)
     end
 
     def ad_hoc_commands
@@ -49,6 +49,18 @@ module AnsibleTowerClient
 
     def respond_to_missing?(method, _include_private = false)
       instance.respond_to?(method)
+    end
+
+    # Object class accessors patched for the appropriate version of the API
+
+    def job_template_class
+      @job_template_class ||= begin
+        if Gem::Version.new(version).between?(Gem::Version.new(2), Gem::Version.new(3))
+          AnsibleTowerClient::JobTemplateV2
+        else
+          AnsibleTowerClient::JobTemplate
+        end
+      end
     end
   end
 end
