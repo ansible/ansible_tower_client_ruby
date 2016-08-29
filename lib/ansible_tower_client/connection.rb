@@ -31,7 +31,7 @@ module AnsibleTowerClient
     end
 
     def version
-      config["version"]
+      @version ||= config["version"]
     end
 
     def verify_credentials
