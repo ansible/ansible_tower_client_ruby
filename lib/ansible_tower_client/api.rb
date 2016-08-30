@@ -5,36 +5,36 @@ module AnsibleTowerClient
       @instance = connection
     end
 
-    def hosts
-      Collection.new(self, Host)
+    def ad_hoc_commands
+      Collection.new(self, ad_hoc_command_class)
     end
 
     def groups
-      Collection.new(self, Group)
+      Collection.new(self, group_class)
+    end
+
+    def hosts
+      Collection.new(self, host_class)
     end
 
     def inventories
-      Collection.new(self, Inventory)
+      Collection.new(self, inventory_class)
     end
 
     def inventory_sources
-      Collection.new(self, InventorySource)
+      Collection.new(self, inventory_source_class)
     end
 
     def inventory_updates
-      Collection.new(self, InventoryUpdate)
+      Collection.new(self, inventory_update_class)
+    end
+
+    def jobs
+      Collection.new(self, job_class)
     end
 
     def job_templates
       Collection.new(self, job_template_class)
-    end
-
-    def ad_hoc_commands
-      Collection.new(self, AdHocCommand)
-    end
-
-    def jobs
-      Collection.new(self, Job)
     end
 
     def method_missing(method_name, *args, &block)
@@ -52,6 +52,34 @@ module AnsibleTowerClient
     end
 
     # Object class accessors patched for the appropriate version of the API
+
+    def ad_hoc_command_class
+      @ad_hoc_command_class ||= AnsibleTowerClient::AdHocCommand
+    end
+
+    def group_class
+      @group_class ||= AnsibleTowerClient::Group
+    end
+
+    def host_class
+      @host_class ||= AnsibleTowerClient::Host
+    end
+
+    def inventory_class
+      @inventory_class ||= AnsibleTowerClient::Inventory
+    end
+
+    def inventory_source_class
+      @inventory_source_class ||= AnsibleTowerClient::InventorySource
+    end
+
+    def inventory_update_class
+      @inventory_update_class ||= AnsibleTowerClient::InventoryUpdate
+    end
+
+    def job_class
+      @job_class ||= AnsibleTowerClient::Job
+    end
 
     def job_template_class
       @job_template_class ||= begin
