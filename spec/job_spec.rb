@@ -16,7 +16,7 @@ describe AnsibleTowerClient::Job do
     expect(obj).to         be_a described_class
     expect(obj.id).to      be_a Integer
     expect(obj.name).to    be_a String
-    expect(obj.related).to be_a AnsibleTowerClient::Job::Related
+    expect(obj.related).to be_a described_class::Related
   end
 
   describe "#extra_vars_hash" do

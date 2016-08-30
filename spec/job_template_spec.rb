@@ -1,7 +1,12 @@
+require 'faraday' # Only because we're doubling the connection
+
 describe AnsibleTowerClient::JobTemplate do
   let(:url)                 { "example.com/api/v1/job_template_update/10" }
-  let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
+  let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| expect(a).to receive(:config).and_return(config) } }
   let(:collection)          { api.job_templates }
+  let(:connection)          { instance_double("Faraday::Connection") }
+  let(:config)              { {"version" => "1.1"} }
+  let(:described_class)     { api.job_template_class }
   let(:raw_collection)      { build(:response_collection, :klass => described_class) }
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
   let(:raw_instance)        { build(:response_instance, :job_template, :klass => described_class) }
@@ -17,7 +22,7 @@ describe AnsibleTowerClient::JobTemplate do
     expect(obj.id).to          be_a Integer
     expect(obj.name).to        be_a String
     expect(obj.description).to be_a String
-    expect(obj.related).to     be_a AnsibleTowerClient::JobTemplate::Related
+    expect(obj.related).to     be_a described_class::Related
     expect(obj.extra_vars).to  eq("{\"option\":\"lots of options\"}")
   end
 
@@ -25,36 +30,51 @@ describe AnsibleTowerClient::JobTemplate do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
     let(:post_result_body) { {:job => 1} }
 
-    it "runs an existing job template" do
-      expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
-      expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
-      expect(api).to receive(:patch).twice.and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
+    context "V2 API" do
+      let(:config) { {"version" => "2.1.1"} }
+      it "runs an existing job template" do
+        expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
+        expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
+        expect(api).to receive(:patch).twice.and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
 
-      described_class.new(api, raw_instance).launch(json)
-    end
+        described_class.new(api, raw_instance).launch(json)
+      end
 
-    it "handles limit when passed in" do
-      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).twice
-      described_class.new(api, raw_instance).send(:with_temporary_changes, 'test') { '' }
-    end
+      it "handles limit when passed in" do
+        expect(connection).to receive(:patch).twice
+        described_class.new(api, raw_instance).send(:with_temporary_changes, 'test') { '' }
+      end
 
-    it "handles limit when passed in with a key as a symbol" do
-      vars = {:extra_vars => {:blah => :nah}.to_json, :limit => 'test_string'}
-      expect_job_template_responses
-      described_class.new(api, raw_instance).launch(vars)
-    end
+      it "handles limit when passed in with a key as a symbol" do
+        vars = {:extra_vars => {:blah => :nah}.to_json, :limit => 'test_string'}
+        expect_job_template_responses
+        described_class.new(api, raw_instance).launch(vars)
+      end
 
-    it "handles limit when passed in with a key as a string" do
-      vars = {:extra_vars => {:blah => :nah}.to_json, 'limit' => 'test_string'}
-      expect_job_template_responses
-      described_class.new(api, raw_instance).launch(vars)
-    end
+      it "handles limit when passed in with a key as a string" do
+        vars = {:extra_vars => {:blah => :nah}.to_json, 'limit' => 'test_string'}
+        expect_job_template_responses
+        described_class.new(api, raw_instance).launch(vars)
+      end
 
-    def expect_job_template_responses
-      expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
-      expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
-      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).once.with("{ \"limit\": \"test_string\" }")
-      expect_any_instance_of(AnsibleTowerClient::JobTemplate).to receive(:patch).once.with("{ \"limit\": \"\" }")
+      def expect_job_template_responses
+        expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
+        expect(api).to receive(:post).and_return(instance_double("Faraday::Response", :body => post_result_body.to_json))
+        dummy = Class.new do
+          def url(_)
+          end
+
+          def headers
+            {}
+          end
+
+          def body=(_)
+          end
+        end.new
+        expect(dummy).to receive(:body=).with("{ \"limit\": \"test_string\" }")
+        expect(dummy).to receive(:body=).with("{ \"limit\": \"\" }")
+        expect(connection).to receive(:patch).twice.and_yield(dummy)
+      end
     end
   end
 
