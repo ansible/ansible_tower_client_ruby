@@ -5,6 +5,18 @@ module AnsibleTowerClient
       @instance = connection
     end
 
+    def config
+      JSON.parse(get("config").body)
+    end
+
+    def version
+      @version ||= config["version"]
+    end
+
+    def verify_credentials
+      JSON.parse(get("me").body).fetch_path("results", 0, "username")
+    end
+
     def ad_hoc_commands
       Collection.new(self, ad_hoc_command_class)
     end
