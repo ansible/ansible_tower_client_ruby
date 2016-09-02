@@ -9,4 +9,3 @@ module AnsibleTowerClient
     end
   end
 end
-
