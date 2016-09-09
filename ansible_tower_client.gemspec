@@ -19,10 +19,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # HACK: Rails 5 dropped support for Ruby < 2.2.2
-  active_support_version = "< 5" if Gem::Version.new(RUBY_VERSION) <= Gem::Version.new("2.2.2")
-  spec.add_runtime_dependency "activesupport", active_support_version
-
+  spec.add_runtime_dependency "activesupport"
   spec.add_runtime_dependency "faraday"
   spec.add_runtime_dependency "faraday_middleware"
   spec.add_runtime_dependency "more_core_extensions", "~> 3.0"
