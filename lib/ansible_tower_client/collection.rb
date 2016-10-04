@@ -30,8 +30,7 @@ module AnsibleTowerClient
     private
 
     def class_from_type(type)
-      camelized = type.split("_").collect(&:capitalize).join
-      AnsibleTowerClient.const_get(camelized)
+      api.send("#{type}_class")
     end
 
     def fetch_more_results(next_page)

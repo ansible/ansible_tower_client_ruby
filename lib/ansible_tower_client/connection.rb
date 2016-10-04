@@ -25,17 +25,5 @@ module AnsibleTowerClient
     def api
       @api ||= Api.new(connection)
     end
-
-    def config
-      JSON.parse(api.get("config").body)
-    end
-
-    def version
-      config["version"]
-    end
-
-    def verify_credentials
-      JSON.parse(api.get("me").body).fetch_path("results", 0, "username")
-    end
   end
 end
