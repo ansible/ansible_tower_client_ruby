@@ -1,11 +1,11 @@
 # AnsibleTowerClient
 
-[![Gem Version](https://badge.fury.io/rb/ansible_tower_client.svg)](http://badge.fury.io/rb/ansible_tower_client)
-[![Build Status](https://travis-ci.org/ManageIQ/ansible_tower_client.svg)](https://travis-ci.org/ManageIQ/ansible_tower_client)
-[![Code Climate](https://codeclimate.com/github/ManageIQ/ansible_tower_client/badges/gpa.svg)](https://codeclimate.com/github/ManageIQ/ansible_tower_client)
-[![Dependency Status](https://gemnasium.com/ManageIQ/ansible_tower_client.svg)](https://gemnasium.com/ManageIQ/ansible_tower_client)
-[![Coverage Status](http://img.shields.io/coveralls/ManageIQ/ansible_tower_client.svg)](https://coveralls.io/r/ManageIQ/ansible_tower_client)
-[![Security](https://hakiri.io/github/ManageIQ/ansible_tower_client/master.svg)](https://hakiri.io/github/ManageIQ/ansible_tower_client/master)
+[![Gem Version](https://badge.fury.io/rb/ansible_tower_client_ruby.svg)](http://badge.fury.io/rb/ansible_tower_client_ruby)
+[![Build Status](https://travis-ci.org/Ansible/ansible_tower_client_ruby.svg)](https://travis-ci.org/Ansible/ansible_tower_client_ruby)
+[![Code Climate](https://codeclimate.com/github/Ansible/ansible_tower_client_ruby/badges/gpa.svg)](https://codeclimate.com/github/Ansible/ansible_tower_client_ruby)
+[![Dependency Status](https://gemnasium.com/Ansible/ansible_tower_client_ruby.svg)](https://gemnasium.com/Ansible/ansible_tower_client_ruby)
+[![Coverage Status](http://img.shields.io/coveralls/Ansible/ansible_tower_client_ruby.svg)](https://coveralls.io/r/Ansible/ansible_tower_client_ruby)
+[![Security](https://hakiri.io/github/Ansible/ansible_tower_client_ruby/master.svg)](https://hakiri.io/github/Ansible/ansible_tower_client_ruby/master)
 
 ## Installation
 
@@ -31,7 +31,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ManageIQ/ansible_tower_client.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Ansible/ansible_tower_client_ruby.
 
 ## License
 
