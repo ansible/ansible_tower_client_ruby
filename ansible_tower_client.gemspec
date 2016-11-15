@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Ansible Tower REST API wrapper gem}
   spec.description   = %q{Ansible Tower REST API wrapper gem}
-  spec.homepage      = "https://github.com/ManageIQ/ansible_tower_client"
+  spec.homepage      = "https://github.com/Ansible/ansible_tower_client_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
