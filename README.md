@@ -1,11 +1,11 @@
 # AnsibleTowerClient
 
-[![Gem Version](https://badge.fury.io/rb/ansible_tower_client_ruby.svg)](http://badge.fury.io/rb/ansible_tower_client_ruby)
-[![Build Status](https://travis-ci.org/Ansible/ansible_tower_client_ruby.svg)](https://travis-ci.org/Ansible/ansible_tower_client_ruby)
-[![Code Climate](https://codeclimate.com/github/Ansible/ansible_tower_client_ruby/badges/gpa.svg)](https://codeclimate.com/github/Ansible/ansible_tower_client_ruby)
-[![Dependency Status](https://gemnasium.com/Ansible/ansible_tower_client_ruby.svg)](https://gemnasium.com/Ansible/ansible_tower_client_ruby)
-[![Coverage Status](http://img.shields.io/coveralls/Ansible/ansible_tower_client_ruby.svg)](https://coveralls.io/r/Ansible/ansible_tower_client_ruby)
-[![Security](https://hakiri.io/github/Ansible/ansible_tower_client_ruby/master.svg)](https://hakiri.io/github/Ansible/ansible_tower_client_ruby/master)
+[![Gem Version](https://badge.fury.io/rb/ansible_tower_client.svg)](http://badge.fury.io/rb/ansible_tower_client)
+[![Build Status](https://travis-ci.org/ansible/ansible_tower_client_ruby.svg)](https://travis-ci.org/ansible/ansible_tower_client_ruby)
+[![Code Climate](https://codeclimate.com/github/ansible/ansible_tower_client_ruby/badges/gpa.svg)](https://codeclimate.com/github/ansible/ansible_tower_client_ruby)
+[![Dependency Status](https://gemnasium.com/ansible/ansible_tower_client_ruby.svg)](https://gemnasium.com/ansible/ansible_tower_client_ruby)
+[![Coverage Status](http://img.shields.io/coveralls/ansible/ansible_tower_client_ruby.svg)](https://coveralls.io/r/ansible/ansible_tower_client_ruby)
+[![Security](https://hakiri.io/github/ansible/ansible_tower_client_ruby/master.svg)](https://hakiri.io/github/ansible/ansible_tower_client_ruby/master)
 
 ## Installation
 
