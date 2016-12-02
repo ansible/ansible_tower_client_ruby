@@ -65,8 +65,11 @@ module AnsibleTowerClient
     rescue Faraday::ConnectionFailed, Faraday::SSLError => err
       raise
     rescue Faraday::ClientError => err
-      message = JSON.parse(err.message)['detail'] rescue nil
+      response = err.response
+      logger.debug { "#{self.class.name} #{err.class.name} #{response.pretty_inspect}" }
+      message   = JSON.parse(response[:body])['detail'] rescue nil
       message ||= "An unknown error was returned from the provider"
+      logger.error("#{self.class.name} #{err.class.name} #{message}")
       raise AnsibleTowerClient::ConnectionError, message
     end
 
