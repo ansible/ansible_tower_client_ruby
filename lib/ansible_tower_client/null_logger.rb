@@ -7,5 +7,9 @@ module AnsibleTowerClient
 
     def add(*_args, &_block)
     end
+
+    def debug?
+      false
+    end
   end
 end

@@ -1,5 +1,9 @@
+require 'pp'
+
 module AnsibleTowerClient
   class Api < Connection
+    include Logging
+
     attr_reader :instance
     def initialize(connection)
       @instance = connection
@@ -50,7 +54,14 @@ module AnsibleTowerClient
     end
 
     def method_missing(method_name, *args, &block)
-      instance.respond_to?(method_name) ? instance.send(method_name, *args, &block) : super
+      if instance.respond_to?(method_name)
+        logger.debug { "#{self.class.name} Sending <#{method_name}> with <#{args.inspect}>" }
+        instance.send(method_name, *args, &block).tap do |response|
+          logger.debug { "#{self.class.name} Response:\n#{JSON.parse(response.body).pretty_inspect}" }
+        end
+      else
+        super
+      end
     rescue Faraday::ConnectionFailed, Faraday::SSLError => err
       raise
     rescue Faraday::ClientError => err
