@@ -9,6 +9,7 @@ describe AnsibleTowerClient::Job do
   let(:raw_instance_no_output)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
   include_examples "Collection Methods"
+  include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)

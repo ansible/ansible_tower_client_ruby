@@ -37,6 +37,11 @@ module AnsibleTowerClient
       super(raw_hash)
     end
 
+    def self.create(api, attributes)
+      response = api.post("#{endpoint}/", attributes).body
+      new(api, JSON.parse(response))
+    end
+
     def hashify(attribute)
       YAML.safe_load(send(attribute))
     end
