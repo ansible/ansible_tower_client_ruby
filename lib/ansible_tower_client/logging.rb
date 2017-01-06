@@ -1,3 +1,4 @@
+require 'forwardable'
 module AnsibleTowerClient
   module Logging
     extend Forwardable
