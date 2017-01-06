@@ -4,6 +4,8 @@ module AnsibleTowerClient
   class Api < Connection
     include Logging
 
+    DEFAULT_ERROR_MSG = "An unknown error was returned from the provider".freeze
+
     attr_reader :instance
     def initialize(connection)
       @instance = connection
@@ -65,10 +67,11 @@ module AnsibleTowerClient
     rescue Faraday::ConnectionFailed, Faraday::SSLError => err
       raise
     rescue Faraday::ClientError => err
+      raise if err.response.nil?
       response = err.response
       logger.debug { "#{self.class.name} #{err.class.name} #{response.pretty_inspect}" }
       message   = JSON.parse(response[:body])['detail'] rescue nil
-      message ||= "An unknown error was returned from the provider"
+      message ||= DEFAULT_ERROR_MSG
       logger.error("#{self.class.name} #{err.class.name} #{message}")
       raise AnsibleTowerClient::ConnectionError, message
     end
