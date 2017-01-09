@@ -7,7 +7,6 @@ describe AnsibleTowerClient::InventorySource do
   let(:raw_instance)        { build(:response_instance, :klass => described_class) }
 
   include_examples "Collection Methods"
-  include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
@@ -29,6 +28,13 @@ describe AnsibleTowerClient::InventorySource do
     it 'returns false' do
       expect(api).to receive(:get).and_return(instance_double("Faraday::Response", :body => can_update_false.to_json))
       expect(described_class.new(api, raw_instance).can_update?).to be_falsey
+    end
+  end
+
+  describe 'create' do
+    it "described_class.create posts to the api and returns the new instance" do
+      expect(api).to receive(:post).and_return(instance_double("Faraday::Result", :body => raw_instance.to_json))
+      expect(described_class.create(api, {:name => 'test'}.to_json)).to be_a described_class
     end
   end
 
