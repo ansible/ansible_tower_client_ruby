@@ -13,6 +13,7 @@ describe AnsibleTowerClient::JobTemplate do
   let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
   include_examples "Collection Methods"
+  include_examples "Crud Methods"
   include_examples "JobTemplate#initialize"
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
