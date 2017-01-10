@@ -55,6 +55,10 @@ module AnsibleTowerClient
       Collection.new(self, job_template_class)
     end
 
+    def projects
+      Collection.new(self, project_class)
+    end
+
     def method_missing(method_name, *args, &block)
       if instance.respond_to?(method_name)
         logger.debug { "#{self.class.name} Sending <#{method_name}> with <#{args.inspect}>" }
@@ -118,6 +122,10 @@ module AnsibleTowerClient
           AnsibleTowerClient::JobTemplate
         end
       end
+    end
+
+    def project_class
+      @project_class ||= AnsibleTowerClient::Project
     end
   end
 end
