@@ -23,6 +23,10 @@ module AnsibleTowerClient
       JSON.parse(get("me").body).fetch_path("results", 0, "username")
     end
 
+    def activity_stream
+      Collection.new(self, activity_stream_class)
+    end
+
     def ad_hoc_commands
       Collection.new(self, ad_hoc_command_class)
     end
@@ -81,6 +85,10 @@ module AnsibleTowerClient
     end
 
     # Object class accessors patched for the appropriate version of the API
+
+    def activity_stream_class
+      @activity_stream_class ||= AnsibleTowerClient::ActivityStream
+    end
 
     def ad_hoc_command_class
       @ad_hoc_command_class ||= AnsibleTowerClient::AdHocCommand
