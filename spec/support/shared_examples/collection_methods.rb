@@ -1,6 +1,6 @@
 shared_examples_for "Collection Methods" do
   it ".all returns an enumerator that will delay load a collection" do
-    expect(collection).to receive(:find_all_by_url).with(described_class.endpoint)
+    expect(collection).to receive(:find_all_by_url).with(described_class.endpoint, any_args)
 
     collection.all
   end
