@@ -6,17 +6,20 @@ module AnsibleTowerClient
       @klass = klass
     end
 
-    def all
-      find_all_by_url(klass.endpoint)
+    # @param get_options [Hash] a hash of http GET params to pass to the api request
+    #   e.g. { :order_by => 'timestamp', :name__contains => 'foo' }
+    def all(get_options = nil)
+      find_all_by_url(klass.endpoint, get_options)
     end
 
-    def find_all_by_url(url)
+    def find_all_by_url(url, get_options = nil)
       Enumerator.new do |yielder|
         @collection = []
         next_page   = url
 
         loop do
-          next_page = fetch_more_results(next_page) if @collection.empty?
+          next_page = fetch_more_results(next_page, get_options) if @collection.empty?
+          get_options = nil
           raise StopIteration if @collection.empty?
           yielder.yield(@collection.shift)
         end
@@ -33,9 +36,9 @@ module AnsibleTowerClient
       api.send("#{type}_class")
     end
 
-    def fetch_more_results(next_page)
+    def fetch_more_results(next_page, get_options)
       return if next_page.nil?
-      body = parse_response(api.get(next_page))
+      body = parse_response(api.get(next_page, get_options))
       parse_result_set(body["results"])
 
       body["next"]
