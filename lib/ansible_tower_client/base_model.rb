@@ -42,6 +42,19 @@ module AnsibleTowerClient
       new(api, JSON.parse(response))
     end
 
+    def update(attributes)
+      @api.patch(url, attributes.to_json)
+      attributes.each do |method_name, value|
+        self.send("#{method_name}=",value)
+      end
+      self
+    end
+
+    def delete
+      @api.delete(url)
+      self
+    end
+
     def hashify(attribute)
       YAML.safe_load(send(attribute))
     end
@@ -78,7 +91,7 @@ module AnsibleTowerClient
       end
 
       def generate_writer?
-        false
+        true
       end
     end
   end
