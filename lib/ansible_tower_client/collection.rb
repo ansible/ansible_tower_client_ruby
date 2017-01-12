@@ -6,6 +6,8 @@ module AnsibleTowerClient
       @klass = klass
     end
 
+    # @param get_options [Hash] a hash of http GET params to pass to the api request
+    #   e.g. { :order_by => 'timestamp', :name__contains => 'foo' }
     def all(get_options = nil)
       find_all_by_url(klass.endpoint, get_options)
     end
