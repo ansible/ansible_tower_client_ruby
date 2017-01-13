@@ -1,3 +1,4 @@
 module AnsibleTowerClient
-  class ConnectionError < Exception; end
+  class Error < Exception; end
+  class ConnectionError < Error; end
 end
