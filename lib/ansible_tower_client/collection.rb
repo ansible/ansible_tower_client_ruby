@@ -30,6 +30,14 @@ module AnsibleTowerClient
       build_object(parse_response(api.get("#{klass.endpoint}/#{id}/")))
     end
 
+    def create!(*args)
+      klass.create!(api, *args)
+    end
+
+    def create(*args)
+      klass.create(api, *args)
+    end
+
     private
 
     def class_from_type(type)
