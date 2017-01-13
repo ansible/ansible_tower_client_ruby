@@ -37,9 +37,15 @@ module AnsibleTowerClient
       super(raw_hash)
     end
 
-    def self.create(api, attributes)
+    def self.create!(api, attributes)
       response = api.post("#{endpoint}/", attributes).body
       new(api, JSON.parse(response))
+    end
+
+    def self.create(*args)
+      create!(*args)
+    rescue AnsibleTowerClient::Error # Any Errors from the API should already be logged
+      false
     end
 
     def hashify(attribute)
