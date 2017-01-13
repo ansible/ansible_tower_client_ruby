@@ -33,8 +33,11 @@ FactoryGirl.define do
     trait(:extra_vars)   { extra_vars { {:option => "lots of options"}.to_json } }
     trait(:instance_id)  { instance_id SecureRandom.uuid }
     trait(:inventory_id) { inventory { rand(500) } }
+    trait(:kind)         { kind { "machine" } }
     trait(:url)          { "/api/v1/#{klass}/#{rand(10)}" }
+    trait(:username)     { username { "random username" } }
 
+    trait(:credential)   { [description, kind, username] }
     trait(:group)        { [description, inventory_id] }
     trait(:host)         { [description, instance_id, inventory_id] }
     trait(:job_template) { [description, extra_vars] }

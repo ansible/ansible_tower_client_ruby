@@ -3,7 +3,7 @@ require 'securerandom'
 module AnsibleTowerClient
   module FactoryHelper
     KEYS = [:description, :extra_vars, :id, :instance_id,
-            :inventory, :name, :related, :results, :type, :url].freeze
+            :inventory, :kind, :name, :related, :results, :type, :url, :username].freeze
     def self.stringify_attribute_keys(hash)
       KEYS.each do |attribute|
         val = hash.delete(attribute)
