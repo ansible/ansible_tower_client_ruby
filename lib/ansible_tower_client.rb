@@ -13,6 +13,7 @@ require "ansible_tower_client/collection"
 
 require "ansible_tower_client/base_models/activity_stream"
 require "ansible_tower_client/base_models/ad_hoc_command"
+require "ansible_tower_client/base_models/credential"
 require "ansible_tower_client/base_models/group"
 require "ansible_tower_client/base_models/host"
 require "ansible_tower_client/base_models/inventory"

@@ -31,6 +31,10 @@ module AnsibleTowerClient
       Collection.new(self, ad_hoc_command_class)
     end
 
+    def credentials
+      Collection.new(self, credential_class)
+    end
+
     def groups
       Collection.new(self, group_class)
     end
@@ -96,6 +100,10 @@ module AnsibleTowerClient
 
     def ad_hoc_command_class
       @ad_hoc_command_class ||= AnsibleTowerClient::AdHocCommand
+    end
+
+    def credential_class
+      @credential_class ||= AnsibleTowerClient::Credential
     end
 
     def group_class
