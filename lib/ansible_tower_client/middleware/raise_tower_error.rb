@@ -11,7 +11,7 @@ module AnsibleTowerClient
           # mimic the behavior that we get with proxy requests with HTTPS
           raise Faraday::Error::ConnectionFailed, %(407 "Proxy Authentication Required ")
         when CLIENT_ERROR_STATUSES
-          raise Faraday::Error::ClientError, env.body
+          raise AnsibleTowerClient::ClientError, env.body
         end
       end
 
