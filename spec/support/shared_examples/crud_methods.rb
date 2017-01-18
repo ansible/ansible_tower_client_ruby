@@ -73,10 +73,27 @@ shared_examples_for "Crud Methods" do
       end
     end
 
+    context ".destroy!" do
+      it "deletes a record and returns the original object" do
+        expect(instance_api).to receive(:delete).and_return(obj)
+        expect(obj.destroy!).to eq obj
+      end
+
+      it "returns an error if an error is raised" do
+        expect(instance_api).to receive(:delete).and_raise(AnsibleTowerClient::Error, 'error')
+        expect { obj.destroy! }.to raise_error(AnsibleTowerClient::Error)
+      end
+    end
+
     context ".destroy" do
       it "deletes a record and returns the original object" do
         expect(instance_api).to receive(:delete).and_return(obj)
-        expect(obj.destroy).to eq obj
+        expect(obj.destroy!).to eq obj
+      end
+
+      it "returns false if an error is raised" do
+        expect(instance_api).to receive(:delete).and_raise(AnsibleTowerClient::Error, 'error')
+        expect(obj.destroy).to eq false
       end
     end
   end

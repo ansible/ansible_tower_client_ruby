@@ -123,13 +123,22 @@ module AnsibleTowerClient
     #
     # Example
     #   project = connection.api.projects.find 2
-    #   project.destroy
+    #   project.destroy!
     # Errors:
     #    Any error raised by the API will be returned and logged
     #
-    def destroy
+    def destroy!
       @api.delete(url)
       self
+    end
+
+    # Just like destroy! except a false
+    #   is returned if the object is not deleted.
+    #
+    def destroy
+      destroy!
+    rescue AnsibleTowerClient::Error
+      false
     end
 
     def hashify(attribute)
