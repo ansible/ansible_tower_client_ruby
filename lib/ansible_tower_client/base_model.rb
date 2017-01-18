@@ -75,7 +75,7 @@ module AnsibleTowerClient
     def update_attributes!(attributes)
       @api.patch(url, attributes.to_json)
       attributes.each do |method_name, value|
-        self.send("#{method_name}=",value)
+        send("#{method_name}=", value)
       end
       true
     end
@@ -121,6 +121,8 @@ module AnsibleTowerClient
     # Example
     #   project = connection.api.find 2
     #   project.destroy
+    # Errors:
+    #    Any error raised by the API will be returned and logged
     #
     def destroy
       @api.delete(url)
