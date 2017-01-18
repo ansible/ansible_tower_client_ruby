@@ -86,8 +86,8 @@ module AnsibleTowerClient
     # Just like update_attributes! except a true or false
     #   is returned if the object is saved or not.
     #
-    def update_attributes(*args)
-      update_attributes!(*args)
+    def update_attributes(attributes)
+      update_attributes!(attributes)
     rescue AnsibleTowerClient::Error
       false
     end
