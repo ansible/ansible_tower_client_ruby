@@ -54,6 +54,9 @@ module AnsibleTowerClient
       new(api, JSON.parse(response))
     end
 
+    # Just like create! except a false
+    #   is returned if the object is not saved.
+    #
     def self.create(*args)
       create!(*args)
     rescue AnsibleTowerClient::Error
@@ -64,7 +67,7 @@ module AnsibleTowerClient
     # representation of that object to the caller.
     #
     # Example:
-    #    project = connection.api.find 2
+    #    project = connection.api.projects.find 2
     #    project.update_attributes!(:name => 'test')
     #
     #    # The values passed to update_attributes! are available in calling object
@@ -81,7 +84,7 @@ module AnsibleTowerClient
     end
 
     # Just like update_attributes! except a true or false
-    #   is returned if the object is saved or not
+    #   is returned if the object is saved or not.
     #
     def update_attributes(*args)
       true if update_attributes!(*args)
@@ -89,10 +92,10 @@ module AnsibleTowerClient
       false
     end
 
-    # Persist in memory changes
+    # Persist in memory changes.
     #
     # Example:
-    #    project = connection.api.find 2
+    #    project = connection.api.projects.find 2
     #    project.name = 'test'
     #    project.save!
     #
@@ -107,7 +110,7 @@ module AnsibleTowerClient
     end
 
     # Just like save! except a true or false
-    #   is returned if the object is saved or not
+    #   is returned if the object is saved or not.
     #
     def save
       true if save!
@@ -116,10 +119,10 @@ module AnsibleTowerClient
     end
 
     # Delete the current object and
-    #   return the original instance
+    #   return the original instance.
     #
     # Example
-    #   project = connection.api.find 2
+    #   project = connection.api.projects.find 2
     #   project.destroy
     # Errors:
     #    Any error raised by the API will be returned and logged
