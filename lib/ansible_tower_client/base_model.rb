@@ -87,7 +87,7 @@ module AnsibleTowerClient
     #   is returned if the object is saved or not.
     #
     def update_attributes(*args)
-      true if update_attributes!(*args)
+      update_attributes!(*args)
     rescue AnsibleTowerClient::Error
       false
     end
@@ -113,7 +113,7 @@ module AnsibleTowerClient
     #   is returned if the object is saved or not.
     #
     def save
-      true if save!
+      save!
     rescue AnsibleTowerClient::Error
       false
     end
