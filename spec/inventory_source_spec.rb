@@ -7,7 +7,6 @@ describe AnsibleTowerClient::InventorySource do
   let(:raw_instance)        { build(:response_instance, :klass => described_class) }
 
   include_examples "Collection Methods"
-  include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)

@@ -11,7 +11,7 @@ describe AnsibleTowerClient::Middleware::RaiseTowerError do
     let(:error) { AnsibleTowerClient::Middleware::RaiseTowerError.new }
 
     it "raises ClientError and returns the body message with a status 404" do
-      expect { error.on_complete(env_400) }.to raise_error(Faraday::Error::ClientError, "missing these attributes")
+      expect { error.on_complete(env_400) }.to raise_error(AnsibleTowerClient::ClientError, "missing these attributes")
     end
 
     it "raises ResourceNotFound exception with a status 404" do
