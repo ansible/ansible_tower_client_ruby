@@ -47,17 +47,22 @@ module AnsibleTowerClient
     def fetch_more_results(next_page, get_options)
       return if next_page.nil?
       body = parse_response(api.get(next_page, get_options))
-      parse_result_set(body["results"])
-
-      body["next"]
+      parse_result_set(body)
     end
 
     def parse_response(response)
       JSON.parse(response.body)
     end
 
-    def parse_result_set(results)
-      results.each { |result| @collection << build_object(result) }
+    def parse_result_set(body)
+      case body.class.name
+      when "Array" then
+        @collection = body
+        nil
+      when "Hash" then
+        body["results"].each { |result| @collection << build_object(result) }
+        body["next"]
+      end
     end
 
     def build_object(result)
