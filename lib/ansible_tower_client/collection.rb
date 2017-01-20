@@ -57,7 +57,7 @@ module AnsibleTowerClient
     def parse_result_set(body)
       case body.class.name
       when "Array" then
-        body.each { |result| @collection << result }
+        @collection = body
         nil
       when "Hash" then
         body["results"].each { |result| @collection << build_object(result) }
