@@ -6,4 +6,5 @@ describe AnsibleTowerClient::ActivityStream do
   let(:raw_instance)        { build(:response_instance, :group, :klass => described_class) }
 
   include_examples "Collection Methods"
+  include_examples "Api Methods"
 end

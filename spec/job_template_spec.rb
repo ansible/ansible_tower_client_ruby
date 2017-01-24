@@ -1,7 +1,7 @@
 require 'faraday' # Only because we're doubling the connection
 
 describe AnsibleTowerClient::JobTemplate do
-  let(:url)                 { "example.com/api/v1/job_template_update/10" }
+  let(:url)                 { "example.com/api/v1/job_templates" }
   let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
   let(:collection)          { api.job_templates }
   let(:connection)          { instance_double("Faraday::Connection") }
@@ -14,6 +14,7 @@ describe AnsibleTowerClient::JobTemplate do
 
   include_examples "Collection Methods"
   include_examples "Crud Methods"
+  include_examples "Api Methods"
   include_examples "JobTemplate#initialize"
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
