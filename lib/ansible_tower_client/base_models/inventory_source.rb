@@ -1,9 +1,5 @@
 module AnsibleTowerClient
   class InventorySource < BaseModel
-    def self.endpoint
-      "inventory_sources".freeze
-    end
-
     def can_update?
       response = api.get(related['update'].to_s).body
 

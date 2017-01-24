@@ -1,9 +1,5 @@
 module AnsibleTowerClient
   class Inventory < BaseModel
-    def self.endpoint
-      "inventories".freeze
-    end
-
     def inventory_sources
       Collection.new(api).find_all_by_url(related['inventory_sources'])
     end
