@@ -6,7 +6,7 @@ describe AnsibleTowerClient::Project do
   let(:collection)          { api.projects }
   let(:raw_collection)      { build(:response_collection, :klass => described_class) }
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance)        { build(:response_instance, :host, :klass => described_class) }
+  let(:raw_instance)        { build(:response_instance, :project, :klass => described_class) }
 
   include_examples "Collection Methods"
   include_examples "Crud Methods"
@@ -17,8 +17,8 @@ describe AnsibleTowerClient::Project do
     expect(obj).to              be_a described_class
     expect(obj.id).to           be_a Integer
     expect(obj.url).to          be_a String
-    expect(obj.instance_id).to  be_a String
-    expect(obj.inventory_id).to be_a Integer
+    expect(obj.organization).to be_a Integer
+    expect(obj.description).to  be_a String
     expect(obj.name).to         be_a String
   end
 end
