@@ -7,7 +7,7 @@ module AnsibleTowerClient
     end
 
     def self.endpoint
-      "#{base_class.to_s.split(/::/)[1].tableize}".freeze
+      base_class.to_s.split(/::/)[1].tableize.to_s.freeze
     end
 
     # Constructs and returns a new JSON wrapper class. Pass in a plain
