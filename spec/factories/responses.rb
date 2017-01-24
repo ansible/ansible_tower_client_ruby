@@ -34,6 +34,7 @@ FactoryGirl.define do
     trait(:instance_id)  { instance_id SecureRandom.uuid }
     trait(:inventory_id) { inventory { rand(500) } }
     trait(:kind)         { kind { "machine" } }
+    trait(:organization) { organization { rand(500) } }
     trait(:url)          { "/api/v1/#{klass}/#{rand(10)}" }
     trait(:username)     { username { "random username" } }
 
@@ -42,6 +43,7 @@ FactoryGirl.define do
     trait(:host)         { [description, instance_id, inventory_id] }
     trait(:job_template) { [description, extra_vars] }
     trait(:job)          { [description, extra_vars] }
+    trait(:project)      { [description, organization] }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
