@@ -1,9 +1,5 @@
 module AnsibleTowerClient
   class Job < BaseModel
-    def self.endpoint
-      "jobs".freeze
-    end
-
     def extra_vars_hash
       extra_vars.empty? ? {} : hashify(:extra_vars)
     end

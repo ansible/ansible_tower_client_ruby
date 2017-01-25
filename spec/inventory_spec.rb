@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::Inventory do
-  let(:url)                 { "example.com/api/v1/inventory_sources" }
+  let(:url)                 { "example.com/api/v1/inventories" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
   let(:collection)          { api.inventories }
   let(:raw_collection)      { build(:response_collection, :klass => described_class) }
@@ -9,6 +9,7 @@ describe AnsibleTowerClient::Inventory do
 
   include_examples "Collection Methods"
   include_examples "Crud Methods"
+  include_examples "Api Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)

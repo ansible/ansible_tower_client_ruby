@@ -6,6 +6,10 @@ module AnsibleTowerClient
       superclass == AnsibleTowerClient::BaseModel ? self : superclass.base_class
     end
 
+    def self.endpoint
+      base_class.to_s.split(/::/)[1].tableize.to_s.freeze
+    end
+
     # Constructs and returns a new JSON wrapper class. Pass in a plain
     # JSON string and it will automatically give you accessor methods
     # that make it behave like a typical Ruby object. You may also pass

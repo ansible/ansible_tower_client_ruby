@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::Job do
-  let(:url)            { "example.com/api/v1/job_update/10" }
+  let(:url)            { "example.com/api/v1/jobs" }
   let(:api)            { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
   let(:collection)     { api.jobs }
   let(:raw_collection) { build(:response_collection, :klass => described_class) }
@@ -10,6 +10,7 @@ describe AnsibleTowerClient::Job do
 
   include_examples "Collection Methods"
   include_examples "Crud Methods"
+  include_examples "Api Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)

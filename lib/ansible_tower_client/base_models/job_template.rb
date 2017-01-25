@@ -20,9 +20,5 @@ module AnsibleTowerClient
     def extra_vars_hash
       extra_vars.empty? ? {} : hashify(:extra_vars)
     end
-
-    def self.endpoint
-      "job_templates".freeze
-    end
   end
 end
