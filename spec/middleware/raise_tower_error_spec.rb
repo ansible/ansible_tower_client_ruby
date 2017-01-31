@@ -5,13 +5,18 @@ require_relative '../spec_helper'
 describe AnsibleTowerClient::Middleware::RaiseTowerError do
   context "Faraday::Error" do
     let(:env_400) { MockEnv.new('missing these attributes', 400) }
+    let(:env_402) { MockEnv.new('missing these attributes', 402) }
     let(:env_404) { MockEnv.new('missing these attributes', 404) }
     let(:env_407) { MockEnv.new('missing these attributes', 407) }
 
     let(:error) { AnsibleTowerClient::Middleware::RaiseTowerError.new }
 
-    it "raises ClientError and returns the body message with a status 404" do
+    it "raises ClientError and returns the body message with a status 400" do
       expect { error.on_complete(env_400) }.to raise_error(AnsibleTowerClient::ClientError, "missing these attributes")
+    end
+
+    it "raises UnlicensedFeatureError with a status 402" do
+      expect { error.on_complete(env_402) }.to raise_error(AnsibleTowerClient::UnlicensedFeatureError)
     end
 
     it "raises ResourceNotFound exception with a status 404" do

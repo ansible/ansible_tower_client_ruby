@@ -11,6 +11,7 @@ module AnsibleTowerClient
       spec_url = related['survey_spec']
       return nil unless spec_url
       api.get(spec_url).body
+    rescue AnsibleTowerClient::UnlicensedFeatureError
     end
 
     def survey_spec_hash
