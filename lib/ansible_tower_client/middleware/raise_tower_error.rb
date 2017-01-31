@@ -5,6 +5,8 @@ module AnsibleTowerClient
 
       def on_complete(env)
         case env[:status]
+        when 402
+          raise AnsibleTowerClient::UnlicensedFeatureError
         when 404
           raise Faraday::Error::ResourceNotFound, response_values(env)
         when 407

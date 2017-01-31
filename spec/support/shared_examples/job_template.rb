@@ -25,6 +25,13 @@ shared_examples_for "JobTemplate#survey_spec" do
       expect(described_class.new(api, raw_instance_no_survey).survey_spec).to be_nil
     end
   end
+
+  describe "unlicensed" do
+    it "returns a survey spec" do
+      expect(api).to receive(:get).and_raise(AnsibleTowerClient::UnlicensedFeatureError)
+      expect(described_class.new(api, raw_instance).survey_spec).to be_nil
+    end
+  end
 end
 
 shared_examples_for "JobTemplate#survey_spec_hash" do
