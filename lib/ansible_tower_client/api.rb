@@ -69,6 +69,8 @@ module AnsibleTowerClient
 
     def method_missing(method_name, *args, &block)
       if instance.respond_to?(method_name)
+        path = build_path_to_resource(args.shift)
+        args.unshift(path)
         logger.debug { "#{self.class.name} Sending <#{method_name}> with <#{args.inspect}>" }
         instance.send(method_name, *args, &block).tap do |response|
           logger.debug { "#{self.class.name} Response:\n#{JSON.parse(response.body).pretty_inspect}" }
@@ -142,6 +144,14 @@ module AnsibleTowerClient
 
     def project_class
       @project_class ||= AnsibleTowerClient::Project
+    end
+
+    private
+
+    def build_path_to_resource(original)
+      return original unless %r{\/?api\/v1\/(.*)} =~ original
+      return original if instance.url_prefix.path == "/"
+      File.join(instance.url_prefix.path, Regexp.last_match[1])
     end
   end
 end
