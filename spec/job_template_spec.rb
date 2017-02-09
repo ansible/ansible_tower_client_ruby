@@ -6,9 +6,11 @@ describe AnsibleTowerClient::JobTemplate do
   let(:collection)          { api.job_templates }
   let(:connection)          { instance_double("Faraday::Connection") }
   let(:config)              { {"version" => "1.1"} }
+  let(:credential)          { build(:response_instance, :credential, :klass => AnsibleTowerClient::Credential) }
   let(:raw_collection)      { build(:response_collection, :klass => described_class) }
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
   let(:raw_instance)        { build(:response_instance, :job_template, :klass => described_class) }
+  let(:raw_instance_credential)    { build(:response_instance, :job_template, :klass => described_class, :credential => 1) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
@@ -19,6 +21,17 @@ describe AnsibleTowerClient::JobTemplate do
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
   include_examples "JobTemplate#extra_vars_hash"
+
+  describe '#credential' do
+    let(:post_result_body) { {:credential => 1} }
+
+    it "returns a credential object" do
+      expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:credential])
+        .and_return(credential)
+      credential = described_class.new(api, raw_instance_credential).credential
+      expect(credential['kind']).to eq 'machine'
+    end
+  end
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
