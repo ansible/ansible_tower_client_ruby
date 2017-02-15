@@ -1,3 +1,4 @@
+
 require 'faraday'
 require 'ansible_tower_client/middleware/raise_tower_error'
 require_relative '../spec_helper'
@@ -20,11 +21,11 @@ describe AnsibleTowerClient::Middleware::RaiseTowerError do
     end
 
     it "raises ResourceNotFound exception with a status 404" do
-      expect { error.on_complete(env_404) }.to raise_error(Faraday::Error::ResourceNotFound)
+      expect { error.on_complete(env_404) }.to raise_error(AnsibleTowerClient::ResourceNotFoundError)
     end
 
     it "raises ConnectionFailed exception with a status 407" do
-      expect { error.on_complete(env_407) }.to raise_error(Faraday::Error::ConnectionFailed)
+      expect { error.on_complete(env_407) }.to raise_error(AnsibleTowerClient::ConnectionError)
     end
   end
 end

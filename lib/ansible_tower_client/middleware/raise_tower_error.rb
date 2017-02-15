@@ -8,10 +8,10 @@ module AnsibleTowerClient
         when 402
           raise AnsibleTowerClient::UnlicensedFeatureError
         when 404
-          raise Faraday::Error::ResourceNotFound, response_values(env)
+          raise AnsibleTowerClient::ResourceNotFoundError, response_values(env)
         when 407
           # mimic the behavior that we get with proxy requests with HTTPS
-          raise Faraday::Error::ConnectionFailed, %(407 "Proxy Authentication Required ")
+          raise AnsibleTowerClient::ConnectionError, %(407 "Proxy Authentication Required ")
         when CLIENT_ERROR_STATUSES
           raise AnsibleTowerClient::ClientError, env.body
         end
