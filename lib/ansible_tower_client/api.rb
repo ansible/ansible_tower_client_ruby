@@ -78,8 +78,10 @@ module AnsibleTowerClient
       else
         super
       end
-    rescue Faraday::ConnectionFailed, Faraday::SSLError => err
-      raise
+    rescue Faraday::ConnectionFailed => err
+      raise AnsibleTowerClient::ConnectionError, err
+    rescue Faraday::SSLError => err
+      raise AnsibleTowerClient::SSLError, err
     rescue Faraday::ClientError => err
       raise if err.response.nil?
       response = err.response
