@@ -1,7 +1,5 @@
-
 require 'faraday'
 require 'ansible_tower_client/middleware/raise_tower_error'
-require_relative '../spec_helper'
 
 describe AnsibleTowerClient::Middleware::RaiseTowerError do
   context "Faraday::Error" do
