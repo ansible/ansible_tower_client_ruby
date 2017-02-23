@@ -83,13 +83,7 @@ module AnsibleTowerClient
     rescue Faraday::SSLError => err
       raise AnsibleTowerClient::SSLError, err
     rescue Faraday::ClientError => err
-      raise if err.response.nil?
-      response = err.response
-      logger.debug { "#{self.class.name} #{err.class.name} #{response.pretty_inspect}" }
-      message   = JSON.parse(response[:body])['detail'] rescue nil
-      message ||= DEFAULT_ERROR_MSG
-      logger.error("#{self.class.name} #{err.class.name} #{message}")
-      raise AnsibleTowerClient::ConnectionError, message
+      raise AnsibleTowerClient::ConnectionError, err
     end
 
     def respond_to_missing?(method, _include_private = false)
