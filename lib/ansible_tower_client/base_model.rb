@@ -82,7 +82,11 @@ module AnsibleTowerClient
     def update_attributes!(attributes)
       @api.patch(url, attributes.to_json)
       attributes.each do |method_name, value|
-        send("#{method_name}=", value)
+        if override_raw_attributes[method_name]
+          send("#{override_raw_attributes[method_name]}=", value)
+        else
+          send("#{method_name}=", value)
+        end
       end
       true
     end
@@ -143,6 +147,10 @@ module AnsibleTowerClient
       destroy!
     rescue AnsibleTowerClient::Error
       false
+    end
+
+    def override_raw_attributes
+      {}
     end
 
     def hashify(attribute)

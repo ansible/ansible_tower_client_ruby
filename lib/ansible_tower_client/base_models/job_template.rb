@@ -21,5 +21,9 @@ module AnsibleTowerClient
     def extra_vars_hash
       extra_vars.empty? ? {} : hashify(:extra_vars)
     end
+
+    def override_raw_attributes
+      { :credential => :credential_id, :inventory => :inventory_id, :project => :project_id }
+    end
   end
 end
