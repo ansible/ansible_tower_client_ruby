@@ -34,4 +34,16 @@ describe AnsibleTowerClient::JobTemplate do
       described_class.new(api, raw_instance).launch(json_with_limit)
     end
   end
+
+  context 'override_raw_attributes' do
+    let(:obj) { described_class.new(instance_double("Faraday::Connection"), raw_instance) }
+    let(:instance_api) { obj.instance_variable_get(:@api) }
+
+    it 'translates :project to :project_id for update_attributes' do
+      raw_instance[:project_id] = 10
+      expect(instance_api).to receive(:patch).and_return(instance_double("Faraday::Result", :body => raw_instance.to_json))
+      expect(obj.update_attributes(:project => '5')).to eq true
+      expect(obj.project_id).to eq '5'
+    end
+  end
 end
