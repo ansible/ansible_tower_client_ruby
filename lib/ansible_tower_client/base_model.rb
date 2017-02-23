@@ -1,6 +1,6 @@
 module AnsibleTowerClient
   class BaseModel < HashModel
-    attr_reader :api
+    attr_reader :api, :raw_hash
 
     def self.base_class
       superclass == AnsibleTowerClient::BaseModel ? self : superclass.base_class
@@ -35,7 +35,7 @@ module AnsibleTowerClient
     def initialize(api, json_or_hash)
       @api = api
 
-      raw_hash = json_or_hash.kind_of?(Hash) ? json_or_hash : JSON.parse(json_or_hash)
+      @raw_hash = json_or_hash.kind_of?(Hash) ? json_or_hash : JSON.parse(json_or_hash)
       self.class.send(:id_attr, *raw_hash['related'].keys) if raw_hash.key?('related')
 
       super(raw_hash)
