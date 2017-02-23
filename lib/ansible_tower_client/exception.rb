@@ -1,5 +1,5 @@
 module AnsibleTowerClient
-  class Error         < Exception; end
+  class Error         < StandardError; end
   class ClientError   < Error; end
   class NoMethodError < Error; end
 
