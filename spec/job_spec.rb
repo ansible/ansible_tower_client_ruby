@@ -3,8 +3,8 @@ describe AnsibleTowerClient::Job do
   let(:api)            { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
   let(:collection)     { api.jobs }
   let(:raw_collection) { build(:response_collection, :klass => described_class) }
-  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance)   { build(:response_instance, :job, :klass => described_class) }
+  let(:raw_url_collection) { build(:response_url_collection, :klass => described_class, :url => url) }
+  let(:raw_instance) { build(:response_instance, :job, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_output)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
@@ -34,6 +34,21 @@ describe AnsibleTowerClient::Job do
         obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance_no_extra_vars)
         expect(obj.extra_vars_hash).to eq({})
       end
+    end
+  end
+
+  context '#job_plays' do
+    let(:url)            { "example.com/api/v1/job_plays" }
+    let(:job_collection) { build(:response_collection, :klass => described_class) }
+    let(:job_events)     { build(:response_url_collection, :klass => AnsibleTowerClient::JobEvent, :url => url) }
+    it "returns a collection of AnsibleTowerClient::JobEvents" do
+      expect(AnsibleTowerClient::Collection).to receive(:new).with(api).and_return(job_collection)
+      expect(job_collection).to receive(:find_all_by_url).and_return(job_events['results'])
+      results = described_class.new(api, raw_instance).job_plays.first
+      expect(results).to include(
+        "type" => "job_event",
+        "url"  => "example.com/api/v1/job_plays",
+      )
     end
   end
 
