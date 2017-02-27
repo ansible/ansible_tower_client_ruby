@@ -44,6 +44,7 @@ FactoryGirl.define do
     trait(:job_template) { [description, extra_vars] }
     trait(:job)          { [description, extra_vars] }
     trait(:project)      { [description, organization] }
+    trait(:job_event)    { [url] }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
