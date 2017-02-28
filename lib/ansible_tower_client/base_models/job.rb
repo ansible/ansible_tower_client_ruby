@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def job_plays
-      Collection.new(api).find_all_by_url(related["job_plays"])
+      Collection.new(api, api.job_play_class).find_all_by_url(related["job_plays"])
     end
 
     def stdout

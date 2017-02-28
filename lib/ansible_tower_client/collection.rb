@@ -41,7 +41,14 @@ module AnsibleTowerClient
     private
 
     def class_from_type(type)
-      api.send("#{type}_class")
+      api.send("#{force_type?(type)}_class")
+    end
+
+    def force_type?(type)
+      if @klass && @klass.force_type_override
+        return @klass.to_s.tableize.singularize.split("/").last
+      end
+      type
     end
 
     def fetch_more_results(next_page, get_options)
