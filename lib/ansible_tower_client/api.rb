@@ -63,6 +63,10 @@ module AnsibleTowerClient
       Collection.new(self, job_event_class)
     end
 
+    def job_plays
+      Collection.new(self, job_play_class)
+    end
+
     def job_templates
       Collection.new(self, job_template_class)
     end
@@ -134,6 +138,10 @@ module AnsibleTowerClient
 
     def job_event_class
       @job_event_class ||= AnsibleTowerClient::JobEvent
+    end
+
+    def job_play_class
+      @job_play_class ||= AnsibleTowerClient::JobPlay
     end
 
     def job_template_class
