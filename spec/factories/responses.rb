@@ -25,7 +25,7 @@ FactoryGirl.define do
     klass      ""
     type       { AnsibleTowerClient::FactoryHelper.underscore_string(klass.namespace.last) }
     name       { "#{type}-#{id}" }
-    url        { "/api/v1/#{klass.endpoint}/#{id}/" }
+    url        { "/api/v1/endpoint/" }
     related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link', 'stdout' => 'example.com/api'} }
     limit      { "" }
 
@@ -35,7 +35,7 @@ FactoryGirl.define do
     trait(:inventory_id) { inventory { rand(500) } }
     trait(:kind)         { kind { "machine" } }
     trait(:organization) { organization { rand(500) } }
-    trait(:url)          { "/api/v1/#{klass}/#{rand(10)}" }
+    trait(:url)          { url { "api/v1/endpoint/#{rand(10)}" } }
     trait(:username)     { username { "random username" } }
 
     trait(:credential)   { [description, kind, username] }
