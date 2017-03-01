@@ -67,6 +67,10 @@ module AnsibleTowerClient
       Collection.new(self, job_template_class)
     end
 
+    def organizations
+      Collection.new(self, organization_class)
+    end
+
     def projects
       Collection.new(self, project_class)
     end
@@ -144,6 +148,10 @@ module AnsibleTowerClient
           AnsibleTowerClient::JobTemplate
         end
       end
+    end
+
+    def organization_class
+      @organization_class ||= AnsibleTowerClient::Organization
     end
 
     def project_class
