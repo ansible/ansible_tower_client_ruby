@@ -22,6 +22,7 @@ require "ansible_tower_client/base_models/inventory_update"
 require "ansible_tower_client/base_models/job"
 require "ansible_tower_client/base_models/job_event"
 require "ansible_tower_client/base_models/job_template"
+require "ansible_tower_client/base_models/organization"
 require "ansible_tower_client/base_models/project"
 
 require "ansible_tower_client/v2/job_template_v2"
