@@ -40,13 +40,13 @@ describe AnsibleTowerClient::Job do
   context '#job_plays' do
     let(:url)            { "example.com/api/v1/job_plays" }
     let(:job_collection) { build(:response_collection, :klass => described_class) }
-    let(:job_events)     { build(:response_url_collection, :klass => AnsibleTowerClient::JobEvent, :url => url) }
-    it "returns a collection of AnsibleTowerClient::JobEvents" do
-      expect(AnsibleTowerClient::Collection).to receive(:new).with(api).and_return(job_collection)
-      expect(job_collection).to receive(:find_all_by_url).and_return(job_events['results'])
+    let(:job_plays)      { build(:response_url_collection, :klass => AnsibleTowerClient::JobPlay, :url => url) }
+    it "returns a collection of AnsibleTowerClient::JobPlays" do
+      expect(AnsibleTowerClient::Collection).to receive(:new).with(api, api.job_play_class).and_return(job_collection)
+      expect(job_collection).to receive(:find_all_by_url).and_return(job_plays['results'])
       results = described_class.new(api, raw_instance).job_plays.first
       expect(results).to include(
-        "type" => "job_event",
+        "type" => "job_play",
         "url"  => "example.com/api/v1/job_plays",
       )
     end

@@ -66,7 +66,7 @@ module AnsibleTowerClient
     end
 
     def build_object(result)
-      class_from_type(result["type"]).new(api, result)
+      (klass || class_from_type(result['type'])).new(api, result)
     end
   end
 end
