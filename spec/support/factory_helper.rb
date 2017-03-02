@@ -2,7 +2,7 @@ require 'securerandom'
 
 module AnsibleTowerClient
   module FactoryHelper
-    KEYS = [:description, :extra_vars, :id, :instance_id, :inventory,
+    KEYS = [:credential, :description, :extra_vars, :id, :instance_id, :inventory,
             :kind, :name, :organization, :related, :results, :type, :url, :username].freeze
     def self.stringify_attribute_keys(hash)
       KEYS.each do |attribute|

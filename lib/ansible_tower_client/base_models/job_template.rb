@@ -7,6 +7,12 @@ module AnsibleTowerClient
       api.jobs.find(job['job'])
     end
 
+    def credential
+      cred_id = to_hash['credential']
+      return nil unless cred_id
+      api.credentials.find(cred_id)
+    end
+
     def survey_spec
       spec_url = related['survey_spec']
       return nil unless spec_url

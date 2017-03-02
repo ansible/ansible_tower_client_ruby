@@ -24,10 +24,11 @@ FactoryGirl.define do
     sequence(:id)
     klass      ""
     type       { AnsibleTowerClient::FactoryHelper.underscore_string(klass.namespace.last) }
-    name       { "#{type}-#{id}" }
-    url        { "/api/v1/#{klass.endpoint}/#{id}/" }
-    related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link', 'stdout' => 'example.com/api'} }
+    credential { "" }
     limit      { "" }
+    name       { "#{type}-#{id}" }
+    related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link', 'stdout' => 'example.com/api'} }
+    url        { "/api/v1/#{klass.endpoint}/#{id}/" }
 
     trait(:description)  { sequence(:description) { |n| "description_#{n}" } }
     trait(:extra_vars)   { extra_vars { {:option => "lots of options"}.to_json } }
