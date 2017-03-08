@@ -55,9 +55,15 @@ describe AnsibleTowerClient::Job do
   context '#stdout' do
     describe "exists" do
       let(:stdout) { "Ansible Tower job output" }
-      it "returns stdout" do
-        expect(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => stdout))
+
+      it "returns stdout default to plain text" do
+        expect(api).to receive(:get).with(/format=txt/).and_return(instance_double("Faraday::Result", :body => stdout))
         expect(described_class.new(api, raw_instance).stdout).to eq(stdout)
+      end
+
+      it "returns formatted text per request" do
+        expect(api).to receive(:get).with(/format=html/).and_return(instance_double("Faraday::Result", :body => stdout))
+        expect(described_class.new(api, raw_instance).stdout('html')).to eq(stdout)
       end
     end
 
