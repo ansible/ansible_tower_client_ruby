@@ -9,4 +9,4 @@
 /spec/reports/
 /tmp/
 .byebug_history
-.rubocop.yml
+.rubocop-*
