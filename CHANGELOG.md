@@ -5,9 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.10.0] - 2017-03-23
+### Added
+- Allow formatted stdout, default to plain text [(#80)](https://github.com/ansible/ansible_tower_client_ruby/pull/80)
+
 ## [0.9.0] - 2017-03-02
 ### Added
-- Expose Plays off of an Job [(#77)](https://github.com/ansible/ansible_tower_client_ruby/pull/77)
+- Expose Plays off of a Job [(#77)](https://github.com/ansible/ansible_tower_client_ruby/pull/77)
 - Expose JobEvent [(#77)](https://github.com/ansible/ansible_tower_client_ruby/pull/77)
 - Expose Organization [(#79)](https://github.com/ansible/ansible_tower_client_ruby/pull/79)
 
