@@ -79,6 +79,10 @@ module AnsibleTowerClient
       Collection.new(self, project_class)
     end
 
+    def project_updates
+      Collection.new(self, project_update_class)
+    end
+
     def method_missing(method_name, *args, &block)
       if instance.respond_to?(method_name)
         path = build_path_to_resource(args.shift)
@@ -164,6 +168,10 @@ module AnsibleTowerClient
 
     def project_class
       @project_class ||= AnsibleTowerClient::Project
+    end
+
+    def project_update_class
+      @project_update_class ||= AnsibleTowerClient::ProjectUpdate
     end
 
     private
