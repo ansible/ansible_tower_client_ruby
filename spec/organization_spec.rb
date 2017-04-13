@@ -10,6 +10,7 @@ describe AnsibleTowerClient::Organization do
 
   include_examples "Collection Methods"
   include_examples "Crud Methods"
+  include_examples "Instance#reload"
 
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)

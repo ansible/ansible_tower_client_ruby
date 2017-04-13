@@ -7,4 +7,5 @@ describe AnsibleTowerClient::ActivityStream do
 
   include_examples "Collection Methods"
   include_examples "Api Methods"
+  include_examples "Instance#reload"
 end

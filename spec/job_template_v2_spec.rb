@@ -12,13 +12,14 @@ describe AnsibleTowerClient::JobTemplateV2 do
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class.base_class, :extra_vars => '') }
   let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class.base_class, :related => {}) }
 
+  include_examples "Api Methods"
   include_examples "Collection Methods"
   include_examples "Crud Methods"
-  include_examples "Api Methods"
+  include_examples "Instance#reload"
+  include_examples "JobTemplate#extra_vars_hash"
   include_examples "JobTemplate#initialize"
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
-  include_examples "JobTemplate#extra_vars_hash"
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }

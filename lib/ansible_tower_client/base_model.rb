@@ -157,6 +157,10 @@ module AnsibleTowerClient
       YAML.safe_load(send(attribute))
     end
 
+    def reload
+      api.send(self.class.endpoint).find(id)
+    end
+
     private
 
     # convert a hash to an instance of nested model class
