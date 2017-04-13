@@ -4,8 +4,8 @@ module AnsibleTowerClient
       extra_vars.empty? ? {} : hashify(:extra_vars)
     end
 
-    def job_plays
-      Collection.new(api, api.job_play_class).find_all_by_url(related["job_plays"])
+    def job_events(options = nil)
+      Collection.new(api, api.job_event_class).find_all_by_url(related["job_events"], options)
     end
 
     def stdout(format = 'txt')
