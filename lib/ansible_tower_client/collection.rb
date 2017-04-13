@@ -16,10 +16,11 @@ module AnsibleTowerClient
       Enumerator.new do |yielder|
         @collection = []
         next_page   = url
+        options     = get_options
 
         loop do
-          next_page = fetch_more_results(next_page, get_options) if @collection.empty?
-          get_options = nil
+          next_page = fetch_more_results(next_page, options) if @collection.empty?
+          options = nil
           raise StopIteration if @collection.empty?
           yielder.yield(@collection.shift)
         end
