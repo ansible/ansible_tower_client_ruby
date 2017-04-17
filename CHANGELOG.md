@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.12.0] - 2017-04-17
+### Added
+- Add Job#job_events [(#85)](https://github.com/ansible/ansible_tower_client_ruby/pull/85)
+
+### Fixed
+- Allow collection enumerator to be enumerated multiple times [(#86)](https://github.com/ansible/ansible_tower_client_ruby/pull/86)
+
+### Removed
+- Add Job#job_plays [(#85)](https://github.com/ansible/ansible_tower_client_ruby/pull/85)
+
 ## [0.11.0] - 2017-04-10
 ### Added
 - Add ProjectUpdate and expose Project#update [(#82)](https://github.com/ansible/ansible_tower_client_ruby/pull/82)
@@ -44,7 +54,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.11.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.12.0...master
+[0.12.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.8.0...v0.9.0
