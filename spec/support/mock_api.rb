@@ -14,6 +14,8 @@ module AnsibleTowerClient
         wrap_response(AdHocCommand.response)
       when "config"
         wrap_response(Config.response)
+      when "credentials"
+        wrap_response(Credential.response)
       when "me"
         wrap_response(Me.response)
       end
