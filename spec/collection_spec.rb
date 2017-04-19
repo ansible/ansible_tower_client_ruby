@@ -65,5 +65,36 @@ describe AnsibleTowerClient::Collection do
       expect(collection.count).to eq(5)
       expect(collection.count).to eq(5)
     end
+
+    context "Private Methods" do
+      context "#parse_result_set" do
+        it "with an Array response" do
+          array = [1, 2, 3, "a", "b", "c"]
+          response = double("response", :body => array.to_json)
+          expect(mock_api).to receive(:get).with("abc", nil).and_return(response)
+
+          expect(described_class.new(mock_api).find_all_by_url("abc").collect { |i| i }).to eq(array)
+        end
+
+        it "with a paginated collection response" do
+          body = {
+            "count"    => 2,
+            "next"     => nil,
+            "previous" => nil,
+            "results"  => [
+              {:a => 1, "type" => "host"},
+              {:b => 2, "type" => "host"},
+            ]
+          }
+          response = double("response", :body => body.to_json)
+          expect(mock_api).to receive(:get).with("abc", nil).and_return(response)
+
+          array = described_class.new(mock_api).find_all_by_url("abc").to_a
+          expect(array.length).to eq(2)
+          expect(array.first).to have_attributes(:a => 1, :type => "host")
+          expect(array.last).to have_attributes(:b => 2, :type => "host")
+        end
+      end
+    end
   end
 end

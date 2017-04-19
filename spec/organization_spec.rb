@@ -8,7 +8,6 @@ describe AnsibleTowerClient::Organization do
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
   let(:raw_instance)        { build(:response_instance, :organization, :klass => described_class, :description => "The Organization", :name => "MyOrg") }
 
-  include_examples "Collection Methods"
   include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do

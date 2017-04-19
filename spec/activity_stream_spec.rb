@@ -5,6 +5,5 @@ describe AnsibleTowerClient::ActivityStream do
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
   let(:raw_instance)        { build(:response_instance, :group, :klass => described_class) }
 
-  include_examples "Collection Methods"
   include_examples "Api Methods"
 end
