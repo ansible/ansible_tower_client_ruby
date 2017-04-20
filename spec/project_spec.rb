@@ -9,12 +9,12 @@ describe AnsibleTowerClient::Project do
   it "#initialize instantiates an #{described_class} from a hash" do
     obj = api.projects.all.first
 
-    expect(obj).to              be_a described_class
-    expect(obj.id).to           be_a Integer
-    expect(obj.url).to          be_a String
-    expect(obj.organization).to be_a Integer
-    expect(obj.description).to  be_a String
-    expect(obj.name).to         be_a String
+    expect(obj).to                 be_a(described_class)
+    expect(obj.id).to              be_a(Integer)
+    expect(obj.url).to             be_a(String)
+    expect(obj.organization_id).to be_a(Integer)
+    expect(obj.description).to     be_a(String)
+    expect(obj.name).to            be_a(String)
   end
 
   describe '#can_update?' do
