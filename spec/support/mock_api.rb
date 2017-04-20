@@ -18,6 +18,8 @@ module AnsibleTowerClient
         wrap_response(Credential.response)
       when "groups"
         wrap_response(Group.response)
+      when "hosts"
+        wrap_response(Host.response)
       when "me"
         wrap_response(Me.response)
       end
