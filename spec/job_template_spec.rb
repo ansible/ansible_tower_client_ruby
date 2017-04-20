@@ -1,21 +1,18 @@
 describe AnsibleTowerClient::JobTemplate do
-  let(:url)                 { "example.com/api/v1/job_templates" }
-  let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
-  let(:collection)          { api.job_templates }
-  let(:connection)          { AnsibleTowerClient::MockApi.new }
-  let(:config)              { {"version" => "1.1"} }
-  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
-  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance)        { build(:response_instance, :job_template, :klass => described_class) }
+  let(:url)                        { "example.com/api/v1/job_templates" }
+  let(:api)                        { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
+  let(:connection)                 { AnsibleTowerClient::MockApi.new }
+  let(:config)                     { {"version" => "1.1"} }
+  let(:raw_instance)               { build(:response_instance, :job_template, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
-  include_examples "Crud Methods"
   include_examples "Api Methods"
+  include_examples "Crud Methods"
+  include_examples "JobTemplate#extra_vars_hash"
   include_examples "JobTemplate#initialize"
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
-  include_examples "JobTemplate#extra_vars_hash"
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
