@@ -1,5 +1,3 @@
-require 'json'
-
 describe AnsibleTowerClient::Credential do
   let(:url)                 { "example.com/api/v1/credentials/10" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
