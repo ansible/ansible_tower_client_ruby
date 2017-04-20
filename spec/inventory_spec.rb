@@ -7,7 +7,6 @@ describe AnsibleTowerClient::Inventory do
   let(:inventory_source)    { build(:response_url_collection, :klass => AnsibleTowerClient::InventorySource) }
   let(:raw_instance)        { build(:response_instance, :klass => described_class) }
 
-  include_examples "Collection Methods"
   include_examples "Crud Methods"
   include_examples "Api Methods"
 

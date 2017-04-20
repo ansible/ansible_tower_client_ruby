@@ -6,7 +6,6 @@ describe AnsibleTowerClient::Credential do
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
   let(:raw_instance)        { build(:response_instance, :credential, :klass => described_class, :kind => "scm") }
 
-  include_examples "Collection Methods"
   include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
