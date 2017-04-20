@@ -28,6 +28,8 @@ module AnsibleTowerClient
         wrap_response(Inventory.response)
       when "jobs"
         wrap_response(Job.response)
+      when "job_templates"
+        wrap_response(JobTemplate.response)
       when "organizations"
         wrap_response(Organization.response)
       when "projects"

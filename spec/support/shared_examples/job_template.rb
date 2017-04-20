@@ -1,13 +1,13 @@
 shared_examples_for "JobTemplate#initialize" do
   it "#initialize instantiates an #{described_class} from a hash" do
-    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+    obj = api.job_templates.all.first
 
     expect(obj).to             be_a described_class
     expect(obj.id).to          be_a Integer
     expect(obj.name).to        be_a String
     expect(obj.description).to be_a String
     expect(obj.related).to     be_a described_class::Related
-    expect(obj.extra_vars).to  eq("{\"option\":\"lots of options\"}")
+    expect(obj.extra_vars).to  eq("{\"option\":\"lots_of_options\"}")
   end
 end
 
