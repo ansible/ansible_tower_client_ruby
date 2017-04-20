@@ -1,5 +1,4 @@
 require 'faraday'
-require 'json'
 
 describe AnsibleTowerClient::Api do
   let(:faraday_connection) { instance_double("Faraday::Connection") }

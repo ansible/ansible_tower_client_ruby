@@ -1,5 +1,3 @@
-require 'json'
-
 describe AnsibleTowerClient::Project do
   let(:url)                 { "example.com/api/v1/projects" }
   let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
