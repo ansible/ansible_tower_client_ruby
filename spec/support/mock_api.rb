@@ -26,6 +26,8 @@ module AnsibleTowerClient
         wrap_response(Job.response)
       when "organizations"
         wrap_response(Organization.response)
+      when "projects"
+        wrap_response(Project.response)
       when "me"
         wrap_response(Me.response)
       end
