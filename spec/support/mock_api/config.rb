@@ -1,7 +1,7 @@
 module AnsibleTowerClient
   class MockApi
     module Config
-      def self.response
+      def self.response(version)
         {
           "eula"                => "text",
           "license_info"        => {
@@ -36,7 +36,7 @@ module AnsibleTowerClient
             "valid_key"              => true
           },
           "analytics_status"    => "detailed",
-          "version"             => "3.0.1",
+          "version"             => version || "3.0.1",
           "project_base_dir"    => "/var/lib/awx/projects",
           "time_zone"           => "America/New_York",
           "ansible_version"     => "2.1.0.0",
