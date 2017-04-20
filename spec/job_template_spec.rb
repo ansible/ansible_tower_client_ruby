@@ -1,10 +1,8 @@
-require 'faraday' # Only because we're doubling the connection
-
 describe AnsibleTowerClient::JobTemplate do
   let(:url)                 { "example.com/api/v1/job_templates" }
   let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
   let(:collection)          { api.job_templates }
-  let(:connection)          { instance_double("Faraday::Connection") }
+  let(:connection)          { AnsibleTowerClient::MockApi.new }
   let(:config)              { {"version" => "1.1"} }
   let(:raw_collection)      { build(:response_collection, :klass => described_class) }
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
@@ -35,7 +33,7 @@ describe AnsibleTowerClient::JobTemplate do
   end
 
   context 'override_raw_attributes' do
-    let(:obj) { described_class.new(instance_double("Faraday::Connection"), raw_instance) }
+    let(:obj) { described_class.new(AnsibleTowerClient::MockApi.new, raw_instance) }
     let(:instance_api) { obj.instance_variable_get(:@api) }
 
     it 'translates :project to :project_id for update_attributes' do

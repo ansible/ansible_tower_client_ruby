@@ -1,10 +1,8 @@
-require 'faraday' # Only because we're doubling the connection
-
 describe AnsibleTowerClient::JobTemplateV2 do
   let(:url)                 { "example.com/api/v1/job_templates" }
   let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
   let(:collection)          { api.job_templates }
-  let(:connection)          { instance_double("Faraday::Connection") }
+  let(:connection)          { AnsibleTowerClient::MockApi.new }
   let(:config)              { {"version" => "2.1"} }
   let(:raw_collection)      { build(:response_collection, :klass => described_class.base_class) }
   let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class.base_class, :url => url) }

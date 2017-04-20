@@ -1,5 +1,3 @@
-require 'faraday'
-
 describe AnsibleTowerClient::Api do
   let(:faraday_connection) { AnsibleTowerClient::MockApi.new }
 
