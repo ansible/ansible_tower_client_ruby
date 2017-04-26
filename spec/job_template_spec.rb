@@ -1,23 +1,16 @@
-require 'faraday' # Only because we're doubling the connection
-
 describe AnsibleTowerClient::JobTemplate do
-  let(:url)                 { "example.com/api/v1/job_templates" }
-  let(:api)                 { AnsibleTowerClient::Api.new(connection).tap { |a| allow(a).to receive(:config).and_return(config) } }
-  let(:collection)          { api.job_templates }
-  let(:connection)          { instance_double("Faraday::Connection") }
-  let(:config)              { {"version" => "1.1"} }
-  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
-  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance)        { build(:response_instance, :job_template, :klass => described_class) }
+  let(:url)                        { "example.com/api/v1/job_templates" }
+  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new("1.1")) }
+  let(:raw_instance)               { build(:response_instance, :job_template, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_survey)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
-  include_examples "Crud Methods"
   include_examples "Api Methods"
+  include_examples "Crud Methods"
+  include_examples "JobTemplate#extra_vars_hash"
   include_examples "JobTemplate#initialize"
   include_examples "JobTemplate#survey_spec"
   include_examples "JobTemplate#survey_spec_hash"
-  include_examples "JobTemplate#extra_vars_hash"
 
   describe '#launch' do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
@@ -35,7 +28,7 @@ describe AnsibleTowerClient::JobTemplate do
   end
 
   context 'override_raw_attributes' do
-    let(:obj) { described_class.new(instance_double("Faraday::Connection"), raw_instance) }
+    let(:obj) { described_class.new(AnsibleTowerClient::MockApi.new, raw_instance) }
     let(:instance_api) { obj.instance_variable_get(:@api) }
 
     it 'translates :project to :project_id for update_attributes' do

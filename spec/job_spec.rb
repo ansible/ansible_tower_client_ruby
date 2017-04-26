@@ -1,18 +1,15 @@
 describe AnsibleTowerClient::Job do
-  let(:url)            { "example.com/api/v1/jobs" }
-  let(:api)            { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
-  let(:collection)     { api.jobs }
-  let(:raw_collection) { build(:response_collection, :klass => described_class) }
-  let(:raw_url_collection) { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance) { build(:response_instance, :job, :klass => described_class) }
+  let(:url)                        { "example.com/api/v1/jobs" }
+  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
+  let(:raw_instance)               { build(:response_instance, :job, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class, :extra_vars => '') }
   let(:raw_instance_no_output)     { build(:response_instance, :job_template, :klass => described_class, :related => {}) }
 
-  include_examples "Crud Methods"
   include_examples "Api Methods"
+  include_examples "Crud Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
-    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+    obj = api.jobs.all.first
 
     expect(obj).to         be_a described_class
     expect(obj.id).to      be_a Integer
@@ -23,14 +20,14 @@ describe AnsibleTowerClient::Job do
   describe "#extra_vars_hash" do
     describe "#extra_vars exists" do
       it "returns a hashed value" do
-        obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+        obj = described_class.new(AnsibleTowerClient::MockApi.new, raw_instance)
         expect(obj.extra_vars_hash).to eq('option' => 'lots of options')
       end
     end
 
     describe "#extra_vars does not exist" do
       it "returns an empty hash" do
-        obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance_no_extra_vars)
+        obj = described_class.new(AnsibleTowerClient::MockApi.new, raw_instance_no_extra_vars)
         expect(obj.extra_vars_hash).to eq({})
       end
     end

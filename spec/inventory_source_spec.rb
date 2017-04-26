@@ -1,15 +1,12 @@
 describe AnsibleTowerClient::InventorySource do
-  let(:url)                 { "example.com/api/v1/inventory_sources" }
-  let(:api)                 { AnsibleTowerClient::Api.new(instance_double("Faraday::Connection")) }
-  let(:collection)          { api.inventory_sources }
-  let(:raw_collection)      { build(:response_collection, :klass => described_class) }
-  let(:raw_url_collection)  { build(:response_url_collection, :klass => described_class, :url => url) }
-  let(:raw_instance)        { build(:response_instance, :klass => described_class) }
+  let(:url)          { "example.com/api/v1/inventory_sources" }
+  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
+  let(:raw_instance) { build(:response_instance, :klass => described_class) }
 
   include_examples "Api Methods"
 
   it "#initialize instantiates an #{described_class} from a hash" do
-    obj = described_class.new(instance_double("AnsibleTowerClient::Api"), raw_instance)
+    obj = api.inventory_sources.all.first
 
     expect(obj).to      be_a described_class
     expect(obj.id).to   be_a Integer
