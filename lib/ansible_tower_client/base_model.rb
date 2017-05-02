@@ -82,10 +82,11 @@ module AnsibleTowerClient
     def update_attributes!(attributes)
       @api.patch(url, attributes.to_json)
       attributes.each do |method_name, value|
-        if override_raw_attributes[method_name]
-          send("#{override_raw_attributes[method_name]}=", value)
+        invoke_name = "#{override_raw_attributes[method_name] || method_name}="
+        if respond_to?(invoke_name)
+          send(invoke_name, value)
         else
-          send("#{method_name}=", value)
+          AnsibleTowerClient.logger.warn("Unknown attribute/method: #{invoke_name}. Skip updating it ...")
         end
       end
       true
