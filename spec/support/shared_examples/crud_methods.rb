@@ -37,6 +37,12 @@ shared_examples_for "Crud Methods" do
         expect(obj.name).to eq 'blah'
       end
 
+      it "ignore unknown attributes if patch succeeds" do
+        expect(instance_api).to receive(:patch).and_return(instance_double("Faraday::Result", :body => raw_instance.to_json))
+        expect(obj.update_attributes!(:name => 'blah', :stranger_thing => 'bomb')).to eq true
+        expect(obj.name).to eq 'blah'
+      end
+
       it "returns an error if an error is raised" do
         expect(instance_api).to receive(:patch).and_raise(AnsibleTowerClient::Error, 'error')
         expect { obj.update_attributes!(:name => 'bad name') }.to raise_error(AnsibleTowerClient::Error)
