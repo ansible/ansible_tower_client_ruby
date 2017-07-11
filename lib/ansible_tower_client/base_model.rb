@@ -10,6 +10,18 @@ module AnsibleTowerClient
       base_class.to_s.split(/::/)[1].tableize.to_s.freeze
     end
 
+    def method_missing(m, *args, &_block)
+      if self.class.send(:id_attrs).include?(m.to_s)
+        super
+      else
+        self.class.send(:convert_value, m, args, self)
+      end
+    end
+
+    def respond_to_missing?(method, *)
+      !self.class.send(:id_attrs).include?(method.to_s)
+    end
+
     # Constructs and returns a new JSON wrapper class. Pass in a plain
     # JSON string and it will automatically give you accessor methods
     # that make it behave like a typical Ruby object. You may also pass
