@@ -83,6 +83,14 @@ module AnsibleTowerClient
       Collection.new(self, project_update_class)
     end
 
+    def schedules
+      Collection.new(self, schedule_class)
+    end
+
+    def system_job_templates
+      Collection.new(self, system_job_template_class)
+    end
+
     def method_missing(method_name, *args, &block)
       if instance.respond_to?(method_name)
         path = build_path_to_resource(args.shift)
@@ -172,6 +180,14 @@ module AnsibleTowerClient
 
     def project_update_class
       @project_update_class ||= AnsibleTowerClient::ProjectUpdate
+    end
+
+    def schedule_class
+      @schedule_class ||= AnsibleTowerClient::Schedule
+    end
+
+    def system_job_template_class
+      @system_job_template_class ||= AnsibleTowerClient::SystemJobTemplate
     end
 
     private
