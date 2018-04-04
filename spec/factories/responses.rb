@@ -38,13 +38,14 @@ FactoryGirl.define do
     trait(:url)          { url { "api/v1/endpoint/#{rand(10)}" } }
     trait(:username)     { username { "random username" } }
 
-    trait(:credential)   { [description, kind, username] }
-    trait(:group)        { [description, inventory_id] }
-    trait(:host)         { [description, instance_id, inventory_id] }
-    trait(:job_template) { [description, extra_vars] }
-    trait(:job)          { [description, extra_vars] }
-    trait(:project)      { [description, organization] }
-    trait(:job_event)    { [url] }
+    trait(:credential)          { [description, kind, username] }
+    trait(:group)               { [description, inventory_id] }
+    trait(:host)                { [description, instance_id, inventory_id] }
+    trait(:job_template)        { [description, extra_vars] }
+    trait(:job)                 { [description, extra_vars] }
+    trait(:project)             { [description, organization] }
+    trait(:job_event)           { [url] }
+    trait(:system_job_template) { [description, extra_vars] }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end

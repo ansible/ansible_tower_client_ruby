@@ -1,0 +1,108 @@
+module AnsibleTowerClient
+  class MockApi
+    module SystemJobTemplate
+      def self.collection
+        [
+          {
+            "id"              => 1,
+            "type"            => "system_job_template",
+            "url"             => "/api/v1/system_job_templates/1/",
+            "related"         => {
+              "last_job"                       => "/api/v1/system_jobs/1/",
+              "next_schedule"                  => "/api/v1/schedules/1/",
+              "notification_templates_error"   => "/api/v1/system_job_templates/1/notification_templates_error/",
+              "notification_templates_success" => "/api/v1/system_job_templates/1/notification_templates_success/",
+              "jobs"                           => "/api/v1/system_job_templates/1/jobs/",
+              "launch"                         => "/api/v1/system_job_templates/1/launch/",
+              "notification_templates_any"     => "/api/v1/system_job_templates/1/notification_templates_any/",
+              "schedules"                      => "/api/v1/system_job_templates/1/schedules/"
+            },
+            "summary_fields"  => {
+              "last_job"    => {
+                "id"          => 1,
+                "name"        => "Cleanup Job Details",
+                "description" => "Remove job history",
+                "finished"    => "2018-04-04T14:53:54.767Z",
+                "status"      => "successful",
+                "failed"      => false
+              },
+              "last_update" => {
+                "id"          => 1,
+                "name"        => "Cleanup Job Details",
+                "description" => "Remove job history",
+                "status"      => "successful",
+                "failed"      => false
+              }
+            },
+            "created"         => "2018-04-03T15:03:18.589Z",
+            "modified"        => "2018-04-04T14:53:53.220Z",
+            "name"            => "Cleanup Job Details",
+            "description"     => "Remove job history",
+            "last_job_run"    => "2018-04-04T14:53:54.767907Z",
+            "last_job_failed" => false,
+            "next_job_run"    => "2018-04-08T15:03:18Z",
+            "status"          => "successful",
+            "job_type"        => "cleanup_jobs"
+          },
+          {
+            "id"              => 3,
+            "type"            => "system_job_template",
+            "url"             => "/api/v1/system_job_templates/3/",
+            "related"         => {
+              "next_schedule"                  => "/api/v1/schedules/3/",
+              "notification_templates_error"   => "/api/v1/system_job_templates/3/notification_templates_error/",
+              "notification_templates_success" => "/api/v1/system_job_templates/3/notification_templates_success/",
+              "jobs"                           => "/api/v1/system_job_templates/3/jobs/",
+              "launch"                         => "/api/v1/system_job_templates/3/launch/",
+              "notification_templates_any"     => "/api/v1/system_job_templates/3/notification_templates_any/",
+              "schedules"                      => "/api/v1/system_job_templates/3/schedules/"
+            },
+            "summary_fields"  => {},
+            "created"         => "2018-04-03T15:03:18.589Z",
+            "modified"        => "2018-04-04T13:55:46.093Z",
+            "name"            => "Cleanup Fact Details",
+            "description"     => "Remove system tracking history",
+            "last_job_run"    => null,
+            "last_job_failed" => false,
+            "next_job_run"    => "2018-05-01T15:03:18Z",
+            "status"          => "ok",
+            "job_type"        => "cleanup_facts"
+          },
+          {
+            "id"              => 2,
+            "type"            => "system_job_template",
+            "url"             => "/api/v1/system_job_templates/2/",
+            "related"         => {
+              "next_schedule"                  => "/api/v1/schedules/2/",
+              "notification_templates_error"   => "/api/v1/system_job_templates/2/notification_templates_error/",
+              "notification_templates_success" => "/api/v1/system_job_templates/2/notification_templates_success/",
+              "jobs"                           => "/api/v1/system_job_templates/2/jobs/",
+              "launch"                         => "/api/v1/system_job_templates/2/launch/",
+              "notification_templates_any"     => "/api/v1/system_job_templates/2/notification_templates_any/",
+              "schedules"                      => "/api/v1/system_job_templates/2/schedules/"
+            },
+            "summary_fields"  => {},
+            "created"         => "2018-04-03T15:03:18.589Z",
+            "modified"        => "2018-04-04T13:55:46.153Z",
+            "name"            => "Cleanup Activity Stream",
+            "description"     => "Remove activity stream history",
+            "last_job_run"    => null,
+            "last_job_failed" => false,
+            "next_job_run"    => "2018-04-10T15:03:18Z",
+            "status"          => "ok",
+            "job_type"        => "cleanup_activitystream"
+          }
+        ]
+      end
+
+      def self.response
+        {
+          "count"    => collection.length,
+          "next"     => nil,
+          "previous" => nil,
+          "results"  => collection
+        }.to_json
+      end
+    end
+  end
+end

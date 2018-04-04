@@ -87,6 +87,10 @@ module AnsibleTowerClient
       Collection.new(self, schedule_class)
     end
 
+    def system_jobs
+      Collection.new(self, system_job_class)
+    end
+
     def system_job_templates
       Collection.new(self, system_job_template_class)
     end
@@ -184,6 +188,10 @@ module AnsibleTowerClient
 
     def schedule_class
       @schedule_class ||= AnsibleTowerClient::Schedule
+    end
+
+    def system_job_class
+      @system_job_class ||= AnsibleTowerClient::SystemJob
     end
 
     def system_job_template_class
