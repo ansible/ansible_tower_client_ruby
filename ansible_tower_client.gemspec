@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "activesupport"
-  spec.add_runtime_dependency "faraday",              "~> 0.13"
+  spec.add_runtime_dependency "faraday"
   spec.add_runtime_dependency "faraday_middleware"
   spec.add_runtime_dependency "more_core_extensions", "~> 3.0"
 
