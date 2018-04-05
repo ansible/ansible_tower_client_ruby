@@ -102,7 +102,7 @@ module AnsibleTowerClient
         args.unshift(path)
         logger.debug { "#{self.class.name} Sending <#{method_name}> with <#{args.inspect}>" }
         instance.send(method_name, *args, &block).tap do |response|
-          logger.debug { "#{self.class.name} Response:\n#{JSON.parse(response.body).pretty_inspect}" }
+          logger.debug { "#{self.class.name} Response:\n#{log_from_response(response)}" }
         end
       else
         super

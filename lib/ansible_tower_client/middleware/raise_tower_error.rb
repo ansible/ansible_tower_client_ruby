@@ -7,9 +7,7 @@ module AnsibleTowerClient
       def on_complete(env)
         return unless CLIENT_ERROR_STATUSES.include?(env[:status])
         logger.debug { "#{self.class.name} Raw Response:\n#{env.pretty_inspect}" }
-        message   = JSON.parse(env.body).pretty_inspect rescue nil
-        message ||= env.body
-        logger.error("#{self.class.name} Response Body:\n#{message}")
+        logger.error("#{self.class.name} Response Body:\n#{log_from_response(env)}")
 
         case env[:status]
         when 402
