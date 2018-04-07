@@ -96,6 +96,7 @@ module AnsibleTowerClient
     end
 
     def method_missing(method_name, *args, &block)
+      require 'faraday'
       if instance.respond_to?(method_name)
         path = build_path_to_resource(args.shift)
         args.unshift(path)

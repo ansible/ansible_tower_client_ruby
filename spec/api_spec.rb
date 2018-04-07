@@ -32,6 +32,14 @@ describe AnsibleTowerClient::Api do
           expect(subject.verify_credentials).to eq "admin"
         end
       end
+
+      describe "#method_missing" do
+        it "raises actual error, not NameError" do
+          error = 'some error'
+          expect(faraday_connection).to receive(:get).and_raise(error)
+          expect { subject.get }.to raise_error(error)
+        end
+      end
     end
   end
 
