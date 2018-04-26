@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.14.0] - 2018-04-26
 ### Added
 - Add Project#last_update [(#102)](https://github.com/ansible/ansible_tower_client_ruby/pull/102)
 
@@ -72,7 +74,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.13.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.14.0...master
+[0.14.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.12.2...v0.13.0
 [0.12.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.12.1...v0.12.2
 [0.12.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.12.0...v0.12.1
