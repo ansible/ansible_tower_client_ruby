@@ -32,6 +32,50 @@ describe AnsibleTowerClient::Api do
           expect(subject.verify_credentials).to eq "admin"
         end
       end
+
+      describe "#method_missing" do
+        let(:plain_response_body) { "some response" }
+        let(:json_response_body) { { "some_key" => "some_value" } }
+        let(:path_to_resource) { 'some/path' }
+
+        it "logs method call with formatted JSON response body" do
+          expect(subject).to receive(:build_path_to_resource).and_return(path_to_resource)
+
+          connection_response = instance_double("Faraday::Response", :body => json_response_body.to_json)
+          expect(faraday_connection).to receive(:get).and_return(connection_response)
+
+          expect(AnsibleTowerClient.logger).to receive(:debug) do |&block|
+            expect(block.call).to eq("AnsibleTowerClient::Api Sending <get> with <#{[path_to_resource].inspect}>")
+          end
+          expect(AnsibleTowerClient.logger).to receive(:debug) do |&block|
+            expect(block.call).to eq("AnsibleTowerClient::Api Response:\n#{json_response_body.pretty_inspect}")
+          end
+
+          subject.get
+        end
+
+        it "logs method call with plain text response body" do
+          expect(subject).to receive(:build_path_to_resource).and_return(path_to_resource)
+
+          connection_response = instance_double("Faraday::Response", :body => plain_response_body)
+          expect(faraday_connection).to receive(:get).and_return(connection_response)
+
+          expect(AnsibleTowerClient.logger).to receive(:debug) do |&block|
+            expect(block.call).to eq("AnsibleTowerClient::Api Sending <get> with <#{[path_to_resource].inspect}>")
+          end
+          expect(AnsibleTowerClient.logger).to receive(:debug) do |&block|
+            expect(block.call).to eq("AnsibleTowerClient::Api Response:\n#{plain_response_body}")
+          end
+
+          subject.get
+        end
+
+        it "raises actual error, not NameError" do
+          error = 'some error'
+          expect(faraday_connection).to receive(:get).and_raise(error)
+          expect { subject.get }.to raise_error(error)
+        end
+      end
     end
   end
 

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add Project#last_update [(#102)](https://github.com/ansible/ansible_tower_client_ruby/pull/102)
+
+### Fixed
+- Fix debug logging of non-JSON responses [(#102)](https://github.com/ansible/ansible_tower_client_ruby/pull/102)
 
 ## [0.13.0] - 2018-04-05
 ### Added

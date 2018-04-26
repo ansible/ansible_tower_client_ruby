@@ -96,12 +96,13 @@ module AnsibleTowerClient
     end
 
     def method_missing(method_name, *args, &block)
+      require 'faraday'
       if instance.respond_to?(method_name)
         path = build_path_to_resource(args.shift)
         args.unshift(path)
         logger.debug { "#{self.class.name} Sending <#{method_name}> with <#{args.inspect}>" }
         instance.send(method_name, *args, &block).tap do |response|
-          logger.debug { "#{self.class.name} Response:\n#{JSON.parse(response.body).pretty_inspect}" }
+          logger.debug { "#{self.class.name} Response:\n#{log_from_response(response)}" }
         end
       else
         super

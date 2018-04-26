@@ -26,7 +26,14 @@ FactoryGirl.define do
     type       { AnsibleTowerClient::FactoryHelper.underscore_string(klass.namespace.last) }
     name       { "#{type}-#{id}" }
     url        { "/api/v1/endpoint/" }
-    related    { {"survey_spec" => "example.com/api", 'inventory' => 'inventory link', 'stdout' => 'example.com/api'} }
+    related do
+      {
+        "survey_spec" => "example.com/api",
+        "inventory"   => "inventory link",
+        "stdout"      => "example.com/api",
+        "last_update" => "example.com/api"
+      }
+    end
     limit      { "" }
 
     trait(:description)  { sequence(:description) { |n| "description_#{n}" } }

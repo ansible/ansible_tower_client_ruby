@@ -17,5 +17,10 @@ module AnsibleTowerClient
 
       api.project_updates.find(update['project_update'])
     end
+
+    def last_update
+      return if related['last_update'].blank?
+      api.project_updates.find(related['last_update'])
+    end
   end
 end
