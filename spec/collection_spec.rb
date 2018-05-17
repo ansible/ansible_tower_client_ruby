@@ -10,6 +10,8 @@ describe AnsibleTowerClient::Collection do
     AnsibleTowerClient::Job,
     AnsibleTowerClient::JobEvent,
     AnsibleTowerClient::JobTemplate,
+    AnsibleTowerClient::WorkflowJob,
+    AnsibleTowerClient::WorkflowJobTemplate,
     AnsibleTowerClient::Organization,
     AnsibleTowerClient::Project,
     AnsibleTowerClient::ProjectUpdate,
