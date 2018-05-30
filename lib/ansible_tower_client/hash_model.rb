@@ -46,7 +46,8 @@ module AnsibleTowerClient
       end
 
       def convert_value(key, value, parent)
-        method = key_to_attribute(key)
+        method = key_to_attribute(key).gsub(/\W/, '_') # replace all unqualified characters for method and class names
+
         new_val =
           if attr_excluded?(method)
             value
