@@ -31,7 +31,7 @@ describe AnsibleTowerClient::WorkflowJobTemplate do
       expect(obj.name).to        be_a String
       expect(obj.description).to be_a String
       expect(obj.related).to     be_a described_class::Related
-      expect(obj.extra_vars).to  eq("{\"option\":\"lots_of_options\"}")
+      expect(obj.extra_vars).to  eq("hosts:\n- inky\n- pinky\n- clyde\n- sue'")
     end
   end
 
@@ -82,15 +82,15 @@ describe AnsibleTowerClient::WorkflowJobTemplate do
     end
   end
 
-  # context 'override_raw_attributes' do
-  #   let(:obj) { described_class.new(AnsibleTowerClient::MockApi.new, raw_instance) }
-  #   let(:instance_api) { obj.instance_variable_get(:@api) }
-  #
-  #   it 'translates :project to :project_id for update_attributes' do
-  #     raw_instance[:project_id] = 10
-  #     expect(instance_api).to receive(:patch).and_return(instance_double("Faraday::Result", :body => raw_instance.to_json))
-  #     expect(obj.update_attributes(:project => '5')).to eq true
-  #     expect(obj.project_id).to eq '5'
-  #   end
-  # end
+  context 'override_raw_attributes' do
+    let(:obj) { described_class.new(AnsibleTowerClient::MockApi.new, raw_instance) }
+    let(:instance_api) { obj.instance_variable_get(:@api) }
+
+    it 'translates :organization to :organization_id for update_attributes' do
+      raw_instance[:organization_id] = 10
+      expect(instance_api).to receive(:patch).and_return(instance_double("Faraday::Result", :body => raw_instance.to_json))
+      expect(obj.update_attributes(:organization => '5')).to eq true
+      expect(obj.organization_id).to eq '5'
+    end
+  end
 end
