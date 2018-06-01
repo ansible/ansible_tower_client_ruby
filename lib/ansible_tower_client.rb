@@ -30,6 +30,7 @@ require "ansible_tower_client/base_models/system_job"
 require "ansible_tower_client/base_models/system_job_template"
 require "ansible_tower_client/base_models/workflow_job"
 require "ansible_tower_client/base_models/workflow_job_template"
+require "ansible_tower_client/base_models/workflow_job_template_node"
 
 require "ansible_tower_client/v2/job_template_v2"
 

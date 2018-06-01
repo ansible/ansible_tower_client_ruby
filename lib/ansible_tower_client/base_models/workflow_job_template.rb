@@ -11,21 +11,10 @@ module AnsibleTowerClient
       api.workflow_jobs.find(job['workflow_job'])
     end
 
-    # def survey_spec
-    #   spec_url = related['survey_spec']
-    #   return nil unless spec_url
-    #   api.get(spec_url).body
-    # rescue AnsibleTowerClient::UnlicensedFeatureError
-    # end
-    #
-    # def survey_spec_hash
-    #   survey_spec.nil? ? {} : hashify(:survey_spec)
-    # end
-    #
-    # def extra_vars_hash
-    #   extra_vars.empty? ? {} : hashify(:extra_vars)
-    # end
-    #
+    def workflow_nodes
+      Collection.new(api).find_all_by_url(related['workflow_nodes'])
+    end
+
     def override_raw_attributes
       { :organization => :organization_id }
     end
