@@ -95,6 +95,18 @@ module AnsibleTowerClient
       Collection.new(self, system_job_template_class)
     end
 
+    def workflow_jobs
+      Collection.new(self, workflow_job_class)
+    end
+
+    def workflow_job_templates
+      Collection.new(self, workflow_job_template_class)
+    end
+
+    def workflow_job_template_nodes
+      Collection.new(self, workflow_job_template_node_class)
+    end
+
     def method_missing(method_name, *args, &block)
       require 'faraday'
       if instance.respond_to?(method_name)
@@ -197,6 +209,18 @@ module AnsibleTowerClient
 
     def system_job_template_class
       @system_job_template_class ||= AnsibleTowerClient::SystemJobTemplate
+    end
+
+    def workflow_job_class
+      @workflow_job_class ||= AnsibleTowerClient::WorkflowJob
+    end
+
+    def workflow_job_template_class
+      @workflow_job_template_class ||= AnsibleTowerClient::WorkflowJobTemplate
+    end
+
+    def workflow_job_template_node_class
+      @workflow_job_template_node_class ||= AnsibleTowerClient::WorkflowJobTemplateNode
     end
 
     private

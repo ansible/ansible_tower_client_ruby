@@ -13,6 +13,9 @@ describe AnsibleTowerClient::Collection do
     AnsibleTowerClient::Organization,
     AnsibleTowerClient::Project,
     AnsibleTowerClient::ProjectUpdate,
+    AnsibleTowerClient::WorkflowJob,
+    AnsibleTowerClient::WorkflowJobTemplate,
+    AnsibleTowerClient::WorkflowJobTemplateNode,
   ].freeze
 
   let(:connection)  { double("connection") }
