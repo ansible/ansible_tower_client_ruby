@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::SystemJobTemplate do
-  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
+  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
   let(:raw_instance) { build(:response_instance, :system_job_template, :klass => described_class) }
 
   describe "#launch" do
