@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::Host do
   let(:url)          { "example.com/api/v1/hosts" }
-  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
+  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
   let(:raw_instance) { build(:response_instance, :host, :klass => described_class) }
 
   include_examples "Api Methods"

@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::Credential do
-  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
+  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new(:api_version => 1), 1) }
   let(:raw_instance) { build(:response_instance, :credential, :klass => described_class) }
 
   include_examples "Crud Methods"

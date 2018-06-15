@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::JobTemplateV2 do
   let(:url)                        { "example.com/api/v1/job_templates" }
-  let(:api)                        { AnsibleTowerClient::Api.new(connection) }
+  let(:api)                        { AnsibleTowerClient::Api.new(connection, 1) }
   let(:connection)                 { AnsibleTowerClient::MockApi.new("2.1") }
   let(:raw_instance)               { build(:response_instance, :job_template, :klass => described_class.base_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :job_template, :klass => described_class.base_class, :extra_vars => '') }
