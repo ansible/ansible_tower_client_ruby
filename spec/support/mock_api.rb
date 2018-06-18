@@ -25,6 +25,8 @@ module AnsibleTowerClient
         else
           wrap_response(Credential.response)
         end
+      when "credential_types"
+        wrap_response(CredentialTypeV2.response)
       when "groups"
         wrap_response(Group.response)
       when "hosts"
