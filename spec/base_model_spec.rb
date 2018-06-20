@@ -34,8 +34,9 @@ describe AnsibleTowerClient::BaseModel do
       hash_with_relations = hash.merge("host" => 1, "related" => {"host" => "http://example.com/hosts/1"})
       instance            = described_class.new(api, hash_with_relations)
 
-      expect(instance).to_not     respond_to(:host)
+      expect(instance).to_not respond_to(:host)
       expect(instance.host_id).to eq(1)
+      expect(instance).to respond_to(:anything)
     end
   end
 
