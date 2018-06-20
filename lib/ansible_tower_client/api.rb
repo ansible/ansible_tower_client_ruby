@@ -96,6 +96,10 @@ module AnsibleTowerClient
       Collection.new(self, system_job_template_class)
     end
 
+    def workflow_job_nodes
+      Collection.new(self, workflow_job_node_class)
+    end
+
     def workflow_jobs
       Collection.new(self, workflow_job_class)
     end
@@ -220,6 +224,10 @@ module AnsibleTowerClient
 
     def workflow_job_class
       @workflow_job_class ||= AnsibleTowerClient::WorkflowJob
+    end
+
+    def workflow_job_node_class
+      @workflow_job_node_class ||= AnsibleTowerClient::WorkflowJobNode
     end
 
     def workflow_job_template_class
