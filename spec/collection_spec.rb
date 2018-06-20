@@ -14,6 +14,7 @@ describe AnsibleTowerClient::Collection do
     AnsibleTowerClient::Project,
     AnsibleTowerClient::ProjectUpdate,
     AnsibleTowerClient::WorkflowJob,
+    AnsibleTowerClient::WorkflowJobNode,
     AnsibleTowerClient::WorkflowJobTemplate,
     AnsibleTowerClient::WorkflowJobTemplateNode,
   ].freeze

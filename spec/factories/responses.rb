@@ -53,6 +53,8 @@ FactoryGirl.define do
     trait(:project)                     { [description, organization] }
     trait(:job_event)                   { [url] }
     trait(:system_job_template)         { [description, extra_vars] }
+    trait(:workflow_job)                { [description, extra_vars] }
+    trait(:workflow_job_node)           { [description, extra_vars] }
     trait(:workflow_job_template)       { [description, extra_vars] }
     trait(:workflow_job_template_node)  { [description, extra_vars] }
 
