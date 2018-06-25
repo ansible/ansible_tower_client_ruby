@@ -43,6 +43,10 @@ module AnsibleTowerClient
         wrap_response(Project.response)
       when "me"
         wrap_response(Me.response)
+      when "workflow_jobs"
+        wrap_response(WorkflowJob.response)
+      when "workflow_job_nodes"
+        wrap_response(WorkflowJobNode.response)
       when "workflow_job_template_nodes"
         wrap_response(WorkflowJobTemplateNode.response)
       when "workflow_job_templates"
