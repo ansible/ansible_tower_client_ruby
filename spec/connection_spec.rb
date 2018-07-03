@@ -1,5 +1,6 @@
 describe AnsibleTowerClient::Connection do
-  let(:base_options) { {:base_url => "https://example1.com", :username => "admin", :password => "smartvm", :verify_ssl => OpenSSL::SSL::VERIFY_NONE} }
+  let(:logger)       { double }
+  let(:base_options) { {:base_url => "https://example1.com", :username => "admin", :password => "smartvm", :verify_ssl => OpenSSL::SSL::VERIFY_NONE, :logger => logger} }
 
   subject { described_class.new(base_options) }
 
@@ -12,7 +13,8 @@ describe AnsibleTowerClient::Connection do
       :url        => "https://example1.com",
       :verify_ssl => false,
       :username   => "admin",
-      :password   => "smartvm"
+      :password   => "smartvm",
+      :logger     => logger,
     )
   end
 
