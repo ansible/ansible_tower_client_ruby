@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.16.0] - 2018-07-06
+### Added
+- Added support for API v2 and v2 Credentials [(#107)](https://github.com/ansible/ansible_tower_client_ruby/pull/107)
+- Added AnsibleTowerClient::WorkflowJobNode [(#109)](https://github.com/ansible/ansible_tower_client_ruby/pull/109)
+- Set the Faraday logger when creating a connection [(#110)](https://github.com/ansible/ansible_tower_client_ruby/pull/110)
+- Added AnsibleTowerClient::CredentialTypev2 [(#108)](https://github.com/ansible/ansible_tower_client_ruby/pull/108)
+- Added AnsibleTowerClient::WorkflowJob#extra_vars_hash [(#111)](https://github.com/ansible/ansible_tower_client_ruby/pull/111)
+
+### Changed
+- Substitute invalid characters for dynamically defined class names [(#105)](https://github.com/ansible/ansible_tower_client_ruby/pull/105)
+
 ## [0.15.0] - 2018-06-05
 ### Added
 - Added AnsibleTowerClient::WorkflowJob [(#104)](https://github.com/ansible/ansible_tower_client_ruby/pull/104)
@@ -80,7 +91,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.15.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.16.0...master
+[0.16.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.12.2...v0.13.0
