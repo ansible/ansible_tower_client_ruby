@@ -5,7 +5,8 @@ describe AnsibleTowerClient::BaseModel do
       "name"            => "jeff",
       "address"         => { "street" => "22 charlotte rd"},
       "serialized_json" => { "key" => "value"}.to_json,
-      "serialized_yaml" => { "key" => "value"}.to_yaml
+      "serialized_yaml" => { "key" => "value"}.to_yaml,
+      ":Special$ Key3"  => { "key" => "value"}
     }
   end
 
@@ -17,6 +18,7 @@ describe AnsibleTowerClient::BaseModel do
         expect(instance.name).to           eq("jeff")
         expect(instance.address).to        be_kind_of(described_class)
         expect(instance.address.street).to eq("22 charlotte rd")
+        expect(instance._special__key3).to be_kind_of(AnsibleTowerClient::BaseModel::SpecialKey3)
       end
     end
 
