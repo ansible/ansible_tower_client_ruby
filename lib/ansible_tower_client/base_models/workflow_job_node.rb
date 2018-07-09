@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def job
-      job_id.nil? ? nil : api.jobs.find(job_id)
+      super.nil? ? nil : api.jobs.find(job_id)
     end
   end
 end
