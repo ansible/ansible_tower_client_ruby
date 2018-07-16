@@ -45,7 +45,7 @@ module AnsibleTowerClient
       end
     end
 
-    def api(version: 2)
+    def api(version: 1)
       @api[version] ||= begin
         # Build uri path.
         options = @options.clone.tap do |opts|

@@ -26,8 +26,8 @@ describe AnsibleTowerClient::Connection do
   end
 
   context ".api" do
-    it "defaults to api v2" do
-      expect(subject.api.api_version).to eq(2)
+    it "defaults to api v1" do
+      expect(subject.api.api_version).to eq(1)
     end
 
     it "supports api v1" do
