@@ -15,4 +15,29 @@ describe AnsibleTowerClient::WorkflowJobNode do
     expect(obj.workflow_job_id).to    be_a Integer
     expect(obj.related).to            be_a described_class::Related
   end
+
+  context "#job" do
+    def response_with_job(response, id)
+      response.store_path("related", "job", id)
+      response["job"] = id
+      response
+    end
+
+    it "returns nil when the job_id is not set" do
+      obj = described_class.new(api, raw_instance)
+      expect(obj.job).to be_nil
+    end
+
+    it "returns nil when the job_id is nil" do
+      obj = described_class.new(api, response_with_job(raw_instance, nil))
+      expect(obj.job).to be_nil
+    end
+
+    it "returns a Job when the job_id is set" do
+      obj = described_class.new(api, response_with_job(raw_instance, 12345))
+      allow(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => {}.to_json))
+
+      expect(obj.job).to be_a AnsibleTowerClient::Job
+    end
+  end
 end
