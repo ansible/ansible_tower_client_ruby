@@ -1,15 +1,14 @@
 module AnsibleTowerClient
   class MockApi
     class Response
-      attr_reader :body, :api_version
+      attr_reader :body
       def initialize(body)
         @body = body
       end
     end
 
-    def initialize(version = nil, api_version: 2)
-      @awx_version = version
-      @api_version = api_version
+    def initialize(version = nil)
+      @version = version
     end
 
     def get(path, get_options = nil)
@@ -18,15 +17,9 @@ module AnsibleTowerClient
       when "ad_hoc_commands"
         wrap_response(AdHocCommand.response)
       when "config"
-        wrap_response(Config.response(@awx_version))
+        wrap_response(Config.response(@version))
       when "credentials"
-        if api_version?(2)
-          wrap_response(CredentialV2.response)
-        else
-          wrap_response(Credential.response)
-        end
-      when "credential_types"
-        wrap_response(CredentialTypeV2.response)
+        wrap_response(Credential.response)
       when "groups"
         wrap_response(Group.response)
       when "hosts"
@@ -58,10 +51,6 @@ module AnsibleTowerClient
 
     def wrap_response(data)
       AnsibleTowerClient::MockApi::Response.new(data)
-    end
-
-    def api_version?(desired)
-      @api_version == desired
     end
   end
 end

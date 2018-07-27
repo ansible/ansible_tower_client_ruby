@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::WorkflowJob do
   let(:url)                        { "example.com/api/v1/workflow_jobs" }
-  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
+  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
   let(:raw_instance)               { build(:response_instance, :workflow_job, :klass => described_class) }
   let(:raw_instance_no_extra_vars) { build(:response_instance, :workflow_job, :klass => described_class, :extra_vars => '') }
 

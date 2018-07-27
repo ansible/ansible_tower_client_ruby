@@ -34,8 +34,6 @@ require "ansible_tower_client/base_models/workflow_job_template"
 require "ansible_tower_client/base_models/workflow_job_template_node"
 
 require "ansible_tower_client/v2/job_template_v2"
-require "ansible_tower_client/v2/credential_v2"
-require "ansible_tower_client/v2/credential_type_v2"
 
 require "more_core_extensions/all"
 require "active_support/inflector"

@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::Organization do
-  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
+  let(:api)          { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
   let(:raw_instance) { build(:response_instance, :organization, :klass => described_class, :description => "The Organization", :name => "MyOrg") }
 
   include_examples "Crud Methods"
