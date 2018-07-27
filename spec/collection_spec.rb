@@ -20,7 +20,7 @@ describe AnsibleTowerClient::Collection do
   ].freeze
 
   let(:connection)  { double("connection") }
-  let(:mock_api)    { AnsibleTowerClient::Api.new(connection, 1).tap { |a| a.instance_variable_set(:@version, "1.1") } }
+  let(:mock_api)    { AnsibleTowerClient::Api.new(connection).tap { |a| a.instance_variable_set(:@version, "1.1") } }
   let(:instance)    { described_class.new(mock_api) }
   let(:test_url)    { "/api/v1/things/1/related_things/" }
   let(:get_options) { {"key" => "value"} }

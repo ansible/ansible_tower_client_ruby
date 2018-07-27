@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::JobEvent do
   let(:url) { "example.com/api/v1/job_events" }
-  let(:api) { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
+  let(:api) { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
 
   include_examples "Api Methods"
 end

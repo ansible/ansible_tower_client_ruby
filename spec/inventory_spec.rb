@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::Inventory do
   let(:url)              { "example.com/api/v1/inventories" }
-  let(:api)              { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
+  let(:api)              { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
   let(:inventory_source) { build(:response_url_collection, :klass => AnsibleTowerClient::InventorySource) }
   let(:raw_instance)     { build(:response_instance, :klass => described_class) }
   let(:instance)         { api.inventories.all.first }

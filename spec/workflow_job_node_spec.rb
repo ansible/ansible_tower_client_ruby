@@ -1,6 +1,6 @@
 describe AnsibleTowerClient::WorkflowJobNode do
   let(:url)                        { "example.com/api/v1/workflow_job_nodes" }
-  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new, 1) }
+  let(:api)                        { AnsibleTowerClient::Api.new(AnsibleTowerClient::MockApi.new) }
   let(:raw_instance)               { build(:response_instance, :workflow_job_node, :klass => described_class) }
 
   include_examples "Api Methods"

@@ -6,10 +6,9 @@ module AnsibleTowerClient
 
     DEFAULT_ERROR_MSG = "An unknown error was returned from the provider".freeze
 
-    attr_reader :instance, :api_version
-    def initialize(connection, api_version)
-      @instance    = connection
-      @api_version = api_version
+    attr_reader :instance
+    def initialize(connection)
+      @instance = connection
     end
 
     def config
@@ -147,13 +146,7 @@ module AnsibleTowerClient
     end
 
     def credential_class
-      @credential_class ||= begin
-        if api_version?(2)
-          AnsibleTowerClient::CredentialV2
-        else
-          AnsibleTowerClient::Credential
-        end
-      end
+      @credential_class ||= AnsibleTowerClient::Credential
     end
 
     def group_class
@@ -190,7 +183,7 @@ module AnsibleTowerClient
 
     def job_template_class
       @job_template_class ||= begin
-        if awx_version_between?(2, 3)
+        if Gem::Version.new(version).between?(Gem::Version.new(2), Gem::Version.new(3))
           AnsibleTowerClient::JobTemplateV2
         else
           AnsibleTowerClient::JobTemplate
@@ -244,14 +237,6 @@ module AnsibleTowerClient
       return original unless %r{\/?api\/v1\/(.*)} =~ original
       return original if instance.url_prefix.path == "/"
       File.join(instance.url_prefix.path, Regexp.last_match[1])
-    end
-
-    def awx_version_between?(min, max)
-      Gem::Version.new(version).between?(Gem::Version.new(min), Gem::Version.new(max))
-    end
-
-    def api_version?(desired)
-      Gem::Version.new(api_version).eql?(Gem::Version.new(desired))
     end
   end
 end

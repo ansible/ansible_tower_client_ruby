@@ -1,8 +1,7 @@
 describe AnsibleTowerClient::Api do
-  let(:faraday_connection) { AnsibleTowerClient::MockApi.new(:api_version => api_version) }
-  let(:api_version)        { 1 }
+  let(:faraday_connection) { AnsibleTowerClient::MockApi.new }
 
-  subject { described_class.new(faraday_connection, api_version) }
+  subject { described_class.new(faraday_connection) }
 
   it "#instance returns an existing instance" do
     expect(subject.instance).to be(faraday_connection)
@@ -77,22 +76,6 @@ describe AnsibleTowerClient::Api do
           expect { subject.get }.to raise_error(error)
         end
       end
-
-      describe "#api_version" do
-        describe "1" do
-          let(:api_version) { 1 }
-          it "returns api version that of instance" do
-            expect(subject.api_version).to eq(1)
-          end
-        end
-
-        describe "2" do
-          let(:api_version) { 2 }
-          it "returns api version that of instance" do
-            expect(subject.api_version).to eq(2)
-          end
-        end
-      end
     end
   end
 
@@ -143,7 +126,7 @@ describe AnsibleTowerClient::Api do
         it "connection path #{path}" do
           url = "https://server.example.com:8080#{path}"
           connection = AnsibleTowerClient::Connection.new(:username => "user", :password => "pass", :base_url => url)
-          api = connection.api(:version => api_version)
+          api = connection.api
 
           matrix.each do |default_path, corrected_path|
             expect(api.send(:build_path_to_resource, default_path)).to eq(corrected_path)
