@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.17.0] - 2018-07-27
+### Removed
+- Reverted support for API v2 and v2 Credentials [(#117)](https://github.com/ansible/ansible_tower_client_ruby/pull/117)
+
+### Fixed
+- Fix WorkflowJobNode#job and add tests[(#116)](https://github.com/ansible/ansible_tower_client_ruby/pull/116)
+
 ## [0.16.0] - 2018-07-06
 ### Added
 - Added support for API v2 and v2 Credentials [(#107)](https://github.com/ansible/ansible_tower_client_ruby/pull/107)
@@ -91,7 +98,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.16.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.17.0...master
+[0.17.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.16.0...v0.17.0
 [0.16.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.13.0...v0.14.0
