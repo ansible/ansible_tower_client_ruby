@@ -7,5 +7,4 @@ module AnsibleTowerClient
   class ResourceNotFoundError  < ClientError; end
   class SSLError               < ClientError; end
   class UnlicensedFeatureError < ClientError; end
-  class UnsupportedApiError    < ClientError; end
 end

@@ -36,11 +36,6 @@ module AnsibleTowerClient
       Collection.new(self, credential_class)
     end
 
-    def credential_types
-      raise AnsibleTowerClient::UnsupportedApiError, 'requires API v2 or higher' if api_version?(1)
-      Collection.new(self, credential_type_class)
-    end
-
     def groups
       Collection.new(self, group_class)
     end
@@ -159,10 +154,6 @@ module AnsibleTowerClient
           AnsibleTowerClient::Credential
         end
       end
-    end
-
-    def credential_type_class
-      @credential_type_class ||= AnsibleTowerClient::CredentialTypeV2
     end
 
     def group_class

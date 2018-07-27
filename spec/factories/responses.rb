@@ -46,7 +46,6 @@ FactoryGirl.define do
     trait(:username)     { username { "random username" } }
 
     trait(:credential)                  { [description, kind, username] }
-    trait(:credential_type)             { [description, kind] }
     trait(:group)                       { [description, inventory_id] }
     trait(:host)                        { [description, instance_id, inventory_id] }
     trait(:job_template)                { [description, extra_vars] }
