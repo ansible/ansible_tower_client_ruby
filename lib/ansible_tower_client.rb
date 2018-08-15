@@ -37,6 +37,11 @@ require "ansible_tower_client/v2/job_template_v2"
 
 require "more_core_extensions/all"
 require "active_support/inflector"
+require 'active_support/core_ext/object/try'
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/array/conversions'
+require 'active_support/core_ext/hash/slice'
+require 'active_support/core_ext/hash/except'
 
 module AnsibleTowerClient
   class << self

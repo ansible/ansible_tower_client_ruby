@@ -44,11 +44,13 @@ FactoryGirl.define do
     trait(:organization) { organization { rand(500) } }
     trait(:url)          { url { "api/v1/endpoint/#{rand(10)}" } }
     trait(:username)     { username { "random username" } }
+    trait(:ask_limit_on_launch) { ask_limit_on_launch true }
 
     trait(:credential)                  { [description, kind, username] }
     trait(:group)                       { [description, inventory_id] }
     trait(:host)                        { [description, instance_id, inventory_id] }
     trait(:job_template)                { [description, extra_vars] }
+    trait(:limitable_job_template)      { [job_template, ask_limit_on_launch] }
     trait(:job)                         { [description, extra_vars] }
     trait(:project)                     { [description, organization] }
     trait(:job_event)                   { [url] }
