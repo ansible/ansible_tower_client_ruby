@@ -20,12 +20,12 @@ describe AnsibleTowerClient::JobTemplate do
 
     it "runs an existing job template with a limit" do
       launch_url = "#{raw_instance["url"]}launch/"
-      raw_instance = build(:response_instance, :limitable_job_template, :klass => described_class)
+      instance_data = raw_instance.merge('ask_limit_on_launch' => true)
 
       expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
       expect(api).to receive(:post).with(launch_url, json_with_limit).and_return(response_double)
 
-      expect { described_class.new(api, raw_instance).launch(json_with_limit) }.to_not raise_error
+      expect { described_class.new(api, instance_data).launch(json_with_limit) }.to_not raise_error
     end
 
     it 'checks ignorable limit' do

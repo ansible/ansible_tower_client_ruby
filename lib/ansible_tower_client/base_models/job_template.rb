@@ -1,16 +1,16 @@
 module AnsibleTowerClient
   class JobTemplate < BaseModel
-    IGNORABLE_OPTIONS = {
+    REQUIRED_ATTRIBUTES_FOR_OPTIONS = {
       :job_tags   => :ask_tags_on_launch,
       :job_type   => :ask_job_type_on_launch,
       :limit      => :ask_limit_on_launch,
       :inventory  => :ask_inventory_on_launch,
       :credential => :ask_credential_on_launch,
     }.freeze
-    private_constant :IGNORABLE_OPTIONS
+    private_constant :REQUIRED_ATTRIBUTES_FOR_OPTIONS
 
     def launch(options = {})
-      check_ignorable_options(options)
+      check_required_attributes_for_options(options)
 
       launch_url = "#{url}launch/"
       response   = api.post(launch_url, options).body
@@ -40,16 +40,15 @@ module AnsibleTowerClient
 
     private
 
-    def check_ignorable_options(options)
-      ignored_options = IGNORABLE_OPTIONS.select do |option, checkmark|
+    def check_required_attributes_for_options(options)
+      ignored_options = REQUIRED_ATTRIBUTES_FOR_OPTIONS.select do |option, checkmark|
         !try(checkmark) && options.slice(option.to_sym, option.to_s).any?(&:present?)
       end.keys
 
       return if ignored_options.empty?
 
-      ignored_options.map! { |option| ":#{option}" }
-      message = ignored_options.to_sentence
-      message = ignored_options.size > 1 ? " #{message} is" : "s #{message} are"
+      message = ignored_options.map(&:inspect).to_sentence
+      message = ignored_options.size == 1 ? " #{message} is" : "s #{message} are"
       message = "Option#{message} provided but corresponding ask on launch flag has not been turn on"
       raise ArgumentError, message
     end

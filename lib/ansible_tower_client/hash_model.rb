@@ -71,7 +71,6 @@ module AnsibleTowerClient
 
       def add_accessor_methods(method, key)
         return if modelized_list.include?(method.to_s)
-        key = key.to_s
 
         method = "_#{method}" if instance_methods.include?(method.to_sym)
         class_eval { define_method(method) { @data[key] } }
@@ -84,7 +83,7 @@ module AnsibleTowerClient
 
     def initialize(json_or_hash)
       raw_hash = json_or_hash.kind_of?(Hash) ? json_or_hash : JSON.parse(json_or_hash)
-      @data = Hash[raw_hash.collect { |key, value| [key.to_s, self.class.send(:convert_value, key, value, self)] }]
+      @data = Hash[raw_hash.collect { |key, value| [key, self.class.send(:convert_value, key, value, self)] }]
     end
 
     def [](key)
