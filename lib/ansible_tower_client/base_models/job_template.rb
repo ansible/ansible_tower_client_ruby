@@ -10,7 +10,7 @@ module AnsibleTowerClient
     private_constant :REQUIRED_ATTRIBUTES_FOR_OPTIONS
 
     def launch(options = {})
-      check_required_attributes_for_options(options)
+      validate_launch_options(options)
 
       launch_url = "#{url}launch/"
       response   = api.post(launch_url, options).body
@@ -40,14 +40,14 @@ module AnsibleTowerClient
 
     private
 
-    def check_required_attributes_for_options(options)
+    def validate_launch_options(options)
       ignored_options = REQUIRED_ATTRIBUTES_FOR_OPTIONS.select do |option, checkmark|
-        !try(checkmark) && options.slice(option.to_sym, option.to_s).any?(&:present?)
+        options.slice(option.to_sym, option.to_s).any?(&:present?) && !(respond_to?(checkmark) && send(checkmark))
       end.keys
 
       return if ignored_options.empty?
 
-      message = ignored_options.map(&:inspect).to_sentence
+      message = ignored_options.map(&:inspect).join(', ')
       message = ignored_options.size == 1 ? " #{message} is" : "s #{message} are"
       message = "Option#{message} provided but corresponding ask on launch flag has not been turn on"
       raise ArgumentError, message
