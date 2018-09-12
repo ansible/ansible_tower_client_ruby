@@ -42,7 +42,7 @@ module AnsibleTowerClient
 
     def validate_launch_options(options)
       ignored_options = REQUIRED_ATTRIBUTES_FOR_OPTIONS.select do |option, checkmark|
-        options.slice(option.to_sym, option.to_s).any?(&:present?) && !(respond_to?(checkmark) && send(checkmark))
+        options.values_at(option.to_sym, option.to_s).any?(&:present?) && !(respond_to?(checkmark) && send(checkmark))
       end.keys
 
       return if ignored_options.empty?
