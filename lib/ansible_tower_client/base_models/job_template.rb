@@ -47,10 +47,7 @@ module AnsibleTowerClient
 
       return if ignored_options.empty?
 
-      message = ignored_options.map(&:inspect).join(', ')
-      message = ignored_options.size == 1 ? " #{message} is" : "s #{message} are"
-      message = "Option#{message} provided but corresponding ask on launch flag has not been turn on"
-      raise ArgumentError, message
+      raise ArgumentError, "'PROMPT ON LAUNCH' is required for the following fields: #{ignored_options.join(', ')}"
     end
   end
 end
