@@ -16,14 +16,25 @@ describe AnsibleTowerClient::JobTemplate do
     let(:json) { {'extra_vars' => "{\"instance_ids\":[\"i-999c\"],\"state\":\"absent\",\"subnet_id\":\"subnet-887\"}"} }
     let(:post_result_body) { {:job => 1} }
     let(:json_with_limit) { json.merge('limit' => 'machine_name') }
+    let(:response_double) { instance_double("Faraday::Response", :body => post_result_body.to_json) }
 
     it "runs an existing job template with a limit" do
-      launch_url      = "#{raw_instance["url"]}launch/"
-      response_double = instance_double("Faraday::Response", :body => post_result_body.to_json)
+      launch_url = "#{raw_instance["url"]}launch/"
+      instance_data = raw_instance.merge('ask_limit_on_launch' => true)
+
       expect_any_instance_of(AnsibleTowerClient::Collection).to receive(:find).with(post_result_body[:job])
       expect(api).to receive(:post).with(launch_url, json_with_limit).and_return(response_double)
 
-      described_class.new(api, raw_instance).launch(json_with_limit)
+      expect { described_class.new(api, instance_data).launch(json_with_limit) }.to_not raise_error
+    end
+
+    it 'checks ignorable limit' do
+      subject = described_class.new(api, raw_instance.except(:ask_limit_on_launch, 'ask_limit_on_launch'))
+
+      allow(api).to receive(:post).and_return(response_double)
+      allow(AnsibleTowerClient::Collection).to receive(:find)
+
+      expect { subject.launch(json_with_limit) }.to raise_error ArgumentError
     end
   end
 
