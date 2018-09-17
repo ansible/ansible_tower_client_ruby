@@ -1,3 +1,5 @@
+require 'openssl'
+
 module AnsibleTowerClient
   class Connection
     attr_reader :connection
