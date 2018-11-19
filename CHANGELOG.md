@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.19.0] - 2018-11-19
+### Added
+- Added ProjectUpdate#stdout [(#122)](https://github.com/ansible/ansible_tower_client_ruby/pull/122)
+
+### Fixed
+- Aliased ProjectUpdate#result_stdout to #stdout to work around removed attribute [(#122)](https://github.com/ansible/ansible_tower_client_ruby/pull/122)
+
 ## [0.18.0] - 2018-09-13
 ### Added
 - Raise a helpful error message when options will be ignored in JobTemplate#launch [(#119)](https://github.com/ansible/ansible_tower_client_ruby/pull/119)
@@ -102,7 +109,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.18.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.0...master
+[0.19.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.16.0...v0.17.0
 [0.16.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.15.0...v0.16.0
