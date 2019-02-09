@@ -23,7 +23,12 @@ module AnsibleTowerClient
       end
 
       def response_values(env)
-        {:status => env.status, :headers => env.response_headers, :body => env.body}
+        {
+          :headers => env.response_headers,
+          :status  => env.status,
+          :body    => env.body,
+          :url     => env.url,
+        }
       end
     end
   end
