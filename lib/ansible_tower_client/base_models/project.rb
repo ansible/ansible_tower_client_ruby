@@ -19,8 +19,19 @@ module AnsibleTowerClient
     end
 
     def last_update
-      return if related['last_update'].blank?
-      api.project_updates.find(related['last_update'])
+      return @last_update if defined? @last_update
+      return @last_update = nil unless related.raw_hash.key?('last_update')
+      return @last_update = nil if (update_id = related.last_update).blank?
+
+      unless update_id.is_a?(Numeric) || update_id =~ /\A\d+\z/
+        if raw_hash.key?('summary_fields') && summary_fields.raw_hash.key?('last_update')
+          update_id = summary_fields.last_update.id
+        else
+          /\/(?'update_id'\d+)\/?\z/ =~ update_id
+        end
+      end
+
+      @last_update = update_id && api.project_updates.find(update_id)
     end
   end
 end
