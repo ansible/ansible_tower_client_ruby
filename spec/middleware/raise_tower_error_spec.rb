@@ -70,4 +70,4 @@ describe AnsibleTowerClient::Middleware::RaiseTowerError do
   end
 end
 
-class MockEnv < Struct.new(:body, :status, :response_headers); end
+MockEnv = Struct.new(:body, :status, :response_headers, :url)

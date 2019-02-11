@@ -36,7 +36,7 @@ describe AnsibleTowerClient::Collection do
         allow(mock_api).to receive(:config).and_return({}) # For Job Template class
         collection = described_class.new(mock_api, klass)
         expect(described_class).to receive(:new).with(mock_api, klass).and_return(collection)
-        expect(collection).to receive(:find_all_by_url).with(klass.endpoint, any_args)
+        expect(collection).to receive(:find_all_by_url).with("#{klass.endpoint}/", any_args)
 
         mock_api.send(collection_class).all
       end
