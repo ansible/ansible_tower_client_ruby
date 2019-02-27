@@ -1,11 +1,32 @@
 module AnsibleTowerClient
   class MockApi
     class Response
-      attr_reader :body
-      def initialize(body)
+      attr_reader :body, :url
+
+      def initialize(body, url = nil)
         @body = body
+        @url  = url
       end
     end
+
+    RESPONSES = {
+      'ad_hoc_commands'             => 'AdHocCommand',
+      'config'                      => 'Config',
+      'credentials'                 => 'Credential',
+      'groups'                      => 'Group',
+      'hosts'                       => 'Host',
+      'inventories'                 => 'Inventory',
+      'inventory_sources'           => 'InventorySource',
+      'jobs'                        => 'Job',
+      'job_templates'               => 'JobTemplate',
+      'organizations'               => 'Organization',
+      'projects'                    => 'Project',
+      'me'                          => 'Me',
+      'workflow_jobs'               => 'WorkflowJob',
+      'workflow_job_nodes'          => 'WorkflowJobNode',
+      'workflow_job_template_nodes' => 'WorkflowJobTemplateNode',
+      'workflow_job_templates'      => 'WorkflowJobTemplate',
+    }.freeze
 
     def initialize(version = nil)
       @version = version
@@ -13,44 +34,15 @@ module AnsibleTowerClient
 
     def get(path, get_options = nil)
       suffix = path.split("api/v1/").last
-      case suffix
-      when "ad_hoc_commands"
-        wrap_response(AdHocCommand.response)
-      when "config"
-        wrap_response(Config.response(@version))
-      when "credentials"
-        wrap_response(Credential.response)
-      when "groups"
-        wrap_response(Group.response)
-      when "hosts"
-        wrap_response(Host.response)
-      when "inventories"
-        wrap_response(Inventory.response)
-      when "inventory_sources"
-        wrap_response(InventorySource.response)
-      when "jobs"
-        wrap_response(Job.response)
-      when "job_templates"
-        wrap_response(JobTemplate.response)
-      when "organizations"
-        wrap_response(Organization.response)
-      when "projects"
-        wrap_response(Project.response)
-      when "me"
-        wrap_response(Me.response)
-      when "workflow_jobs"
-        wrap_response(WorkflowJob.response)
-      when "workflow_job_nodes"
-        wrap_response(WorkflowJobNode.response)
-      when "workflow_job_template_nodes"
-        wrap_response(WorkflowJobTemplateNode.response)
-      when "workflow_job_templates"
-        wrap_response(WorkflowJobTemplate.response)
-      end
-    end
+      suffix = suffix[0..-2] if suffix.end_with?('/')
+      response_module = RESPONSES.fetch(suffix)
 
-    def wrap_response(data)
-      AnsibleTowerClient::MockApi::Response.new(data)
+      args = []
+      args << @version if response_module == 'Config'
+
+      response_class = AnsibleTowerClient::MockApi.const_get(response_module)
+      response_data  = response_class.response(*args)
+      AnsibleTowerClient::MockApi::Response.new(response_data, path)
     end
   end
 end
