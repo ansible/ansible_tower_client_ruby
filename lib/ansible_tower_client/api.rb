@@ -20,7 +20,7 @@ module AnsibleTowerClient
     end
 
     def verify_credentials
-      JSON.parse(get("me").body).fetch_path("results", 0, "username")
+      JSON.parse(get("me/").body).fetch_path("results", 0, "username")
     end
 
     def activity_stream
