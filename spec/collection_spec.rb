@@ -55,6 +55,14 @@ describe AnsibleTowerClient::Collection do
         expect(mock_api.send(collection_class).find(1)).to be_instance_of(klass)
       end
     end
+
+    it "#find_uri(private)" do
+      expect(mock_api.projects.send(:find_uri, 1)).to eq "projects/1/"
+    end
+
+    it "#find_uri(private) with related updates" do
+      expect(mock_api.projects.send(:find_uri, "project_updates/1/")).to eq "projects/project_updates/1/"
+    end
   end
 
   context "#find_all_by_url" do

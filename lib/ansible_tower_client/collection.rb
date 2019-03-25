@@ -28,7 +28,7 @@ module AnsibleTowerClient
     end
 
     def find(id)
-      build_object(parse_response(api.get("#{klass.endpoint}/#{id}/")))
+      build_object(parse_response(api.get(find_uri(id))))
     end
 
     def create!(*args)
@@ -49,6 +49,10 @@ module AnsibleTowerClient
       return if next_page.nil?
       body = parse_response(api.get(next_page, get_options))
       parse_result_set(body)
+    end
+
+    def find_uri(id)
+      File.join(klass.endpoint, id.to_s, "/")
     end
 
     def parse_response(response)
