@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.19.1] - 2019-03-25
+### Fixed
+- Avoid redundant redirects [(#124)](https://github.com/ansible/ansible_tower_client_ruby/pull/124) [(#127)](https://github.com/ansible/ansible_tower_client_ruby/pull/127)
+- Ensure a single trailing slash on URLs [(#126)](https://github.com/ansible/ansible_tower_client_ruby/pull/126)
+
 ## [0.19.0] - 2018-11-19
 ### Added
 - Added ProjectUpdate#stdout [(#122)](https://github.com/ansible/ansible_tower_client_ruby/pull/122)
@@ -109,7 +114,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.1...master
+[0.19.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.16.0...v0.17.0
