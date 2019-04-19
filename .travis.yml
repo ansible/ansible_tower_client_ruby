@@ -4,4 +4,4 @@ rvm:
   - "2.4.1"
 sudo: false
 cache: bundler
-before_install: gem install bundler -v 1.10.3
+before_install: gem install bundler -v 2.0.1
