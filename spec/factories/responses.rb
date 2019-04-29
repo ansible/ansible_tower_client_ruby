@@ -1,20 +1,20 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :response_collection, :class => "Hash" do
-    count    2
+    count    { 2 }
     "next"   ""
-    previous ""
-    klass    ""
+    previous { "" }
+    klass    { "" }
     results  { count.times.collect { build(:response_instance, :klass => klass) } }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
   end
 
   factory :response_url_collection, :class => "Hash" do
-    count    1
+    count    { 1 }
     "next"   ""
-    previous ""
-    klass    ""
-    url      ""
+    previous { "" }
+    klass    { "" }
+    url      { "" }
     results  { count.times.collect { build(:response_instance, :klass => klass, :url => url) } }
 
     initialize_with { AnsibleTowerClient::FactoryHelper.stringify_attribute_keys(attributes) }
@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :response_instance, :class => "Hash" do
     sequence(:id)
-    klass      ""
+    klass      { "" }
     type       { AnsibleTowerClient::FactoryHelper.underscore_string(klass.namespace.last) }
     name       { "#{type}-#{id}" }
     url        { "/api/v1/endpoint/" }
