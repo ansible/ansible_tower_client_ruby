@@ -22,13 +22,15 @@ module AnsibleTowerClient
       'rhv'        => 'Red Hat Virtualization',
       'insights'   => 'Insights',
       'tower'      => 'Ansible Tower',
-    }.invert.freeze
+    }.invert
+    KIND_CHOICES.default = 'cloud'
+    KIND_CHOICES.freeze
 
     # https://github.com/ansible/awx/blob/1328fb80a02ef4e37bc021eb07d4be041a41f937/awx/main/models/credential/__init__.py#L301
     def kind
       @data['kind'] ||= begin
         kind = credential_type.kind
-        kind == 'cloud' && KIND_CHOICES[credential_type.name] || kind
+        kind == 'cloud' ? KIND_CHOICES[credential_type.name] : kind
       end.to_s
     end
 
