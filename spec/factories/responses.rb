@@ -31,7 +31,7 @@ FactoryBot.define do
         "survey_spec" => "example.com/api",
         "inventory"   => "inventory link",
         "stdout"      => "example.com/api",
-        "last_update" => "example.com/api"
+        "last_update" => "example.com/api/123",
       }
     end
     limit      { "" }

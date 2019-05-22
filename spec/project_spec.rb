@@ -44,12 +44,13 @@ describe AnsibleTowerClient::Project do
   end
 
   describe '#last_update' do
-    let(:project_update) { AnsibleTowerClient::ProjectUpdate.new(api, 'id' => 123) }
+    let(:project_update) { AnsibleTowerClient::ProjectUpdate.new(api, 'id' => update_id) }
+    let(:update_id)      { '123' }
 
     it "fetches last update" do
       collection_double = instance_double("AnsibleTowerClient::Collection")
       expect(api).to receive(:project_updates).and_return(collection_double)
-      expect(collection_double).to receive(:find).with(raw_instance['related']['last_update']).and_return(project_update)
+      expect(collection_double).to receive(:find).with(update_id).and_return(project_update)
       actual_instance = described_class.new(api, raw_instance).last_update
       expect(actual_instance).to equal(project_update)
     end

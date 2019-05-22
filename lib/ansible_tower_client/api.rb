@@ -35,6 +35,10 @@ module AnsibleTowerClient
       Collection.new(self, credential_class)
     end
 
+    def credential_types
+      Collection.new(self, credential_type_class)
+    end
+
     def groups
       Collection.new(self, group_class)
     end
@@ -147,6 +151,10 @@ module AnsibleTowerClient
 
     def credential_class
       @credential_class ||= AnsibleTowerClient::Credential
+    end
+
+    def credential_type_class
+      @credential_type_class ||= AnsibleTowerClient::CredentialType
     end
 
     def group_class
