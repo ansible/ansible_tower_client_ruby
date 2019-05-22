@@ -23,7 +23,7 @@ module AnsibleTowerClient
       return @last_update = nil unless related.raw_hash.key?('last_update')
       return @last_update = nil if (update_id = related.last_update).blank?
 
-      unless update_id.kind_of?(Numeric) || update_id =~ /\A\d+\z/
+      if !numberish?(update_id)
         if raw_hash.key?('summary_fields') && summary_fields.raw_hash.key?('last_update')
           update_id = summary_fields.last_update.id
         else
@@ -32,6 +32,12 @@ module AnsibleTowerClient
       end
 
       @last_update = update_id && api.project_updates.find(update_id)
+    end
+
+    private
+
+    def numberish?(value)
+      value.kind_of?(Numeric) || value.to_s =~ /\A\d+\z/
     end
   end
 end
