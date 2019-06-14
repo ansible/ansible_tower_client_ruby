@@ -5,7 +5,7 @@ module AnsibleTowerClient
     end
 
     def job
-      api.jobs.find(job_id) if respond_to?(:job_id) && job_id
+      api.jobs.find(job_id) if respond_to?(:job_id) && !job_id.to_s.strip.empty?
     end
   end
 end
