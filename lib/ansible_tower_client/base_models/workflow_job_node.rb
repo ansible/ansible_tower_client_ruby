@@ -5,7 +5,14 @@ module AnsibleTowerClient
     end
 
     def job
-      api.jobs.find(job_id) if respond_to?(:job_id) && job_id
+      api.jobs.find(job_id) if job?
+    end
+
+    # to filter out WorkflowJobNode that is inventory sync or project sync
+    def job?
+      return false if !respond_to?(:job_id) || job_id.nil?
+
+      related.job.match?(/jobs/)
     end
   end
 end

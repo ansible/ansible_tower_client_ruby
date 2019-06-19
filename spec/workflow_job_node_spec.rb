@@ -34,10 +34,17 @@ describe AnsibleTowerClient::WorkflowJobNode do
     end
 
     it "returns a Job when the job_id is set" do
-      obj = described_class.new(api, response_with_job(raw_instance, 12345))
+      obj = described_class.new(api, response_with_job(raw_instance, "/api/v1/jobs/2710/"))
       allow(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => {}.to_json))
 
       expect(obj.job).to be_a AnsibleTowerClient::Job
+    end
+
+    it "returns nil when it is a inventory sync" do
+      obj = described_class.new(api, response_with_job(raw_instance, "/api/v1/inventory_updates/2710/"))
+      allow(api).to receive(:get).and_return(instance_double("Faraday::Result", :body => {}.to_json))
+
+      expect(obj.job).to be_nil
     end
   end
 end
