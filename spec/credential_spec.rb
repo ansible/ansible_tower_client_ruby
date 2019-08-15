@@ -20,6 +20,11 @@ describe AnsibleTowerClient::Credential do
     expect(obj.vault_password).to be_a String
   end
 
+  it 'has vault_password attribute when there is data' do
+    obj = described_class.new(nil, { :inputs => { :vault_password => 'abc' } })
+    expect(obj.vault_password).to eq 'abc'
+  end
+
   context 'override_raw_attributes' do
     let(:obj) { described_class.new(instance_double("Faraday::Connection"), raw_instance) }
     let(:instance_api) { obj.instance_variable_get(:@api) }
