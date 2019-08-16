@@ -17,12 +17,17 @@ describe AnsibleTowerClient::Credential do
 
   it 'has vault_password attribute even when there is no data' do
     obj = described_class.new(nil, {})
-    expect(obj.vault_password).to be_a String
+    expect(obj.vault_password).to eq ''
   end
 
   it 'has vault_password attribute even when there is empty data' do
+    obj = described_class.new(nil, :inputs => {})
+    expect(obj.vault_password).to eq ''
+  end
+
+  it 'has vault_password attribute even when there no value' do
     obj = described_class.new(nil, :inputs => { :vault_password => nil })
-    expect(obj.vault_password).to be_a String
+    expect(obj.vault_password).to eq ''
   end
 
   it 'has vault_password attribute when there is data' do
