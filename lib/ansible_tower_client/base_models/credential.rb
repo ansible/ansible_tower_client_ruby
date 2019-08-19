@@ -39,7 +39,10 @@ module AnsibleTowerClient
     end
 
     def vault_password
-      @data['vault_password'] ||= inputs.vault_password.to_s
+      @data['vault_password'] ||= begin
+        has_vault_password = respond_to?(:inputs) && inputs.respond_to?(:vault_password)
+        (inputs.vault_password if has_vault_password).to_s
+      end
     end
   end
 end
