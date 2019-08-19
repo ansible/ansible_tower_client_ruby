@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.20.2] - 2019-08-19
+### Fixed
+- Ensure #vault_password is never nil [(#132)](https://github.com/ansible/ansible_tower_client_ruby/pull/132)
+
 ## [0.20.1] - 2019-06-20
 ### Fixed
 - Only attempt to find a related job if there is a reference to one [(#131)](https://github.com/ansible/ansible_tower_client_ruby/pull/131)
@@ -122,7 +126,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.1...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.2...master
+[0.20.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.1...v0.20.2
 [0.20.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.0...v0.20.1
 [0.20.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.1...v0.20.0
 [0.19.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.0...v0.19.1
