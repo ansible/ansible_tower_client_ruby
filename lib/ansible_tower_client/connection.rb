@@ -5,7 +5,7 @@ module AnsibleTowerClient
     attr_reader :connection
 
     def initialize(options = nil)
-      raise "Credentials are required" unless options[:username] && options[:password]
+      raise ":username and :password are required" if options.nil? || !options[:username] || !options[:password]
       raise ":base_url is required" unless options[:base_url]
       logger     = options[:logger] || AnsibleTowerClient.logger
       verify_ssl = options[:verify_ssl] || OpenSSL::SSL::VERIFY_PEER
