@@ -7,6 +7,7 @@ module AnsibleTowerClient
     def initialize(options = nil)
       raise ":username and :password are required" if options.nil? || !options[:username] || !options[:password]
       raise ":base_url is required" unless options[:base_url]
+
       logger     = options[:logger] || AnsibleTowerClient.logger
       verify_ssl = options[:verify_ssl] || OpenSSL::SSL::VERIFY_PEER
       verify_ssl = verify_ssl == OpenSSL::SSL::VERIFY_NONE ? false : true
@@ -15,7 +16,12 @@ module AnsibleTowerClient
       require 'faraday_middleware'
       require 'ansible_tower_client/middleware/raise_tower_error'
       Faraday::Response.register_middleware :raise_tower_error => -> { Middleware::RaiseTowerError }
-      @connection = Faraday.new(options[:base_url], :ssl => {:verify => verify_ssl}) do |f|
+
+      connection_opts = { :ssl => {:verify => verify_ssl} }
+      connection_opts[:proxy] = options[:proxy] if options[:proxy].present?
+      connection_opts[:headers] = options[:headers] if options[:headers].present?
+
+      @connection = Faraday.new(options[:base_url], connection_opts) do |f|
         f.use(FaradayMiddleware::EncodeJson)
         f.use(FaradayMiddleware::FollowRedirects, :limit => 3, :standards_compliant => true)
         f.request(:url_encoded)
