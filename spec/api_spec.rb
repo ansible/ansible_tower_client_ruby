@@ -1,5 +1,5 @@
 describe AnsibleTowerClient::Api do
-  let(:faraday_connection) { AnsibleTowerClient::MockApi.new }
+  let(:faraday_connection) { AnsibleTowerClient::MockApi.new("3.0.1") }
 
   subject { described_class.new(faraday_connection) }
 

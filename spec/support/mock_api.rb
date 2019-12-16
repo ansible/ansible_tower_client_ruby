@@ -9,24 +9,7 @@ module AnsibleTowerClient
       end
     end
 
-    RESPONSES = {
-      'ad_hoc_commands'             => 'AdHocCommand',
-      'config'                      => 'Config',
-      'credentials'                 => 'Credential',
-      'groups'                      => 'Group',
-      'hosts'                       => 'Host',
-      'inventories'                 => 'Inventory',
-      'inventory_sources'           => 'InventorySource',
-      'jobs'                        => 'Job',
-      'job_templates'               => 'JobTemplate',
-      'organizations'               => 'Organization',
-      'projects'                    => 'Project',
-      'me'                          => 'Me',
-      'workflow_jobs'               => 'WorkflowJob',
-      'workflow_job_nodes'          => 'WorkflowJobNode',
-      'workflow_job_template_nodes' => 'WorkflowJobTemplateNode',
-      'workflow_job_templates'      => 'WorkflowJobTemplate',
-    }.freeze
+    RESPONSE_DATA_DIR = Pathname.new(__dir__).join("mock_api")
 
     def initialize(version = nil)
       @version = version
@@ -35,14 +18,22 @@ module AnsibleTowerClient
     def get(path, get_options = nil)
       suffix = path.split("api/v1/").last
       suffix = suffix[0..-2] if suffix.end_with?('/')
-      response_module = RESPONSES.fetch(suffix)
+      collection = JSON.parse(RESPONSE_DATA_DIR.join("#{suffix}.json").read)
 
-      args = []
-      args << @version if response_module == 'Config'
+      response_data =
+        if suffix == 'config'
+          collection["version"] = @version.to_s
+          collection
+        else
+          {
+            "count"    => collection.length,
+            "next"     => nil,
+            "previous" => nil,
+            "results"  => collection
+          }
+        end
 
-      response_class = AnsibleTowerClient::MockApi.const_get(response_module)
-      response_data  = response_class.response(*args)
-      AnsibleTowerClient::MockApi::Response.new(response_data, path)
+      AnsibleTowerClient::MockApi::Response.new(response_data.to_json, path)
     end
   end
 end
