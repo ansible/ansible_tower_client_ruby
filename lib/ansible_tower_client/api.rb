@@ -12,7 +12,7 @@ module AnsibleTowerClient
     end
 
     def config
-      JSON.parse(get("config/").body)
+      JSON.parse(get("config").body)
     end
 
     def version
