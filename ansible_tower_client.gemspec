@@ -16,9 +16,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
 
-  spec.add_runtime_dependency "activesupport"
-  spec.add_runtime_dependency "faraday"
-  spec.add_runtime_dependency "faraday_middleware"
+  spec.add_runtime_dependency "activesupport", "~> 5.1.7"
+  spec.add_runtime_dependency "faraday", "~> 1.0"
+  spec.add_runtime_dependency "faraday_middleware", "< 1.0.0"
   spec.add_runtime_dependency "more_core_extensions", "~> 3.0"
 
   spec.add_development_dependency "factory_bot", "~> 4.11"
