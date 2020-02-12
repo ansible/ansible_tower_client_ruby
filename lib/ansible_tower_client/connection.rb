@@ -20,6 +20,7 @@ module AnsibleTowerClient
       connection_opts = { :ssl => {:verify => verify_ssl} }
       connection_opts[:proxy] = options[:proxy] if options[:proxy].present?
       connection_opts[:headers] = options[:headers] if options[:headers].present?
+      connection_opts[:request] = options[:request] if options[:request].present?
 
       @connection = Faraday.new(options[:base_url], connection_opts) do |f|
         f.use(FaradayMiddleware::EncodeJson)
