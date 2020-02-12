@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.21.0] - 2020-02-12
+### Added
+- Add support for connection headers and proxy [(#134)](https://github.com/ansible/ansible_tower_client_ruby/pull/134)
+- Allow request options to be passed to Faraday [(#140)](https://github.com/ansible/ansible_tower_client_ruby/pull/140)
+- Add usage documentation to the README [(#138)](https://github.com/ansible/ansible_tower_client_ruby/pull/138)
+
+### Fixed
+- Fix issue where passing no options gives a NilError [(#136)](https://github.com/ansible/ansible_tower_client_ruby/pull/136)
+
+### Changed
+- Extract MockApi responses into JSON files [(#137)](https://github.com/ansible/ansible_tower_client_ruby/pull/137)
+
 ## [0.20.2] - 2019-08-19
 ### Fixed
 - Ensure #vault_password is never nil [(#132)](https://github.com/ansible/ansible_tower_client_ruby/pull/132)
@@ -126,7 +138,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.2...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.0...master
+[0.21.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.2...v0.21.0
 [0.20.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.1...v0.20.2
 [0.20.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.0...v0.20.1
 [0.20.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.19.1...v0.20.0
