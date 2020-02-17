@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.21.1] - 2020-02-17
+### Fixed
+- Revert removal of trailing "/" on get of "config" [(#141)](https://github.com/ansible/ansible_tower_client_ruby/pull/141)
+
 ## [0.21.0] - 2020-02-12
 ### Added
 - Add support for connection headers and proxy [(#134)](https://github.com/ansible/ansible_tower_client_ruby/pull/134)
@@ -138,7 +142,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.0...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.1...master
+[0.21.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.0...v0.21.1
 [0.21.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.2...v0.21.0
 [0.20.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.1...v0.20.2
 [0.20.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.0...v0.20.1
