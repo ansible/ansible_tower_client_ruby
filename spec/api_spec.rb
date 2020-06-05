@@ -26,10 +26,17 @@ describe AnsibleTowerClient::Api do
       end
 
       describe "#verify_credentials" do
-        let(:get) { instance_double("Faraday::Result", :body => credentials_body) }
+        let(:success) { {:results => [{"id": 1,"type": "user","username": "admin"}]}.to_json }
+        let(:failure) { "<html><body>um, no dice</body></html>" }
 
         it "returns the username" do
+          expect(faraday_connection).to receive(:get).with(/me/).and_return(instance_double("Faraday::Result", :body => success))
           expect(subject.verify_credentials).to eq "admin"
+        end
+
+        it "returns errors" do
+          expect(faraday_connection).to receive(:get).with(/me/).and_return(instance_double("Faraday::Result", :body => failure))
+          expect { subject.verify_credentials }.to raise_error(AnsibleTowerClient::ClientError)
         end
       end
 
