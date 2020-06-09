@@ -20,7 +20,10 @@ module AnsibleTowerClient
     end
 
     def verify_credentials
-      JSON.parse(get("me/").body).fetch_path("results", 0, "username")
+      results = get("me/").body
+      JSON.parse(results).fetch_path("results", 0, "username")
+    rescue JSON::ParserError
+      raise AnsibleTowerClient::ConnectionError, "unexpected response"
     end
 
     def activity_stream
