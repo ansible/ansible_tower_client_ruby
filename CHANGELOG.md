@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.21.2] - 2020-06-09
+### Fixed
+- Return AnsibleTowerClient::ConnectionError if not able to parse response in #verify_credentials [(#144)](https://github.com/ansible/ansible_tower_client_ruby/pull/144)
+
 ## [0.21.1] - 2020-02-17
 ### Fixed
 - Revert removal of trailing "/" on get of "config" [(#141)](https://github.com/ansible/ansible_tower_client_ruby/pull/141)
@@ -142,7 +146,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Adjusted project_spec to test on a Project [(#63)](https://github.com/ansible/ansible_tower_client_ruby/pull/63)
 
-[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.1...master
+[Unreleased]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.2...master
+[0.21.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.1...v0.21.2
 [0.21.1]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.21.0...v0.21.1
 [0.21.0]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.2...v0.21.0
 [0.20.2]: https://github.com/ansible/ansible_tower_client_ruby/compare/v0.20.1...v0.20.2
