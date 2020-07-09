@@ -1,3 +1,3 @@
 module AnsibleTowerClient
-  VERSION = "0.21.2".freeze
+  VERSION = "0.21.3".freeze
 end
