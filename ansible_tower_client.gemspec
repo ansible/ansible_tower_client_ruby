@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "more_core_extensions", "~> 4.0"
 
   spec.add_development_dependency "factory_bot", "~> 4.11"
+  spec.add_development_dependency "manageiq-style"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rspec"
 end
